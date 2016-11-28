@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+$admin = [
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+];
+Route::group($admin , function(){
+    Route::get('/' , 'IndexController@getIndex');
+    Route::controllers([
+//        '/' => 'IndexController',
+    ]);
 });
