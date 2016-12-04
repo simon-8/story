@@ -1,251 +1,321 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-  <meta charset="UTF-8">
-  <title>Blog | Amaze UI Example</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-siteapp"/>
-  <link rel="alternate icon" type="image/png" href="assets/i/favicon.png">
-  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
-  <style>
-    @media only screen and (min-width: 1200px) {
-      .blog-g-fixed {
-        max-width: 1200px;
-      }
-    }
 
-    @media only screen and (min-width: 641px) {
-      .blog-sidebar {
-        font-size: 1.4rem;
-      }
-    }
+<head>
 
-    .blog-main {
-      padding: 20px 0;
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
 
-    .blog-title {
-      margin: 10px 0 20px 0;
-    }
+    <title>H+ 后台主题UI框架 - 文章列表</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 
-    .blog-meta {
-      font-size: 14px;
-      margin: 10px 0 20px 0;
-      color: #222;
-    }
+    <link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
 
-    .blog-meta a {
-      color: #27ae60;
-    }
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min.css?v=4.0.0" rel="stylesheet">
 
-    .blog-pagination a {
-      font-size: 1.4rem;
-    }
-
-    .blog-team li {
-      padding: 4px;
-    }
-
-    .blog-team img {
-      margin-bottom: 0;
-    }
-
-    .blog-content img,
-    .blog-team img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .blog-footer {
-      padding: 10px 0;
-      text-align: center;
-    }
-  </style>
 </head>
-<body>
-<header class="am-topbar">
-  <h1 class="am-topbar-brand">
-    <a href="#">blog</a>
-  </h1>
 
-  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
-          data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
-      class="am-icon-bars"></span></button>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content  animated fadeInRight blog">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <a href="article.html" class="btn-link">
+                            <h2>
+                                    想知道宁泽涛每天游多少圈？送他 Misfit 最新款 Speedo Shine
+                                </h2>
+                        </a>
+                        <div class="small m-b-xs">
+                            <strong>高 晨</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 3 小时前</span>
+                        </div>
+                        <p>
+                            就算你敢带着 Apple Watch 下水游泳，它也不能记录你游了多少圈。 夏天刚来时就不停地听到有人提起“有没有在我游泳的时候可以帮忙数圈的设备”，今天 Misfit 终于赶在夏天结束之前推出可追踪游泳运动的新款 Shine。这款新设备是 Misfit 与泳衣品牌 Speedo （速比涛）合作推出，因此被命名为 Speedo Shine。
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>标签：</h5>
+                                <button class="btn btn-primary btn-xs" type="button">Apple Watch</button>
+                                <button class="btn btn-white btn-xs" type="button">速比涛</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="small text-right">
+                                    <h5>状态：</h5>
+                                    <div> <i class="fa fa-comments-o"> </i> 56 评论 </div>
+                                    <i class="fa fa-eye"> </i> 144 浏览
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <a href="article.html" class="btn-link">
+                            <h2>
+                                    半数用户弃用 Apple Music？苹果发话了
+                                </h2>
+                        </a>
+                        <div class="small m-b-xs">
+                            <strong>周 欣</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 3 小时前</span>
+                        </div>
+                        <p>
+                            前不久，苹果公司高级副总裁 Eddy Cue 还在宣称 Apple Music 试用期用户超 1100 万，最近就有一份来自 MusicWatch 的调查报告，让人大跌眼镜。
 
-  <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
-    <ul class="am-nav am-nav-pills am-topbar-nav">
-      <li class="am-active"><a href="#">首页</a></li>
-      <li><a href="#">项目</a></li>
-      <li class="am-dropdown" data-am-dropdown>
-        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-          菜单 <span class="am-icon-caret-down"></span>
-        </a>
-        <ul class="am-dropdown-content">
-          <li class="am-dropdown-header">标题</li>
-          <li><a href="#">关于我们</a></li>
-          <li><a href="#">关于字体</a></li>
-          <li><a href="#">TIPS</a></li>
-        </ul>
-      </li>
-    </ul>
 
-    <form class="am-topbar-form am-topbar-left am-form-inline am-topbar-right" role="search">
-      <div class="am-form-group">
-        <input type="text" class="am-form-field am-input-sm" placeholder="搜索文章">
-      </div>
-      <button type="submit" class="am-btn am-btn-default am-btn-sm">搜索</button>
-    </form>
+                        </p>
+                        <p>
+                            MusicWatch 针对美国 5000 名 13 岁以上人群进行抽样调查，得出数据：约有 77% 的 iOS 用户知道 Apple Music，只有 11% 的用户正在使用它；而在已经注册 Apple Music 三个月免费试用服务的用户中，48% 表示已经弃用，61% 称已关闭 iTunes 中的自动订阅功能。
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>标签：</h5>
+                                <button class="btn btn-primary btn-xs" type="button">调查</button>
+                                <button class="btn btn-white btn-xs" type="button">用户</button>
+                                <button class="btn btn-white btn-xs" type="button">Apple Music</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="small text-right">
+                                    <h5>状态：</h5>
+                                    <div> <i class="fa fa-comments-o"> </i> 36 评论 </div>
+                                    <i class="fa fa-eye"> </i> 100 浏览
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <a href="article.html" class="btn-link">
+                            <h2>
+                                    关于新 Apple TV，这里有几点你应该知道的
+                                </h2>
+                        </a>
+                        <div class="small m-b-xs">
+                            <strong>李 谋</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 2 小时前</span>
+                        </div>
+                        <p>
+                            新版的 Apple TV 之前一直有传闻将在 WWDC 上亮相，可是事与愿违。下一代 iPhone 即将于下月与大家见面，新版 Apple TV 将同新 iPhone 一起亮相的传言又是四起。而且现在的传言中还加入了新料。</p>
+                        <p>
 
-  </div>
-</header>
+                            据 9to5Mac 的消息，Apple TV 不仅要在九月亮相，其诸多细节也一并被曝出。
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>标签：</h5>
+                                <button class="btn btn-white btn-xs" type="button">apple</button>
+                                <button class="btn btn-white btn-xs" type="button">tv</button>
+                                <button class="btn btn-white btn-xs" type="button">苹果</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="small text-right">
+                                    <h5>状态：</h5>
+                                    <div> <i class="fa fa-comments-o"> </i> 11 评论 </div>
+                                    <i class="fa fa-eye"> </i> 46 浏览
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <a href="article.html" class="btn-link">
+                            <h2>
+                                    妹子性致不高？该吃药了！
+                                </h2>
+                        </a>
+                        <div class="small m-b-xs">
+                            <strong>吴 垠</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 4 小时前</span>
+                        </div>
+                        <p>
+                            近日天天有人在朋友圈里放出“酒店 X 折”的广告，原来七夕到了。恰恰在这个中国人的传统节日里，美国也凑起了热闹，FDA 通过了 Addyi 的审批，这是第一种能解决女性性欲问题的药物。此前，Addyi 在 2010 年和2013 年曾两次报批被拒，理由是“药效的边际效应和副作用”。</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>标签：</h5>
+                                <button class="btn btn-white btn-xs" type="button">性欲障碍</button>
+                                <button class="btn btn-white btn-xs" type="button">Viagro</button>
+                                <button class="btn btn-white btn-xs" type="button">Addyi</button>
+                                <button class="btn btn-white btn-xs" type="button">伟哥</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="small text-right">
+                                    <h5>状态：</h5>
+                                    <div> <i class="fa fa-comments-o"> </i> 23 评论 </div>
+                                    <i class="fa fa-eye"> </i> 34 浏览
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <a href="article.html" class="btn-link">
+                            <h2>
+                                    
+将发新系统的微软要如何做“反盗版”先锋？
+                                </h2>
+                        </a>
+                        <div class="small m-b-xs">
+                            <strong>李 谋</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 6 小时前</span>
+                        </div>
+                        <p>
+                            有一句话叫什么来着，“打击盗版，人人有责”。 使用正版，拒绝盗版，即使对于普通用户而言，这也是一种政治正确。然而，在这个充满各种特殊情况的地方，总有很多例外。许多国外巨头在进入国内时，都会在针对普通用户的版权方面适度放宽松一点。微软在之前也是如此。不过自 Windows 10 开始，微软在反盗版方面的策略有所改变。
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>标签：</h5>
+                                <button class="btn btn-white btn-xs" type="button">盗版</button>
+                                <button class="btn btn-white btn-xs" type="button">xbox</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="small text-right">
+                                    <h5>状态：</h5>
+                                    <div> <i class="fa fa-comments-o"> </i> 32 评论 </div>
+                                    <i class="fa fa-eye"> </i> 10 浏览
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <a href="article.html" class="btn-link">
+                            <h2>
+                                    对话春水堂，情趣电商站着把钱赚了的方法论 | iSeed
+                                </h2>
+                        </a>
+                        <div class="small m-b-xs">
+                            <strong>陈一斌</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 7 小时前</span>
+                        </div>
+                        <p>
+                            当春水堂不再只是卖成人用品——虽然蔺德刚更喜欢用“性玩具”来指代这个词——那么它到底是想成为什么？此前，“春叔”对腾讯科技说，春水堂未来是希望“成为两性以及情侣关系的私人管家”。在接受爱范儿的采访时，他阐述更加清晰的进一步定位，春水堂“未来将从成人用品电商，转型为性健康产业的生态型公司。未来将介入到咨询领域，破除性观念上的认知和知识上的障碍，还可能会延展到药品领域等等。”
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>标签：</h5>
+                                <button class="btn btn-white btn-xs" type="button">蔺德刚</button>
+                                <button class="btn btn-white btn-xs" type="button">性快乐</button>
 
-<div class="am-g am-g-fixed blog-g-fixed">
-  <div class="am-u-md-8">
-    <article class="blog-main">
-      <h3 class="am-article-title blog-title">
-        <a href="#">Google fonts 的字體（display 篇）</a>
-      </h3>
-      <h4 class="am-article-meta blog-meta">by <a href="">open</a> posted on 2014/06/17 under <a href="#">字体</a></h4>
-
-      <div class="am-g blog-content">
-        <div class="am-u-lg-7">
-          <p><!-- 本demo来自 http://blog.justfont.com/ -->你自信滿滿的跟客戶進行第一次 demo。秀出你精心設計的內容時，你原本期許客戶冷不防地掉下感動的眼淚。</p>
-
-          <p>因為那實在是太高級了。</p>
-
-          <p>除了各項基本架構幾乎完美無缺之外，內文是高貴的，有著一些距離感的，典雅的襯線字體。不是 Times New
-            Roman，而是很少有人見過的，你精心挑選過的字體，凸顯你品味的高超。而且它並沒有花上你與業主一毛錢，或許這也非常重要。</p>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="small text-right">
+                                    <h5>状态：</h5>
+                                    <div> <i class="fa fa-comments-o"> </i> 22 评论 </div>
+                                    <i class="fa fa-eye"> </i> 17 浏览
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <a href="article.html" class="btn-link">
+                            <h2>
+                                    阿里投资印度“淘宝”，腾讯投资加拿大“微信” | 爱范早读
+                                </h2>
+                        </a>
+                        <div class="small m-b-xs">
+                            <strong>李 谋</strong> <span class="text-muted"><i class="fa fa-clock-o"></i>  7 小时前</span>
+                        </div>
+                        <p>
+                            1. 阿里富士康等 5 亿美元投资印度“淘宝” Snapdeal。印度大型电子商务公司 Snapdeal 已获得 5 亿美元的投资，公司现估值 50 亿美元，主要投资者为阿里巴巴、富士康和软银。据称，阿里巴巴与富士康均投资 2 亿美元。
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>标签：</h5>
+                                <button class="btn btn-primary btn-xs" type="button">阿里</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="small text-right">
+                                    <h5>状态：</h5>
+                                    <div> <i class="fa fa-comments-o"> </i> 54 评论 </div>
+                                    <i class="fa fa-eye"> </i> 52 浏览
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <a href="article.html" class="btn-link">
+                            <h2>
+                                    Google 发布了新玩意 OnHub，称只是想简简单单的
+                                </h2>
+                        </a>
+                        <div class="small m-b-xs">
+                            <strong>王 飞</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 8 小时前</span>
+                        </div>
+                        <p>
+                            目前的路由器市场也是新品不断，不过至此仍未有太多的令人兴奋的技术和产品，Google 正试图改变这种状况。
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>标签：</h5>
+                                <button class="btn btn-white btn-xs" type="button">家居物联网</button>
+                                <button class="btn btn-white btn-xs" type="button">2015 Google I/O</button>
+                                <button class="btn btn-white btn-xs" type="button">Google</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="small text-right">
+                                    <h5>状态：</h5>
+                                    <div> <i class="fa fa-comments-o"> </i> 47 评论 </div>
+                                    <i class="fa fa-eye"> </i> 138 浏览
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <a href="article.html" class="btn-link">
+                            <h2>
+                                    自行车都智能化了，你可知道它的历史？
+                                </h2>
+                        </a>
+                        <div class="small m-b-xs">
+                            <strong>郝 影</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 9 小时前</span>
+                        </div>
+                        <p>
+                            在不少旁观者的眼里，智能化几乎成了一种避之唯恐不及的“瘟疫”，开始攀附上大大小小、各式各样的工具和设备，从水杯、灯泡、体重秤这样的小物件，再到冰箱、洗衣机这些生活中的庞然大物。
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>标签：</h5>
+                                <button class="btn btn-primary btn-xs" type="button">自行车</button>
+                                <button class="btn btn-white btn-xs" type="button">700BIKE</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="small text-right">
+                                    <h5>状态：</h5>
+                                    <div> <i class="fa fa-comments-o"> </i> 54 评论 </div>
+                                    <i class="fa fa-eye"> </i> 52 浏览
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="am-u-lg-5">
-          <p><img src="http://f.cl.ly/items/451O3X0g47320D203D1B/不夠活潑.jpg"></p>
-        </div>
-      </div>
-      <div class="am-g">
-        <div class="am-u-sm-12">
-          <p>看著自己的作品，你的喜悅之情溢於言表，差點就要說出我要感謝我的父母之類的得獎感言。但在你對面的客戶先是一點表情也沒有，又瞬間轉為陰沉，抿了抿嘴角冷冷的說……</p>
-
-          <p>「我要一種比較跳的感覺懂嗎？」</p>
-        </div>
-      </div>
-    </article>
-
-    <hr class="am-article-divider blog-hr">
-
-    <article class="blog-main">
-      <h3 class="am-article-title">
-        <a href="#">身邊的字體: Arial (上)</a>
-      </h3>
-      <h4 class="am-article-meta blog-meta">by <a href="">ben</a> posted on 2014/06/17 under <a href="#">javascript</a>
-      </h4>
-
-      <div class="am-g blog-content">
-        <div class="am-u-lg-7">
-          <p><!--本demo文字来自 http://blog.justfont.com/--> 这次要介绍的是大家似乎都狠熟悉却又狠陌生的字体：Arial。不只是对 Typography
-            特别有兴趣的人、碰过排版的人，就算毫无接触，只要打开过电脑的字型选单，应该都有看过这个字型吧。尤其它还是以 A 开头，总是会出现在选单最前面。</p>
-
-          <p>Arial 常常跟 Helvetica 搞混，也常被当作是没有 Helvetica 时的替代字体使用。事实上 Arial 确实就是故意做得跟 Helvetica 狠相似，连每个字母的宽度都刻意做得一模一样。</p>
-        </div>
-        <div class="am-u-lg-5">
-          <p><img src="https://farm3.staticflickr.com/2917/14186214720_5d0b8ca2e3_b.jpg"></p>
-        </div>
-      </div>
-      <div class="am-g">
-        <div class="am-u-sm-12">
-          <p>在欧美的排版业界中，使用 Arial 的作品意即是「不使用 Helvetica 的作品」，会被认為是设计师对字体的使用没有概念或是太容易妥协，基本上我大致也是同意。</p>
-
-          <p>因為 Helvetica 只有 Mac 上才有內建，Windows 用戶除非花錢買，不然是沒有 Helvetica 能用，所以使用 Arial 的設計師往往被看成是不願意對 Typography
-            花錢，專業素養不到家的人。除了在確保網頁相容性等絕對必需的情況外，幾乎可以說是不應該使用的字體。</p>
-
-          <p>但是，在此之前，我們對 Arial 又有多少認識呢？</p>
-        </div>
-      </div>
-    </article>
-
-    <hr class="am-article-divider blog-hr">
-    <ul class="am-pagination blog-pagination">
-      <li class="am-pagination-prev"><a href="">&laquo; 上一页</a></li>
-      <li class="am-pagination-next"><a href="">下一页 &raquo;</a></li>
-    </ul>
-  </div>
-
-  <div class="am-u-md-4 blog-sidebar">
-    <div class="am-panel-group">
-      <section class="am-panel am-panel-default">
-        <div class="am-panel-hd">关于我</div>
-        <div class="am-panel-bd">
-          <p>前所未有的中文云端字型服务，让您在 web 平台上自由使用高品质中文字体，跨平台、可搜寻，而且超美。云端字型是我们的事业，推广字型学知识是我们的志业。从字体出发，关心设计与我们的生活，justfont blog
-            正是為此而生。</p>
-          <a class="am-btn am-btn-success am-btn-sm" href="#">查看更多 →</a>
-        </div>
-      </section>
-      <section class="am-panel am-panel-default">
-        <div class="am-panel-hd">文章目录</div>
-        <ul class="am-list blog-list">
-          <li><a href="#">Google fonts 的字體（sans-serif 篇）</a></li>
-          <li><a href="#">[but]服貿最前線？－再訪桃園機場</a></li>
-          <li><a href="#">到日星鑄字行學字型</a></li>
-          <li><a href="#">glyph font vs. 漢字（上）</a></li>
-          <li><a href="#">浙江民間書刻體上線</a></li>
-          <li><a href="#">[極短篇] Android v.s iOS，誰的字體好讀？</a></li>
-        </ul>
-      </section>
-
-      <section class="am-panel am-panel-default">
-        <div class="am-panel-hd">团队成员</div>
-        <div class="am-panel-bd">
-          <ul class="am-avg-sm-4 blog-team">
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-            </li>
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-            </li>
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-            </li>
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-            </li>
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230159_kjTmC.thumb.224_0.jpeg" alt=""/>
-            </li>
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-            </li>
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-            </li>
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230159_kjTmC.thumb.224_0.jpeg" alt=""/>
-            </li>
-          </ul>
-        </div>
-      </section>
     </div>
-  </div>
 
-</div>
+    <!-- 全局js -->
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.4.0"></script>
 
-<footer class="blog-footer">
-  <p>blog template<br/>
-    <small>© Copyright XXX. by the AmazeUI Team.</small>
-  </p>
-</footer>
+    <!-- 自定义js -->
+    <script src="js/content.min.js?v=1.0.0"></script>
 
-<!--[if lt IE 9]>
-<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
 
-<!--[if (gte IE 9)|!(IE)]><!-->
-<script src="assets/js/jquery.min.js"></script>
-<!--<![endif]-->
-<script src="assets/js/amazeui.min.js"></script>
+    
+    <!--统计代码，可删除-->
 
 </body>
+
 </html>

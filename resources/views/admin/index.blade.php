@@ -1,243 +1,492 @@
 @extends('admin.layout')
 @section('content')
-      <div class="am-cf am-padding">
-        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> / <small>一些常用模块</small></div>
-      </div>
 
-      <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
-        <li><a href="#" class="am-text-success"><span class="am-icon-btn am-icon-file-text"></span><br/>新增页面<br/>2300</a></li>
-        <li><a href="#" class="am-text-warning"><span class="am-icon-btn am-icon-briefcase"></span><br/>成交订单<br/>308</a></li>
-        <li><a href="#" class="am-text-danger"><span class="am-icon-btn am-icon-recycle"></span><br/>昨日访问<br/>80082</a></li>
-        <li><a href="#" class="am-text-secondary"><span class="am-icon-btn am-icon-user-md"></span><br/>在线用户<br/>3000</a></li>
-      </ul>
-
-      <div class="am-g">
-        <div class="am-u-sm-12">
-          <table class="am-table am-table-bd am-table-striped admin-content-table">
-            <thead>
-            <tr>
-              <th>ID</th><th>用户名</th><th>最后成交任务</th><th>成交订单</th><th>管理</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr><td>1</td><td>John Clark</td><td><a href="#">Business management</a></td> <td><span class="am-badge am-badge-success">+20</span></td>
-              <td>
-                <div class="am-dropdown" data-am-dropdown>
-                  <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
-                  <ul class="am-dropdown-content">
-                    <li><a href="#">1. 编辑</a></li>
-                    <li><a href="#">2. 下载</a></li>
-                    <li><a href="#">3. 删除</a></li>
-                  </ul>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-success pull-right">月</span>
+                    <h5>收入</h5>
                 </div>
-              </td>
-            </tr>
-            <tr><td>2</td><td>风清扬</td><td><a href="#">公司LOGO设计</a> </td><td><span class="am-badge am-badge-danger">+2</span></td>
-              <td>
-                <div class="am-dropdown" data-am-dropdown>
-                  <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
-                  <ul class="am-dropdown-content">
-                    <li><a href="#">1. 编辑</a></li>
-                    <li><a href="#">2. 下载</a></li>
-                    <li><a href="#">3. 删除</a></li>
-                  </ul>
+                <div class="ibox-content">
+                    <h1 class="no-margins">40 886,200</h1>
+                    <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i>
+                    </div>
+                    <small>总收入</small>
                 </div>
-              </td>
-            </tr>
-            <tr><td>3</td><td>詹姆斯</td><td><a href="#">开发一款业务数据软件</a></td><td><span class="am-badge am-badge-warning">+10</span></td>
-              <td>
-                <div class="am-dropdown" data-am-dropdown>
-                  <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
-                  <ul class="am-dropdown-content">
-                    <li><a href="#">1. 编辑</a></li>
-                    <li><a href="#">2. 下载</a></li>
-                    <li><a href="#">3. 删除</a></li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr><td>4</td><td>云适配</td><td><a href="#">适配所有网站</a></td><td><span class="am-badge am-badge-secondary">+50</span></td>
-              <td>
-                <div class="am-dropdown" data-am-dropdown>
-                  <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
-                  <ul class="am-dropdown-content">
-                    <li><a href="#">1. 编辑</a></li>
-                    <li><a href="#">2. 下载</a></li>
-                    <li><a href="#">3. 删除</a></li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td>5</td><td>呵呵呵</td>
-              <td><a href="#">基兰会获得BUFF</a></td>
-              <td><span class="am-badge">+22</span></td>
-              <td>
-                <div class="am-dropdown" data-am-dropdown>
-                  <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
-                  <ul class="am-dropdown-content">
-                    <li><a href="#">1. 编辑</a></li>
-                    <li><a href="#">2. 下载</a></li>
-                    <li><a href="#">3. 删除</a></li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+            </div>
         </div>
-      </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">全年</span>
+                    <h5>订单</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">275,800</h1>
+                    <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>新订单</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">今天</span>
+                    <h5>访客</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">106,120</h1>
+                    <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>新访客</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">最近一个月</span>
+                    <h5>活跃用户</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">80,600</h1>
+                    <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
+                    </div>
+                    <small>12月</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>订单</h5>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-xs btn-white active">天</button>
+                            <button type="button" class="btn btn-xs btn-white">月</button>
+                            <button type="button" class="btn btn-xs btn-white">年</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="flot-chart">
+                                <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <ul class="stat-list">
+                                <li>
+                                    <h2 class="no-margins">2,346</h2>
+                                    <small>订单总数</small>
+                                    <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 48%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h2 class="no-margins ">4,422</h2>
+                                    <small>最近一个月订单</small>
+                                    <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 60%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h2 class="no-margins ">9,180</h2>
+                                    <small>最近一个月销售额</small>
+                                    <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 22%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-      <div class="am-g">
-        <div class="am-u-md-6">
-          <div class="am-panel am-panel-default">
-            <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-1'}">文件上传<span class="am-icon-chevron-down am-fr" ></span></div>
-            <div class="am-panel-bd am-collapse am-in" id="collapse-panel-1">
-              <ul class="am-list admin-content-file">
-                <li>
-                  <strong><span class="am-icon-upload"></span> Kong-cetian.Mp3</strong>
-                  <p>3.3 of 5MB - 5 mins - 1MB/Sec</p>
-                  <div class="am-progress am-progress-striped am-progress-sm am-active">
-                    <div class="am-progress-bar am-progress-bar-success" style="width: 82%">82%</div>
-                  </div>
-                </li>
-                <li>
-                  <strong><span class="am-icon-check"></span> 好人-cetian.Mp3</strong>
-                  <p>3.3 of 5MB - 5 mins - 3MB/Sec</p>
-                </li>
-                <li>
-                  <strong><span class="am-icon-check"></span> 其实都没有.Mp3</strong>
-                  <p>3.3 of 5MB - 5 mins - 3MB/Sec</p>
-                </li>
-              </ul>
             </div>
-          </div>
-          <div class="am-panel am-panel-default">
-            <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-2'}">浏览器统计<span class="am-icon-chevron-down am-fr" ></span></div>
-            <div id="collapse-panel-2" class="am-in">
-              <table class="am-table am-table-bd am-table-bdrs am-table-striped am-table-hover">
-                <tbody>
-                <tr>
-                  <th class="am-text-center">#</th>
-                  <th>浏览器</th>
-                  <th>访问量</th>
-                </tr>
-                <tr>
-                  <td class="am-text-center"><img src="/skin/manage/i/examples/admin-chrome.png" alt=""></td>
-                  <td>Google Chrome</td>
-                  <td>3,005</td>
-                </tr>
-                <tr>
-                  <td class="am-text-center"><img src="/skin/manage/i/examples/admin-firefox.png" alt=""></td>
-                  <td>Mozilla Firefox</td>
-                  <td>2,505</td>
-                </tr>
-                <tr>
-                  <td class="am-text-center"><img src="/skin/manage/i/examples/admin-ie.png" alt=""></td>
-                  <td>Internet Explorer</td>
-                  <td>1,405</td>
-                </tr>
-                <tr>
-                  <td class="am-text-center"><img src="/skin/manage/i/examples/admin-opera.png" alt=""></td>
-                  <td>Opera</td>
-                  <td>4,005</td>
-                </tr>
-                <tr>
-                  <td class="am-text-center"><img src="/skin/manage/i/examples/admin-safari.png" alt=""></td>
-                  <td>Safari</td>
-                  <td>505</td>
-                </tr>
-                </tbody>
-              </table>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>消息</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content ibox-heading">
+                    <h3><i class="fa fa-envelope-o"></i> 新消息</h3>
+                    <small><i class="fa fa-tim"></i> 您有22条未读消息</small>
+                </div>
+                <div class="ibox-content">
+                    <div class="feed-activity-list">
+
+                        <div class="feed-element">
+                            <div>
+                                <small class="pull-right text-navy">1月前</small>
+                                <strong>井幽幽</strong>
+                                <div>有人说：“一辈子很长，要跟一个有趣的人在一起”。我想关注我的人，应该是那种喜欢找乐子也乐意分享乐趣的人，你们一定挺优秀的。所以单身的应该在这条留言，互相勾搭一下。特别有钱人又帅可以直接私信我！</div>
+                                <small class="text-muted">4月11日 00:00</small>
+                            </div>
+                        </div>
+
+                        <div class="feed-element">
+                            <div>
+                                <small class="pull-right">2月前</small>
+                                <strong>马伯庸 </strong>
+                                <div>又方便，又防水，手感又好，还可以用手机遥控。简直是拍戏利器，由其是跟老师们搭戏的时候…想想还有点小激动啊，嘿嘿。</div>
+                                <small class="text-muted">11月8日 20:08 </small>
+                            </div>
+                        </div>
+
+                        <div class="feed-element">
+                            <div>
+                                <small class="pull-right">5月前</small>
+                                <strong>芒果宓 </strong>
+                                <div>一个完整的梦。</div>
+                                <small class="text-muted">11月8日 20:08 </small>
+                            </div>
+                        </div>
+
+                        <div class="feed-element">
+                            <div>
+                                <small class="pull-right">5月前</small>
+                                <strong>刺猬尼克索</strong>
+                                <div>哈哈哈哈 你卖什么萌啊! 蠢死了</div>
+                                <small class="text-muted">11月8日 20:08 </small>
+                            </div>
+                        </div>
+
+
+                        <div class="feed-element">
+                            <div>
+                                <small class="pull-right">5月前</small>
+                                <strong>老刀99</strong>
+                                <div>昨天评论里你见过最“温暖和感人”的诗句，整理其中经典100首，值得你收下学习。</div>
+                                <small class="text-muted">11月8日 20:08 </small>
+                            </div>
+                        </div>
+                        <div class="feed-element">
+                            <div>
+                                <small class="pull-right">5月前</small>
+                                <strong>娱乐小主 </strong>
+                                <div>你是否想过记录自己的梦？你是否想过有自己的一个记梦本？小时候写日记，没得写了就写昨晚的梦，后来变成了习惯………翻了一晚上自己做过的梦，想哭，想笑…</div>
+                                <small class="text-muted">11月8日 20:08 </small>
+                            </div>
+                        </div>
+                        <div class="feed-element">
+                            <div>
+                                <small class="pull-right">5月前</small>
+                                <strong>DMG电影 </strong>
+                                <div>《和外国男票乘地铁，被中国大妈骂不要脸》妹子实在委屈到不行，中国妹子找外国男友很令人不能接受吗？大家都来说说自己的看法</div>
+                                <small class="text-muted">11月8日 20:08 </small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
 
-        <div class="am-u-md-6">
-          <div class="am-panel am-panel-default">
-            <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-4'}">任务 task<span class="am-icon-chevron-down am-fr" ></span></div>
-            <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
-              <ul class="am-list admin-content-task">
-                <li>
-                  <div class="admin-task-meta"> Posted on 25/1/2120 by John Clark</div>
-                  <div class="admin-task-bd">
-                    The starting place for exploring business management; helping new managers get started and experienced managers get better.
-                  </div>
-                  <div class="am-cf">
-                    <div class="am-btn-toolbar am-fl">
-                      <div class="am-btn-group am-btn-group-xs">
-                        <button type="button" class="am-btn am-btn-default"><span class="am-icon-check"></span></button>
-                        <button type="button" class="am-btn am-btn-default"><span class="am-icon-pencil"></span></button>
-                        <button type="button" class="am-btn am-btn-default"><span class="am-icon-times"></span></button>
-                      </div>
+        <div class="col-lg-8">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>用户项目列表</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                <thead>
+                                <tr>
+                                    <th>状态</th>
+                                    <th>日期</th>
+                                    <th>用户</th>
+                                    <th>值</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 11:20</td>
+                                    <td>青衣5858</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 24%</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="label label-warning">已取消</span>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 10:40</td>
+                                    <td>徐子崴</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 66%</td>
+                                </tr>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 01:30</td>
+                                    <td>姜岚昕</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 54%</td>
+                                </tr>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 02:20</td>
+                                    <td>武汉大兵哥</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 12%</td>
+                                </tr>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 09:40</td>
+                                    <td>荆莹儿</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 22%</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="label label-primary">已完成</span>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 04:10</td>
+                                    <td>栾某某</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 66%</td>
+                                </tr>
+                                <tr>
+                                    <td><small>进行中...</small>
+                                    </td>
+                                    <td><i class="fa fa-clock-o"></i> 12:08</td>
+                                    <td>范范范二妮</td>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 23%</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="am-fr">
-                      <button type="button" class="am-btn am-btn-default am-btn-xs">删除</button>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>任务列表</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <ul class="todo-list m-t small-list ui-sortable">
+                                <li>
+                                    <a href="widgets.html#" class="check-link"><i class="fa fa-check-square"></i> </a>
+                                    <span class="m-l-xs todo-completed">开会</span>
+
+                                </li>
+                                <li>
+                                    <a href="widgets.html#" class="check-link"><i class="fa fa-check-square"></i> </a>
+                                    <span class="m-l-xs  todo-completed">项目开发</span>
+
+                                </li>
+                                <li>
+                                    <a href="widgets.html#" class="check-link"><i class="fa fa-square-o"></i> </a>
+                                    <span class="m-l-xs">修改bug</span>
+                                    <small class="label label-primary"><i class="fa fa-clock-o"></i> 1小时</small>
+                                </li>
+                                <li>
+                                    <a href="widgets.html#" class="check-link"><i class="fa fa-square-o"></i> </a>
+                                    <span class="m-l-xs">修改bug</span>
+                                    <small class="label label-primary"><i class="fa fa-clock-o"></i> 1小时</small>
+                                </li>
+                                <li>
+                                    <a href="widgets.html#" class="check-link"><i class="fa fa-square-o"></i> </a>
+                                    <span class="m-l-xs">修改bug</span>
+                                    <small class="label label-primary"><i class="fa fa-clock-o"></i> 1小时</small>
+                                </li>
+                                <li>
+                                    <a href="widgets.html#" class="check-link"><i class="fa fa-square-o"></i> </a>
+                                    <span class="m-l-xs">修改bug</span>
+                                    <small class="label label-primary"><i class="fa fa-clock-o"></i> 1小时</small>
+                                </li>
+                                <li>
+                                    <a href="widgets.html#" class="check-link"><i class="fa fa-square-o"></i> </a>
+                                    <span class="m-l-xs">修改bug</span>
+                                    <small class="label label-primary"><i class="fa fa-clock-o"></i> 1小时</small>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="admin-task-meta"> Posted on 25/1/2120 by 呵呵呵</div>
-                  <div class="admin-task-bd">
-                    基兰和狗熊出现在不同阵营时。基兰会获得BUFF，“装甲熊憎恨者”。狗熊会获得BUFF，“时光老人憎恨者”。
-                  </div>
-                  <div class="am-cf">
-                    <div class="am-btn-toolbar am-fl">
-                      <div class="am-btn-group am-btn-group-xs">
-                        <button type="button" class="am-btn am-btn-default"><span class="am-icon-check"></span></button>
-                        <button type="button" class="am-btn am-btn-default"><span class="am-icon-pencil"></span></button>
-                        <button type="button" class="am-btn am-btn-default"><span class="am-icon-times"></span></button>
-                      </div>
-                    </div>
-                    <div class="am-fr">
-                      <button type="button" class="am-btn am-btn-default am-btn-xs">删除</button>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+                </div>
             </div>
-          </div>
 
-          <div class="am-panel am-panel-default">
-            <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-3'}">最近留言<span class="am-icon-chevron-down am-fr" ></span></div>
-            <div class="am-panel-bd am-collapse am-in am-cf" id="collapse-panel-3">
-              <ul class="am-comments-list admin-content-comment">
-                <li class="am-comment">
-                  <a href="#"><img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48"></a>
-                  <div class="am-comment-main">
-                    <header class="am-comment-hd">
-                      <div class="am-comment-meta"><a href="#" class="am-comment-author">某人</a> 评论于 <time>2014-7-12 15:30</time></div>
-                    </header>
-                    <div class="am-comment-bd"><p>遵循 “移动优先（Mobile First）”、“渐进增强（Progressive enhancement）”的理念，可先从移动设备开始开发网站，逐步在扩展的更大屏幕的设备上，专注于最重要的内容和交互，很好。</p>
-                    </div>
-                  </div>
-                </li>
 
-                <li class="am-comment">
-                  <a href="#"><img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48"></a>
-                  <div class="am-comment-main">
-                    <header class="am-comment-hd">
-                      <div class="am-comment-meta"><a href="#" class="am-comment-author">某人</a> 评论于 <time>2014-7-12 15:30</time></div>
-                    </header>
-                    <div class="am-comment-bd"><p>有效减少为兼容旧浏览器的臃肿代码；基于 CSS3 的交互效果，平滑、高效。AMUI专注于现代浏览器（支持HTML5），不再为过时的浏览器耗费资源，为更有价值的用户提高更好的体验。</p>
-                    </div>
-                  </div>
-                </li>
-
-              </ul>
-              <ul class="am-pagination am-fr admin-content-pagination">
-                <li class="am-disabled"><a href="#">&laquo;</a></li>
-                <li class="am-active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
-              </ul>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
 
+<!-- Flot -->
+<script src="/skin/js/plugins/flot/jquery.flot.js"></script>
+<script src="/skin/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="/skin/js/plugins/flot/jquery.flot.spline.js"></script>
+<script src="/skin/js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="/skin/js/plugins/flot/jquery.flot.pie.js"></script>
+<script src="/skin/js/plugins/flot/jquery.flot.symbol.js"></script>
+
+<!-- Peity -->
+<script src="/skin/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="/skin/js/demo/peity-demo.min.js"></script>
+
+<!-- 自定义js -->
+<script src="/skin/js/content.min.js?v=1.0.0"></script>
+
+
+<!-- jQuery UI -->
+<script src="/skin/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+
+
+<!-- EayPIE -->
+<script src="/skin/js/plugins/easypiechart/jquery.easypiechart.js"></script>
+
+<!-- Sparkline -->
+<script src="/skin/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Sparkline demo data  -->
+<script src="/skin/js/demo/sparkline-demo.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $(".chart").easyPieChart({
+            barColor: "#f8ac59",
+            scaleLength: 5,
+            lineWidth: 4,
+            size: 80
+        });
+        $(".chart2").easyPieChart({
+            barColor: "#1c84c6",
+            scaleLength: 5,
+            lineWidth: 4,
+            size: 80
+        });
+        var h = [[c(2012, 1, 1), 7], [c(2012, 1, 2), 6], [c(2012, 1, 3), 4], [c(2012, 1, 4), 8], [c(2012, 1, 5), 9], [c(2012, 1, 6), 7], [c(2012, 1, 7), 5], [c(2012, 1, 8), 4], [c(2012, 1, 9), 7], [c(2012, 1, 10), 8], [c(2012, 1, 11), 9], [c(2012, 1, 12), 6], [c(2012, 1, 13), 4], [c(2012, 1, 14), 5], [c(2012, 1, 15), 11], [c(2012, 1, 16), 8], [c(2012, 1, 17), 8], [c(2012, 1, 18), 11], [c(2012, 1, 19), 11], [c(2012, 1, 20), 6], [c(2012, 1, 21), 6], [c(2012, 1, 22), 8], [c(2012, 1, 23), 11], [c(2012, 1, 24), 13], [c(2012, 1, 25), 7], [c(2012, 1, 26), 9], [c(2012, 1, 27), 9], [c(2012, 1, 28), 8], [c(2012, 1, 29), 5], [c(2012, 1, 30), 8], [c(2012, 1, 31), 25]];
+        var g = [[c(2012, 1, 1), 800], [c(2012, 1, 2), 500], [c(2012, 1, 3), 600], [c(2012, 1, 4), 700], [c(2012, 1, 5), 500], [c(2012, 1, 6), 456], [c(2012, 1, 7), 800], [c(2012, 1, 8), 589], [c(2012, 1, 9), 467], [c(2012, 1, 10), 876], [c(2012, 1, 11), 689], [c(2012, 1, 12), 700], [c(2012, 1, 13), 500], [c(2012, 1, 14), 600], [c(2012, 1, 15), 700], [c(2012, 1, 16), 786], [c(2012, 1, 17), 345], [c(2012, 1, 18), 888], [c(2012, 1, 19), 888], [c(2012, 1, 20), 888], [c(2012, 1, 21), 987], [c(2012, 1, 22), 444], [c(2012, 1, 23), 999], [c(2012, 1, 24), 567], [c(2012, 1, 25), 786], [c(2012, 1, 26), 666], [c(2012, 1, 27), 888], [c(2012, 1, 28), 900], [c(2012, 1, 29), 178], [c(2012, 1, 30), 555], [c(2012, 1, 31), 993]];
+        var e = [{
+            label: "订单数",
+            data: g,
+            color: "#1ab394",
+            bars: {
+                show: true,
+                align: "center",
+                barWidth: 24 * 60 * 60 * 600,
+                lineWidth: 0
+            }
+        },
+            {
+                label: "付款数",
+                data: h,
+                yaxis: 2,
+                color: "#464f88",
+                lines: {
+                    lineWidth: 1,
+                    show: true,
+                    fill: true,
+                    fillColor: {
+                        colors: [{
+                            opacity: 0.2
+                        },
+                            {
+                                opacity: 0.2
+                            }]
+                    }
+                },
+                splines: {
+                    show: false,
+                    tension: 0.6,
+                    lineWidth: 1,
+                    fill: 0.1
+                },
+            }];
+        var a = {
+            xaxis: {
+                mode: "time",
+                tickSize: [3, "day"],
+                tickLength: 0,
+                axisLabel: "Date",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: "Arial",
+                axisLabelPadding: 10,
+                color: "#838383"
+            },
+            yaxes: [{
+                position: "left",
+                max: 1070,
+                color: "#838383",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: "Arial",
+                axisLabelPadding: 3
+            },
+                {
+                    position: "right",
+                    clolor: "#838383",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: " Arial",
+                    axisLabelPadding: 67
+                }],
+            legend: {
+                noColumns: 1,
+                labelBoxBorderColor: "#000000",
+                position: "nw"
+            },
+            grid: {
+                hoverable: false,
+                borderWidth: 0,
+                color: "#838383"
+            }
+        };
+        function c(j, k, i) {
+            return new Date(j, k - 1, i).getTime()
+        }
+        var b = null,
+                d = null;
+        $.plot($("#flot-dashboard-chart"), e, a);
+        var f = {
+            "US": 298,
+            "SA": 200,
+            "DE": 220,
+            "FR": 540,
+            "CN": 120,
+            "AU": 760,
+            "BR": 550,
+            "IN": 200,
+            "GB": 120,
+        };
+
+    });
+</script>
 @endsection('content')

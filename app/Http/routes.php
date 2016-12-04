@@ -16,8 +16,8 @@ $admin = [
     'namespace' => 'Admin',
 ];
 Route::group($admin , function(){
-    Route::get('/' , 'IndexController@getIndex');
+    Route::get('/' , 'IndexController@getIndex')->name('admin');
     Route::controllers([
-//        '/' => 'IndexController',
+    	'article' => 'ArticleController',
     ]);
 });
