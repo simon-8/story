@@ -106,9 +106,9 @@
             <span class="fa arrow"></span>
           </a>
           <ul class="nav nav-second-level">
-            <li><a class="J_menuItem" href="{{ url('admin/user') }}">用户列表</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin') }}">用户权限</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin/article/recycle') }}">回收站</a></li>
+            <li><a class="J_menuItem" href="{{ url('admin/user') }}">基本设置</a></li>
+            <li><a class="J_menuItem" href="{{ url('admin') }}">邮件配置</a></li>
+            <li><a class="J_menuItem" href="{{ url('admin/article/recycle') }}">一键登录</a></li>
           </ul>
         </li>
 

@@ -19,5 +19,6 @@ Route::group($admin , function(){
     Route::get('/' , 'IndexController@getIndex')->name('admin');
     Route::controllers([
     	'article' => 'ArticleController',
+    	'auth'	  => 'Auth\AuthController',
     ]);
 });

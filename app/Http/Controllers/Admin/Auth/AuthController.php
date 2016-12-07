@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\User;
 use Validator;
@@ -55,10 +55,18 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        dump('asdfasf');
+        exit();
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+    public function getLogin(){
+        return view('admin.auth.login');
+    }
+    public function getRegister(){
+        return view('admin.auth.register');
     }
 }
