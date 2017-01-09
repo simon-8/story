@@ -1,11 +1,11 @@
-@extends('admin.layout')
-@section('content')
-<form method="POST" action="/auth/login">
+
+
+<form method="POST" action="{{ route('postLogin') }}">
     {!! csrf_field() !!}
 
     <div>
-        Email
-        <input type="email" name="email" value="{{ old('email') }}">
+        username
+        <input type="username" name="username" value="{{ old('username') }}">
     </div>
 
     <div>
@@ -21,4 +21,3 @@
         <button type="submit">Login</button>
     </div>
 </form>
-@endsection('content')

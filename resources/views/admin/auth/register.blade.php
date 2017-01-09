@@ -1,16 +1,16 @@
-@extends('admin.layout')
-@section('content')
-<form method="POST" action="/admin/auth/register">
+@if($errors)
+    @foreach($errors->all() as $error)
+        <p>
+            {{ $error }}
+        </p>
+    @endforeach
+@endif
+<form method="POST" action="{{ route('postRegister') }}">
     {!! csrf_field() !!}
 
     <div>
-        Name
-        <input type="text" name="name" value="{{ old('name') }}">
-    </div>
-
-    <div>
-        Email
-        <input type="email" name="email" value="{{ old('email') }}">
+        username
+        <input type="text" name="username" value="{{ old('username') }}">
     </div>
 
     <div>
@@ -20,11 +20,10 @@
 
     <div>
         Confirm Password
-        <input type="password" name="password_confirmation">
+        <input type="password" name="password_confirm">
     </div>
 
     <div>
         <button type="submit">Register</button>
     </div>
 </form>
-@endsection('content')

@@ -55,8 +55,6 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        dump('asdfasf');
-        exit();
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
