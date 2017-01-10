@@ -17,10 +17,10 @@ $admin = [
 ];
 Route::group($admin , function(){
     Route::get('/' , 'IndexController@getIndex')->name('admin');
-    Route::get('login' , 'AuthController@getLogin')->name('getLogin');
-    Route::post('login' , 'AuthController@postLogin')->name('postLogin');
-    Route::get('register' , 'AuthController@getRegister')->name('getRegister');
-    Route::post('register' , 'AuthController@postRegister')->name('postRegister');
+    Route::get('login' , 'AuthController@getLogin')->name('getAdminLogin');
+    Route::post('login' , 'AuthController@postLogin')->name('postAdminLogin');
+    Route::get('register' , 'AuthController@getRegister')->name('getAdminRegister');
+    Route::post('register' , 'AuthController@postRegister')->name('postAdminRegister');
     Route::controllers([
     	'article' => 'ArticleController',
     	'auth'	  => 'Auth\AuthController',

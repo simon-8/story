@@ -1,6 +1,12 @@
+@if($errors)
+    @foreach($errors->all() as $error)
+        <p>
+            {{ $error }}
+        </p>
+    @endforeach
+@endif
 
-
-<form method="POST" action="{{ route('postLogin') }}">
+<form method="POST" action="{{ route('postAdminLogin') }}">
     {!! csrf_field() !!}
 
     <div>

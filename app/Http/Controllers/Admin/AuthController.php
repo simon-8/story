@@ -9,9 +9,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use App\Models\Admin\Manager;
 class AuthController extends Controller
 {
+    protected $Manager;
+    public function __construct(Manager $manager)
+    {
+        $this->Manager = $manager;
+    }
 
     protected function validate_login($data)
     {
@@ -28,12 +33,30 @@ class AuthController extends Controller
 
     public function postLogin(Request $request)
     {
-        $validator = $this->validate_login($request->all());
+        $data = $request->all();
+        $validator = $this->validate_login($data);
         if( $validator->fails() )
         {
-            var_dump('error');
+            $this->throwValidationException(
+                $request , $validator
+            );
         }
-        echo 'ok';
+        $user = $this->Manager->findByUsername($data['username']);
+        if($user)
+        {
+            if( $this->Manager->compare_password($data['password'] , $user->password) )
+            {
+                echo 'ok';
+            }
+            else
+            {
+                echo 'password is error';
+            }
+        }
+        else
+        {
+            echo 'user is not found';
+        }
     }
 
     protected function validate_register($data)
@@ -51,20 +74,40 @@ class AuthController extends Controller
         ]);
     }
 
+
+    /**
+     * 用户注册
+     * @return mixed
+     */
     public function getRegister()
     {
         return admin_view('auth.register');
     }
 
+
+    /**
+     * 用户注册
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postRegister(Request $request)
     {
-        $validator = $this->validate_register($request->all());
+        $data = $request->all();
+        $validator = $this->validate_register($data);
         if( $validator->fails() )
         {
             $this->throwValidationException(
                 $request, $validator
             );
         }
-
+        $result = $this->Manager->create_manager($data);
+        if($result)
+        {
+            return redirect(route('getAdminLogin'));
+        }
+        else
+        {
+            return back()->withErrors('密码错误');
+        }
     }
 }

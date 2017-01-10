@@ -5,7 +5,7 @@
         </p>
     @endforeach
 @endif
-<form method="POST" action="{{ route('postRegister') }}">
+<form method="POST" action="{{ route('postAdminRegister') }}">
     {!! csrf_field() !!}
 
     <div>
