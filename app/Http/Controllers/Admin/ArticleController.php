@@ -9,6 +9,6 @@ class ArticleController extends Controller
 	public function getIndex(){
 
 		$data = [];
-		return view('admin.article.index',$data);
+		return admin_view('article.index',$data);
 	}
 }

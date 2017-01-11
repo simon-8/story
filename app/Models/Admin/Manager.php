@@ -15,6 +15,10 @@ class Manager extends Model
         'remember_token',
     ];
 
+//    protected $aliases = [
+//        'username'  => '用户名',
+//        'password'  => '密码',
+//    ];
 //    protected $attributes = [
 //        'username'  => '用户名',
 //        'password'  => '密码',
@@ -73,6 +77,6 @@ class Manager extends Model
      */
     public function compare_password($input_password , $password)
     {
-        return (password_verify($input_password , PASSWORD_DEFAULT) == $password);
+        return password_verify($input_password , $password);
     }
 }

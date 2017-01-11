@@ -14,17 +14,26 @@
 $admin = [
     'prefix' => 'admin',
     'namespace' => 'Admin',
+    //'middleware'    => 'admin'
 ];
 Route::group($admin , function(){
-    Route::get('/' , 'IndexController@getIndex')->name('admin');
     Route::get('login' , 'AuthController@getLogin')->name('getAdminLogin');
     Route::post('login' , 'AuthController@postLogin')->name('postAdminLogin');
     Route::get('register' , 'AuthController@getRegister')->name('getAdminRegister');
     Route::post('register' , 'AuthController@postRegister')->name('postAdminRegister');
-    Route::controllers([
-    	'article' => 'ArticleController',
-    	'auth'	  => 'Auth\AuthController',
-    ]);
+    Route::get('logout' , 'AuthController@getLogout')->name('getAdminLogout');
+
+    //AdminAuthenticate中间件接管
+    Route::group(['middleware' => 'admin'] ,function(){
+
+        Route::get('/' , 'IndexController@getIndex')->name('getAdminIndex');
+        Route::controllers([
+            'article' => 'ArticleController',
+            'auth'	  => 'AuthController',
+            //'/'       => 'IndexController',
+        ]);
+    });
+
 });
 
 $home = [

@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
+ * 登录相关
  * User: admin
  * Date: 2017/1/9
  * Time: 16:36
@@ -10,27 +10,42 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Admin\Manager;
+use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     protected $Manager;
     public function __construct(Manager $manager)
     {
+        $this->middleware('admin.guest' , ['except' =>  'getLogout']);
         $this->Manager = $manager;
     }
 
+    /**
+     * 登录验证
+     * @param $data
+     * @return mixed
+     */
     protected function validate_login($data)
     {
         return Validator::make($data , [
-            'username' => 'required|string|min:4|max:10',
-            'password' => 'required|string|min:4|max:10',
+            'username' => 'required|string|min:4|max:255',
+            'password' => 'required|string|min:4|max:255',
         ]);
     }
 
+    /**
+     * 用户登录
+     * @return mixed
+     */
     public function getLogin()
     {
         return admin_view('auth.login');
     }
 
+    /**
+     * 用户登录
+     * @param Request $request
+     */
     public function postLogin(Request $request)
     {
         $data = $request->all();
@@ -46,31 +61,31 @@ class AuthController extends Controller
         {
             if( $this->Manager->compare_password($data['password'] , $user->password) )
             {
-                echo 'ok';
+                session(['userid' => $user->id]);
+                return redirect(route('getAdminIndex'));
             }
             else
             {
-                echo 'password is error';
+                return back()->withErrors('密码不正确')->withInput();
             }
         }
         else
         {
-            echo 'user is not found';
+            return back()->withErrors('用户不存在')->withInput();
         }
     }
 
+    /**
+     * 注册校验
+     * @param $data
+     * @return mixed
+     */
     protected function validate_register($data)
     {
         return Validator::make($data , [
-            'username' => 'required|string|min:4|max:10',
-            'password' => 'required|string|min:4|max:10',
+            'username' => 'required|string|min:4|max:50|unique',
+            'password' => 'required|string|min:4|max:255',
             'password_confirm' => 'same:password',
-        ] , [
-            'username.required' => '请填写用户名',
-            'password.required' => '请填写密码',
-            'username.min'     => '用户名的长度应该在4~10之间',
-            'password.min'     => '密码的长度应该在4~10之间',
-            'password_confirm.same' => '两次密码不一致',
         ]);
     }
 
@@ -107,7 +122,18 @@ class AuthController extends Controller
         }
         else
         {
-            return back()->withErrors('密码错误');
+            return back()->withErrors('创建失败')->withInput();
         }
+    }
+
+
+    /**
+     * 退出登录
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function getLogout()
+    {
+        session()->forget('userid');
+        return redirect(route('getAdminLogin'));
     }
 }
