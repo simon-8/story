@@ -42,6 +42,9 @@
                 <input name="username" type="text" class="form-control" placeholder="请输入用户名" required="" value="{{ old('username') }}">
             </div>
             <div class="form-group">
+                <input name="truename" type="text" class="form-control" placeholder="请输入真实姓名" required="" value="{{ old('truename') }}">
+            </div>
+            <div class="form-group">
                 <input name="password" type="password" class="form-control" placeholder="请输入密码" required="">
             </div>
             <div class="form-group">

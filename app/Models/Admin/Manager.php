@@ -9,6 +9,7 @@ class Manager extends Model
     protected $fillable = [
         'username',
         'password',
+        'truename',
         'salt',
         'lasttime',
         'lastip',
@@ -49,15 +50,6 @@ class Manager extends Model
         return $this->update($data);
     }
 
-    /**
-     * 密码加密
-     * @param $password
-     * @return bool|string
-     */
-    protected function encypt_password($password)
-    {
-        return password_hash($password , PASSWORD_DEFAULT);
-    }
 
     /**
      * 根据username查找用户
@@ -70,6 +62,16 @@ class Manager extends Model
     }
 
     /**
+     * 密码加密
+     * @param $password
+     * @return bool|string
+     */
+    protected function encypt_password($password)
+    {
+        return password_hash($password , PASSWORD_DEFAULT);
+    }
+
+    /**
      * 密码校验
      * @param $input_password
      * @param $password
@@ -79,4 +81,15 @@ class Manager extends Model
     {
         return password_verify($input_password , $password);
     }
+
+    /**
+     * 存储在session中的password
+     * @param $password
+     * @return string
+     */
+    public function session_use_password($password)
+    {
+        return substr(md5($password) ,0 ,8);
+    }
+
 }

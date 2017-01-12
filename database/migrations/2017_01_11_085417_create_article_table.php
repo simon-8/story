@@ -12,9 +12,6 @@ class CreateArticleTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles' , function(Blueprint $table){
-
-        });
     }
 
     /**

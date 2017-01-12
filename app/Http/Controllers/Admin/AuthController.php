@@ -16,7 +16,11 @@ class AuthController extends Controller
     protected $Manager;
     public function __construct(Manager $manager)
     {
-        $this->middleware('admin.guest' , ['except' =>  'getLogout']);
+        $this->middleware('admin.guest' , ['except' =>  [
+                                            'getEnterpassword',
+                                            'getLogout',
+                                        ]
+        ]);
         $this->Manager = $manager;
     }
 
@@ -61,6 +65,10 @@ class AuthController extends Controller
         {
             if( $this->Manager->compare_password($data['password'] , $user->password) )
             {
+                $this->Manager->where('username' , $user->username)->update([
+                    'lasttime'  => time(),
+                    'lastip'    => $request->ip(),
+                ]);
                 $this->make_login_session($user);
                 return redirect(route('getAdminIndex'));
             }
@@ -81,7 +89,7 @@ class AuthController extends Controller
         $userinfo = [
             'userid'    => $user->id,
             'username'    => $user->username,
-            'password'    => substr(md5($user->password) ,0 ,8)
+            'password'    => $this->Manager->session_use_password($user->password),
         ];
 
         session(['userinfo' => $userinfo]);
@@ -94,7 +102,8 @@ class AuthController extends Controller
     protected function validate_register($data)
     {
         return Validator::make($data , [
-            'username' => 'required|string|min:4|max:50|unique',
+            'username' => 'required|string|min:4|max:50|unique:managers',
+            'truename' => 'required|string',
             'password' => 'required|string|min:4|max:255',
             'password_confirm' => 'same:password',
         ]);
@@ -144,7 +153,17 @@ class AuthController extends Controller
      */
     public function getLogout()
     {
-        session()->forget('userid');
+        session()->forget('userinfo');
         return redirect(route('getAdminLogin'));
+    }
+
+    public function getEnterpassword()
+    {
+        return admin_view('auth.enterpassword');
+    }
+
+    public function postEnterpassword()
+    {
+
     }
 }
