@@ -20,7 +20,7 @@ class AdminGuest
      */
     public function handle($request, Closure $next)
     {
-        if( session('userid') )
+        if( session('userinfo') )
         {
             return redirect(route('getAdminIndex'));
         }

@@ -37,7 +37,7 @@ class AdminAuthenticate
      */
     public function handle($request, Closure $next)
     {
-        if (!session('userid')) {
+        if (!session('userinfo')) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {

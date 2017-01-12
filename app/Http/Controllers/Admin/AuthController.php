@@ -8,9 +8,9 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use App\Models\Admin\Manager;
-use Illuminate\Support\Facades\Auth;
+use Validator;
+use Auth;
 class AuthController extends Controller
 {
     protected $Manager;
@@ -61,7 +61,7 @@ class AuthController extends Controller
         {
             if( $this->Manager->compare_password($data['password'] , $user->password) )
             {
-                session(['userid' => $user->id]);
+                $this->make_login_session($user);
                 return redirect(route('getAdminIndex'));
             }
             else
@@ -75,6 +75,17 @@ class AuthController extends Controller
         }
     }
 
+
+    protected function make_login_session($user)
+    {
+        $userinfo = [
+            'userid'    => $user->id,
+            'username'    => $user->username,
+            'password'    => substr(md5($user->password) ,0 ,8)
+        ];
+
+        session(['userinfo' => $userinfo]);
+    }
     /**
      * 注册校验
      * @param $data
