@@ -157,13 +157,9 @@ class AuthController extends Controller
         return redirect(route('getAdminLogin'));
     }
 
-    public function getEnterpassword()
+    public function getEnterpassword(Request $request)
     {
+        if($request->isMethod('POST'))
         return admin_view('auth.enterpassword');
-    }
-
-    public function postEnterpassword()
-    {
-
     }
 }

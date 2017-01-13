@@ -22,7 +22,7 @@ Route::group($admin , function(){
     Route::get('register' , 'AuthController@getRegister')->name('getAdminRegister');
     Route::post('register' , 'AuthController@postRegister')->name('postAdminRegister');
     Route::get('logout' , 'AuthController@getLogout')->name('getAdminLogout');
-
+    Route::any('enterpassword' , 'AuthController@getEnterpassword')->name('enterpassword');
     //AdminAuthenticate中间件接管
     Route::group(['middleware' => 'admin'] ,function(){
 
