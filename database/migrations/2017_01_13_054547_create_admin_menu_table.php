@@ -18,7 +18,7 @@ class CreateAdminMenuTable extends Migration
             $table->string('catname')->comment('分类名称');
             $table->string('control')->comment('控制器名称');
             $table->string('func')->comment('方法名称');
-            $table->string
+            $table->string()->comment();
             $table->unsignedSmallInteger('listorder')->comment('排序');
 
         });
