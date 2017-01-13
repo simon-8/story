@@ -31,6 +31,7 @@ class BaseController extends Controller
             $user = $this->Manager->findByUsername($userinfo['username']);
             if( $user )
             {
+                //确认密码
                 if( $userinfo['password'] == $this->Manager->session_use_password($user->password) )
                 {
                     self::$userid = $user->id;
