@@ -33,7 +33,7 @@
         <form class="m-t" role="form" action="{{ route('getEnterpassword') }}" method="post">
             {!! csrf_field() !!}
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="************" required="">
+                <input name="password" type="password" class="form-control" placeholder="************" required="">
             </div>
 
             @if(count($errors))

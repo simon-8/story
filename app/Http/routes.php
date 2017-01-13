@@ -30,7 +30,7 @@ Route::group($admin , function(){
         Route::controllers([
             'article' => 'ArticleController',
             'auth'	  => 'AuthController',
-            //'/'       => 'IndexController',
+            'menu'    => 'MenuController',
         ]);
     });
 

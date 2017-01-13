@@ -164,11 +164,13 @@ class AuthController extends BaseController
         if( $request->isMethod('POST') )
         {
             $password = $request->password;
+
             if( $this->Manager->compare_password($password , self::$user->password) )
             {
                 $this->make_login_session(self::$user);
                 return redirect()->route('getAdminIndex');
             }
+
             return back()->withErrors('请输入正确的密码')->withInput();
         }
         else
