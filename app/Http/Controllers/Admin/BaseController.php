@@ -41,6 +41,7 @@ class BaseController extends Controller
                 }
                 else
                 {
+                    //密码不匹配，确认密码
                     return redirect()->route('getEnterpassword');
                 }
             }
