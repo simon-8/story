@@ -15,10 +15,11 @@ class BaseController extends Controller
     protected static $userid;
     protected static $username;
     protected static $truename;
+    protected static $user;
     protected $Manager;
-    public function __construct(Request $request , Manager $manager)
+    public function __construct()
     {
-        $this->Manager = $manager;
+        $this->Manager = new Manager();
         $this->login();
     }
 
@@ -35,11 +36,12 @@ class BaseController extends Controller
                     self::$userid = $user->id;
                     self::$username = $user->username;
                     self::$truename = $user->truename;
+                    self::$user = $user;
                     return true;
                 }
                 else
                 {
-                    return redirect()->route('enterpassword');
+                    return redirect()->route('getEnterpassword');
                 }
             }
         }

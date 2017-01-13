@@ -11,16 +11,18 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Manager;
 use Validator;
 use Auth;
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     protected $Manager;
     public function __construct(Manager $manager)
     {
-        $this->middleware('admin.guest' , ['except' =>  [
-                                            'getEnterpassword',
-                                            'getLogout',
-                                        ]
-        ]);
+        parent::__construct();
+        //排除的路由
+        $except = [
+            'getEnterpassword',
+            'getLogout',
+        ];
+        $this->middleware('admin.guest' , ['except' =>  $except]);
         $this->Manager = $manager;
     }
 
@@ -70,7 +72,7 @@ class AuthController extends Controller
                     'lastip'    => $request->ip(),
                 ]);
                 $this->make_login_session($user);
-                return redirect(route('getAdminIndex'));
+                return redirect()->route('getAdminIndex');
             }
             else
             {
@@ -138,7 +140,7 @@ class AuthController extends Controller
         $result = $this->Manager->create_manager($data);
         if($result)
         {
-            return redirect(route('getAdminLogin'));
+            return redirect()->route('getAdminLogin');
         }
         else
         {
@@ -159,7 +161,19 @@ class AuthController extends Controller
 
     public function getEnterpassword(Request $request)
     {
-        if($request->isMethod('POST'))
-        return admin_view('auth.enterpassword');
+        if( $request->isMethod('POST') )
+        {
+            $password = $request->password;
+            if( $this->Manager->compare_password($password , self::$user->password) )
+            {
+                $this->make_login_session(self::$user);
+                return redirect()->route('getAdminIndex');
+            }
+            return back()->withErrors('请输入正确的密码')->withInput();
+        }
+        else
+        {
+            return admin_view('auth.enterpassword');
+        }
     }
 }
