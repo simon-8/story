@@ -31,6 +31,7 @@ Route::group($admin , function(){
             'article' => 'ArticleController',
             'auth'	  => 'AuthController',
             'menu'    => 'MenuController',
+            'manager' => 'ManagerController',
         ]);
     });
 

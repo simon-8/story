@@ -92,4 +92,9 @@ class Manager extends Model
         return substr(md5($password) ,0 ,8);
     }
 
+    public function lists($condition = [] , $order = 'id DSEC', $page = 1 , $pagesize = 20)
+    {
+        $order = $order ? explode(' ' , $order) : ['id' ,'DESC'];
+        return $this->where($condition)->orderBy($order[0] , $order[1])->get();
+    }
 }

@@ -25,6 +25,7 @@ class MenuController extends BaseController
     public function getCreate(Request $request)
     {
 
+        return admin_view('menu.create');
     }
 
     public function postUpdate(Request $request)
@@ -34,6 +35,7 @@ class MenuController extends BaseController
 
     public function getDelete(Request $request)
     {
-
+        $itemid = $request->itemid;
+        $this->Menu->delete_menu($itemid);
     }
 }
