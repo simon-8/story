@@ -1,4 +1,7 @@
 <?php
+$a = '/([\u4e00-\u9fa5]{3,5}|(\w){3,16})/i';
+$b = preg_match($a , '我快点撒飞+adsefasdfasdfwerfewrqwerweqr');
+var_dump($b);
 /**
  * test
  * Created by PhpStorm.

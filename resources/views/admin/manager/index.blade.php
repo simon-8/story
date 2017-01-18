@@ -24,8 +24,8 @@
                     <td>{{ date('Y-m-d H:i:s' , $v->lasttime) }}</td>
                     <td>{{ $v->lastip }}</td>
                     <td>
-                        <a class="btn btn-sm btn-info" href="{{ route('') }}">编辑</a>
-                        <a class="btn btn-sm btn-danger" href="{{ route('') }}">删除</a>
+                        <a class="btn btn-sm btn-info" href="{{ url('admin/manager/update' , ['id'=>$v->id]) }}">编辑</a>
+                        <a class="btn btn-sm btn-danger" href="{{ url('admin/manager/delete' , ['id'=>$v->id]) }}">删除</a>
                     </td>
                 </tr>
             @endforeach
@@ -37,6 +37,7 @@
             </tr>
         @endif
     </table>
+    <a href="{{ route('Manager.getCreate') }}" class="btn btn-default">添加管理员</a>
     <button class="btn">管理员列表</button>
     <button class="btn">权限管理</button>
     <button class="btn">配置</button>

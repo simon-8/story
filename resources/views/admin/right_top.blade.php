@@ -16,7 +16,7 @@
           <li class="m-t-xs">
             <div class="dropdown-messages-box">
               <a href="profile.html" class="pull-left">
-                <img alt="image" class="img-circle" src="/skin/manage/img/a7.jpg">
+                <img alt="image" class="img-circle" src="/skin/manager/img/a7.jpg">
               </a>
               <div class="media-body">
                 <small class="pull-right">46小时前</small>
@@ -30,7 +30,7 @@
           <li>
             <div class="dropdown-messages-box">
               <a href="profile.html" class="pull-left">
-                <img alt="image" class="img-circle" src="/skin/manage/img/a4.jpg">
+                <img alt="image" class="img-circle" src="/skin/manager/img/a4.jpg">
               </a>
               <div class="media-body ">
                 <small class="pull-right text-navy">25小时前</small>

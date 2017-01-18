@@ -5,7 +5,7 @@
       <ul class="nav" id="side-menu">
         <li class="nav-header">
           <div class="dropdown profile-element">
-            <span><img alt="image" class="img-circle" src="/skin/manage/img/profile_small.jpg" /></span>
+            <span><img alt="image" class="img-circle" src="/skin/manager/img/profile_small.jpg" /></span>
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
               <span class="clear">
                 <span class="block m-t-xs"><strong class="font-bold">刘文静</strong></span>

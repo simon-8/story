@@ -10,6 +10,7 @@ class Manager extends Model
         'username',
         'password',
         'truename',
+        'email',
         'salt',
         'lasttime',
         'lastip',

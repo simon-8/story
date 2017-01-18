@@ -17,6 +17,9 @@ $admin = [
     //'middleware'    => 'admin'
 ];
 Route::group($admin , function(){
+    Route::get('form' , function(){
+       return view('admin.form');
+    });
     Route::get('login' , 'AuthController@getLogin')->name('getAdminLogin');
     Route::post('login' , 'AuthController@postLogin')->name('postAdminLogin');
     Route::get('register' , 'AuthController@getRegister')->name('getAdminRegister');
@@ -27,12 +30,30 @@ Route::group($admin , function(){
     Route::group(['middleware' => 'admin'] ,function(){
 
         Route::get('/' , 'IndexController@getIndex')->name('getAdminIndex');
-        Route::controllers([
+
+        Route::controller('manager' , 'ManagerController' , [
+            'getIndex'   => 'Manager.getIndex',
+            'getCreate'  => 'Manager.getCreate',
+            'postCreate' => 'Manager.postCreate',
+            'getUpdate'  => 'Manager.getUpdate',
+            'postUpdate' => 'Manager.postUpdate',
+            'getDelete'  => 'Manager.getDelete',
+        ]);
+        Route::controller('menu' , 'MenuController' , [
+            'getIndex'   => 'Menu.getIndex',
+            'getCreate'  => 'Menu.getCreate',
+            'postCreate' => 'Menu.postCreate',
+            'getUpdate'  => 'Menu.getUpdate',
+            'postUpdate' => 'Menu.postUpdate',
+            'getDelete'  => 'Menu.getDelete',
+        ]);
+
+/*        Route::controllers([
             'article' => 'ArticleController',
             'auth'	  => 'AuthController',
             'menu'    => 'MenuController',
             'manager' => 'ManagerController',
-        ]);
+        ]);*/
     });
 
 });
