@@ -30,6 +30,15 @@ class ManagerController extends BaseController
     }
 
     /**
+     * 创建用户
+     * @return mixed
+     */
+    public function getCreate()
+    {
+        return admin_view('manager.create');
+    }
+
+    /**
      * 创建校验
      * @param $data
      * @return mixed
@@ -42,15 +51,6 @@ class ManagerController extends BaseController
             'password' => 'required|string|min:4|max:255',
             'email'    => 'required|string|email|unique:managers',
         ]);
-    }
-
-    /**
-     * 创建用户
-     * @return mixed
-     */
-    public function getCreate()
-    {
-        return admin_view('manager.create');
     }
 
     /**
@@ -82,6 +82,19 @@ class ManagerController extends BaseController
         }
     }
 
+    /**
+     * 更新用户
+     * @param $id
+     * @return mixed
+     */
+    public function getUpdate($id)
+    {
+        $data = $this->Manager->find($id);
+        if(!$data){
+            abort(404 , '用户不存在');
+        }
+        return admin_view('manager.create' , $data);
+    }
 
     /**
      * 更新校验
@@ -102,20 +115,6 @@ class ManagerController extends BaseController
             unset($validate_rule['password']);
         }
         return Validator::make($data , $validate_rule);
-    }
-
-    /**
-     * 更新用户
-     * @param $id
-     * @return mixed
-     */
-    public function getUpdate($id)
-    {
-        $data = $this->Manager->find($id);
-        if(!$data){
-            abort(404 , '用户不存在');
-        }
-        return admin_view('manager.create' , $data);
     }
 
     /**
