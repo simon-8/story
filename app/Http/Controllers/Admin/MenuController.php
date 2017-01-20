@@ -7,7 +7,7 @@
 namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\Admin\Menu;
-
+use Validator;
 class MenuController extends BaseController
 {
     protected $Menu;
@@ -19,7 +19,11 @@ class MenuController extends BaseController
 
     public function getIndex()
     {
-        return admin_view('menu.index');
+        $lists = $this->Menu->lists();
+        $data = [
+            'lists' => $lists,
+        ];
+        return admin_view('menu.index' , $data);
     }
 
     public function getCreate(Request $request)
@@ -28,10 +32,36 @@ class MenuController extends BaseController
         return admin_view('menu.create');
     }
 
-    public function postCreate()
+    protected function validator_create($data)
     {
-
+        return Validator::make($data , [
+            'name'   => 'required|string',
+            'prefix' => 'required|string',
+            'route'  => 'required|string',
+        ]);
     }
+
+    public function postCreate(Request $request)
+    {
+        $data = $request->all();
+        $validator = $this->validator_create($data);
+        if($validator->fails())
+        {
+            $this->throwValidationException(
+                $request , $validator
+            );
+        }
+        $result = $this->Menu->create_menu($data);
+        if($result)
+        {
+            return redirect()->route('Menu.getIndex')->with('Message' , '添加成功');
+        }
+        else
+        {
+            return back()->withErrors('添加失败')->withInput();
+        }
+    }
+
     public function postUpdate(Request $request)
     {
 

@@ -7,7 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Menu extends Model
 {
     protected $table = 'admin_menus';
-    protected $fillable;
+    protected $fillable = [
+        'pid',
+        'name',
+        'prefix',
+        'route',
+        'ico',
+        'listorder',
+    ];
+    public $timestamps = false;
 
 
     /**
@@ -19,19 +27,19 @@ class Menu extends Model
      */
     public function lists($condition = [] , $page = 1 , $pagesize = 20)
     {
-        $condition = empty($condition) ? ['itemid' ,'>' ,'1'] : $condition;
-        return $this->where($condition)->select();
+        $condition = empty($condition) ? ['id' ,'>' ,'0'] : $condition;
+        return $this->where('id' ,'>' ,0)->get();
     }
 
 
     public function create_menu($data)
     {
-
+        return $this->create($data);
     }
 
     public function update_menu($data)
     {
-
+        return $this->update($data);
     }
 
     /**
@@ -41,7 +49,7 @@ class Menu extends Model
      */
     public function delete_menu($itemid)
     {
-        $this->where('itemid' , $itemid)->delete();
+        $this->where('id' , $itemid)->delete();
         $this->where('pid' , $itemid)->delete();
         return true;
     }
