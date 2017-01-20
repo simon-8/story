@@ -105,10 +105,10 @@ class ManagerController extends BaseController
     protected function validate_update($data , $repassword = false)
     {
         $validate_rule = [
-            'username' => 'required|string|min:4|max:50',
+            'username' => 'required|string|min:4|max:50|unique:managers,username,' . $data['id'],
             'truename' => 'required|string',
             'password' => 'required|string|min:4|max:255',
-            'email'    => 'required|string|email',
+            'email'    => 'required|string|email|unique:managers,email,' . $data['id'],
         ];
         if(false == $repassword)
         {
@@ -127,6 +127,7 @@ class ManagerController extends BaseController
         $data = $request->all();
         $repassword = $data['password'] ? true : false;
         $validator = $this->validate_update($data , $repassword);
+
         if( $validator->fails() )
         {
             $this->throwValidationException(
@@ -144,8 +145,31 @@ class ManagerController extends BaseController
         }
     }
 
-    public function getDelete($id)
+    public function getDelete(Request $request)
     {
-        var_dump($id);
+        $user = $this->Manager->find($request->id);
+        if($user)
+        {
+            if($user->id == 1)
+            {
+                return redirect()->route('Manager.getIndex')->withErrors('内置管理员账户无法删除');
+            }
+
+            $result = $user->delete();
+            if($result)
+            {
+                return redirect()->route('Manager.getIndex')->with('Message' , '删除成功');
+            }
+            else
+            {
+                return redirect()->route('Manager.getIndex')->withErrors('删除失败');
+            }
+        }
+        else
+        {
+            return redirect()->route('Manager.getIndex')->withErrors('用户不存在');
+        }
     }
+
+
 }

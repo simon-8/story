@@ -55,6 +55,12 @@
         </div>
         <div class="row J_mainContent" id="content-main">
             <div class="wrapper wrapper-content">
+                @if(session('Message'))
+                    <div class="alert alert-success alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        {{ session('Message') }}
+                    </div>
+                @endif
                 @if(count($errors) > 0)
                     @foreach($errors->all() as $error)
                         <div class="alert alert-danger alert-dismissable">

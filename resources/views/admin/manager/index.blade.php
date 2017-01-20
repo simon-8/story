@@ -27,7 +27,7 @@
                     <td>{{ $v->lastip ? $v->lastip : '从未登录' }}</td>
                     <td>
                         <a class="btn btn-sm btn-info" href="{{ url('admin/manager/update' , ['id'=>$v->id]) }}">编辑</a>
-                        <a class="btn btn-sm btn-danger" href="{{ url('admin/manager/delete' , ['id'=>$v->id]) }}">删除</a>
+                        <a class="btn btn-sm btn-danger" onclick="Delete({{ $v->id }})">删除</a>
                     </td>
                 </tr>
             @endforeach
@@ -39,9 +39,22 @@
             </tr>
         @endif
     </table>
-    <a href="{{ route('Manager.getCreate') }}" class="btn btn-default">添加管理员</a>
-    <a href="{{ route('Manager.getDelete') }}" class="btn btn-default">批量删除</a>
-    <a class="btn btn-default">权限管理</a>
-    <a class="btn btn-default">配置</a>
+    <a href="{{ route('Manager.getCreate') }}" class="btn btn-info">添加管理员</a>
+    <a href="{{ route('Manager.getDelete') }}" class="btn btn-warning">批量删除</a>
+    <a class="btn btn-warning">权限管理</a>
+    <a class="btn btn-success">模块配置</a>
 </div>
+
+<script>
+
+var deleteModal = '#deleteModal';
+function Delete(id)
+{
+    $(deleteModal).find('input[type=hidden]').val(id);
+    $(deleteModal).modal('show');
+}
+
+</script>
+
+@include('admin.modal.delete' , ['formurl' => route('Manager.getDelete')])
 @endsection('content')

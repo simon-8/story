@@ -51,11 +51,12 @@
         <li>
           <a href="{{ route('Manager.getIndex') }}">
             <i class="fa fa-user"></i> 
-            <span class="nav-label">用户管理 </span>
+            <span class="nav-label">管理员管理 </span>
             <span class="fa arrow"></span>
           </a>
           <ul class="nav nav-second-level">
-            <li><a class="J_menuItem" href="{{ route('Manager.getIndex') }}">用户列表</a></li>
+            <li><a class="J_menuItem" href="{{ route('Manager.getCreate') }}">添加管理员</a></li>
+            <li><a class="J_menuItem" href="{{ route('Manager.getIndex') }}">管理员列表</a></li>
             <li><a class="J_menuItem" href="{{ url('admin') }}">用户权限</a></li>
             <li><a class="J_menuItem" href="{{ url('admin/article/recycle') }}">回收站</a></li>
           </ul>
@@ -97,6 +98,20 @@
             <li><a class="J_menuItem" href="{{ url('admin/article') }}">相册列表</a></li>
             <li><a class="J_menuItem" href="{{ url('admin') }}">相册分类</a></li>
             <li><a class="J_menuItem" href="{{ url('admin/article/recycle') }}">回收站</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="{{ route('Menu.getIndex') }}">
+            <i class="fa fa-cog"></i>
+            <span class="nav-label">后台管理菜单 </span>
+            <span class="fa arrow"></span>
+          </a>
+          <ul class="nav nav-second-level">
+            <li><a class="J_menuItem" href="{{ route('Menu.getCreate') }}">添加菜单</a></li>
+            <li><a class="J_menuItem" href="{{ route('Menu.getIndex') }}">后台管理菜单</a></li>
+            <li><a class="J_menuItem" href="{{ url('admin') }}">邮件配置</a></li>
+            <li><a class="J_menuItem" href="{{ url('admin/article/recycle') }}">一键登录</a></li>
           </ul>
         </li>
         <li>

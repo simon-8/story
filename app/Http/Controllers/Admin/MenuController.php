@@ -28,6 +28,10 @@ class MenuController extends BaseController
         return admin_view('menu.create');
     }
 
+    public function postCreate()
+    {
+
+    }
     public function postUpdate(Request $request)
     {
 
