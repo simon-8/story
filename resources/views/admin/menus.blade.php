@@ -36,26 +36,26 @@
           </a>
         </li>
         <li>
-          <a href="{{ url('admin/article') }}">
+          <a href="{{ route('Article.getIndex') }}">
             <i class="fa fa-book"></i> 
             <span class="nav-label">文章管理 </span>
             <span class="fa arrow"></span>
           </a>
           <ul class="nav nav-second-level">
-            <li><a class="J_menuItem" href="{{ url('admin/article') }}">文章列表</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin') }}">文章分类</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin') }}">评价</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin/article/recycle') }}">回收站</a></li>
+            <li><a class="J_menuItem" href="{{ route('Article.getIndex') }}">文章列表</a></li>
+            <li><a class="J_menuItem" href="{{ route('Article.getIndex') }}">文章分类</a></li>
+            <li><a class="J_menuItem" href="{{ route('Article.getIndex') }}">评价</a></li>
+            <li><a class="J_menuItem" href="{{ route('Article.getIndex') }}">回收站</a></li>
           </ul>
         </li>
         <li>
-          <a href="{{ url('admin/user') }}">
+          <a href="{{ route('Manager.getIndex') }}">
             <i class="fa fa-user"></i> 
             <span class="nav-label">用户管理 </span>
             <span class="fa arrow"></span>
           </a>
           <ul class="nav nav-second-level">
-            <li><a class="J_menuItem" href="{{ url('admin/user') }}">用户列表</a></li>
+            <li><a class="J_menuItem" href="{{ route('Manager.getIndex') }}">用户列表</a></li>
             <li><a class="J_menuItem" href="{{ url('admin') }}">用户权限</a></li>
             <li><a class="J_menuItem" href="{{ url('admin/article/recycle') }}">回收站</a></li>
           </ul>

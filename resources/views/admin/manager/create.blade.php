@@ -3,25 +3,32 @@
 @section('content')
 
 <div class="ibox float-e-margins">
-    <form method="post" class="form-horizontal" action="{{ route('Manager.postCreate') }}" id="sform">
+
+    <form method="post" class="form-horizontal" action="{{ isset($id) ? route('Manager.postUpdate') : route('Manager.postCreate') }}" id="sform">
         {!! csrf_field() !!}
         <div class="col-sm-12 col-md-6">
             <div class="ibox-title">
-                <h5>添加用户</h5>
+                @if(isset($id))
+                    <h5>编辑用户</h5>
+                    <input type="hidden" name="id" value="{{ $id }}">
+                @else
+                    <h5>添加用户</h5>
+                @endif
             </div>
             <div class="ibox-content">
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">用户名</label>
                         <div class="col-sm-10">
-                            <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" minlength="4" required>
+                            <input id="username" type="text" class="form-control" name="username" value="{{ isset($username) ? $username : old('username') }}">
+                            <span class="help-block m-b-none">用户用来登录的账户名称</span>
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">密码</label>
                         <div class="col-sm-10">
-                            <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}" minlength="4" required>
+                            <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
                             <span class="help-block m-b-none">仅支持数字和字母的组合</span>
                         </div>
                     </div>
@@ -29,16 +36,16 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">真实姓名</label>
                         <div class="col-sm-10">
-                            <input id="truename" type="text" class="form-control" name="truename" value="{{ old('truename') }}" minlength="2" required>
-                            <span class="help-block m-b-none">用于登录后显示</span>
+                            <input id="truename" type="text" class="form-control" name="truename" value="{{ isset($truename) ? $truename : old('truename') }}">
+                            <span class="help-block m-b-none">用于登录后显示的昵称</span>
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">邮箱</label>
                         <div class="col-sm-10">
-                            <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" minlength="6" required>
-                            <span class="help-block m-b-none" email:true>便于邮件推送消息</span>
+                            <input id="email" type="text" class="form-control" name="email" value="{{ isset($email) ? $email : old('email') }}">
+                            <span class="help-block m-b-none">便于邮件推送系统消息</span>
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
@@ -69,7 +76,7 @@
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-2">
                             <button class="btn btn-primary" type="submit">保存内容</button>
-                            <a class="btn btn-white" href="">取消</a>
+                            <a class="btn btn-white" href="{{ route('Manager.getIndex') }}">返回</a>
                         </div>
                     </div>
             </div>
@@ -110,94 +117,61 @@
 </div>
 
 <!-- jQuery Validation plugin javascript-->
-<script src="/skin/js/plugins/validate/jquery.validate.min.js"></script>
-<script src="/skin/js/plugins/validate/messages_zh.min.js"></script>
+{!! jquery_validate_js() !!}
 <script>
 
     $(function(){
-        $.validator.setDefaults({
-            highlight: function(a) {
-                $(a).closest(".form-group").removeClass("has-success").addClass("has-error")
-            },
-            success: function(a) {
-                a.closest(".form-group").removeClass("has-error").addClass("has-success")
-            },
-            errorElement: "span",
-            errorPlacement: function(a, b) {
-                if (b.is(":radio") || b.is(":checkbox")) {
-                    a.appendTo(b.parent().parent().parent())
-                } else {
-                    a.appendTo(b.parent())
-                }
-            },
-            errorClass: "help-block m-b-none",
-            validClass: "help-block m-b-none"
-        });
-        $("#sform").validate({
-            debug:true
-        });
-    });
+        {!! jquery_validate_default() !!}
 
-/*    $().ready(function() {
-        $("#commentForm").validate();
-        var a = "<i class='fa fa-times-circle'></i> ";
-        $("#signupForm").validate({
-            rules: {
-                firstname: "required",
-                lastname: "required",
-                username: {
-                    required: true,
-                    minlength: 2
+        @if(isset($id))
+
+        $("#sform").validate({
+            debug:false,
+            rules:{
+                username:{
+                    required:true,
+                    minlength:4,
                 },
-                password: {
-                    required: true,
-                    minlength: 5
+/*                password:{
+                    required:true,
+                    minlength:4,
+                },*/
+                email:{
+                    required:true,
+                    email:true,
                 },
-                confirm_password: {
-                    required: true,
-                    minlength: 5,
-                    equalTo: "#password"
+                truename:{
+                    required:true,
+                    minlength:2,
                 },
-                email: {
-                    required: true,
-                    email: true
-                },
-                topic: {
-                    required: "#newsletter:checked",
-                    minlength: 2
-                },
-                agree: "required"
-            },
-            messages: {
-                firstname: a + "请输入你的姓",
-                lastname: a + "请输入您的名字",
-                username: {
-                    required: a + "请输入您的用户名",
-                    minlength: a + "用户名必须两个字符以上"
-                },
-                password: {
-                    required: a + "请输入您的密码",
-                    minlength: a + "密码必须5个字符以上"
-                },
-                confirm_password: {
-                    required: a + "请再次输入密码",
-                    minlength: a + "密码必须5个字符以上",
-                    equalTo: a + "两次输入的密码不一致"
-                },
-                email: a + "请输入您的E-mail",
-                agree: {
-                    required: a + "必须同意协议后才能注册",
-                    element: "#agree-error"
-                }
             }
         });
-        $("#username").focus(function() {
-            var c = $("#firstname").val();
-            var b = $("#lastname").val();
-            if (c && b && !this.value) {
-                this.value = c + "." + b
+
+        @else
+
+        $("#sform").validate({
+            debug:false,
+            rules:{
+                username:{
+                    required:true,
+                    minlength:4,
+                },
+                password:{
+                    required:true,
+                    minlength:4,
+                },
+                email:{
+                    required:true,
+                    email:true,
+                },
+                truename:{
+                    required:true,
+                    minlength:2,
+                },
             }
-        })*/
-//    });
+        });
+
+        @endif
+    });
 </script>
 @endsection('content')

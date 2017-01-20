@@ -11,11 +11,11 @@
     <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
     <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 
-    <link href="/skin/manage/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
-    {{--<link href="/skin/manage/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">--}}
+    <link href="/skin/manager/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    {{--<link href="/skin/manager/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">--}}
 
-    <link href="/skin/manage/css/animate.min.css" rel="stylesheet">
-    <link href="/skin/manage/css/style.min.css?v=4.0.0" rel="stylesheet">
+    <link href="/skin/manager/css/animate.min.css" rel="stylesheet">
+    <link href="/skin/manager/css/style.min.css?v=4.0.0" rel="stylesheet">
 
 </head>
 
@@ -26,7 +26,7 @@
 <div class="middle-box text-center lockscreen animated fadeInDown">
     <div>
         <div class="m-b-md">
-            <img alt="image" class="img-circle circle-border" src="/skin/manage/img/profile_small.jpg">
+            <img alt="image" class="img-circle circle-border" src="/skin/manager/img/profile_small.jpg">
         </div>
         <h3>Beaut-zihan</h3>
         <p>您需要再次输入密码</p>

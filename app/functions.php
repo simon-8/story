@@ -76,3 +76,44 @@ function upload_base64_pic($thumb)
 
     return $thumb;
 }
+
+/**
+ * validate.js
+ * @return string
+ */
+function jquery_validate_js()
+{
+    return <<<php
+    <script src="/skin/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/skin/js/plugins/validate/messages_zh.min.js"></script>
+php;
+}
+/**
+ * 生成jquery.validate的默认设置
+ * @return string
+ */
+function jquery_validate_default()
+{
+    $js = <<<php
+    $.validator.setDefaults({
+        highlight: function(a) {
+            $(a).closest(".form-group").removeClass("has-success").addClass("has-error")
+        },
+        success: function(a) {
+            a.closest(".form-group").removeClass("has-error").addClass("has-success")
+        },
+        errorElement: "span",
+        errorPlacement: function(a, b) {
+            if (b.is(":radio") || b.is(":checkbox")) {
+                a.appendTo(b.parent().parent().parent())
+            } else {
+                a.appendTo(b.parent())
+            }
+        },
+        errorClass: "help-block m-b-none",
+        validClass: "help-block m-b-none"
+    });
+php;
+    return $js;
+
+}

@@ -29,37 +29,41 @@ class ManagerController extends BaseController
         return admin_view('manager.index' , $data);
     }
 
-    public function getCreate()
-    {
-        return admin_view('manager.create');
-    }
-
-
     /**
-     * 注册校验
+     * 创建校验
      * @param $data
      * @return mixed
      */
-    protected function validate_register($data)
+    protected function validate_create($data)
     {
         return Validator::make($data , [
             'username' => 'required|string|min:4|max:50|unique:managers',
             'truename' => 'required|string',
             'password' => 'required|string|min:4|max:255',
-            'password_confirm' => 'same:password',
+            'email'    => 'required|string|email|unique:managers',
         ]);
     }
+
+    /**
+     * 创建用户
+     * @return mixed
+     */
+    public function getCreate()
+    {
+        return admin_view('manager.create');
+    }
+
     /**
      * 创建用户
      * @param Request $request
      * @param AuthController $auth
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function postCreate(Request $request)
     {
         $data = $request->all();
 
-        $validator = $this->validate_register($data);
+        $validator = $this->validate_create($data);
         if( $validator->fails() )
         {
             $this->throwValidationException(
@@ -78,16 +82,67 @@ class ManagerController extends BaseController
         }
     }
 
+
+    /**
+     * 更新校验
+     * @param $data
+     * @param bool $repassword
+     * @return \Illuminate\Validation\Validator
+     */
+    protected function validate_update($data , $repassword = false)
+    {
+        $validate_rule = [
+            'username' => 'required|string|min:4|max:50',
+            'truename' => 'required|string',
+            'password' => 'required|string|min:4|max:255',
+            'email'    => 'required|string|email',
+        ];
+        if(false == $repassword)
+        {
+            unset($validate_rule['password']);
+        }
+        return Validator::make($data , $validate_rule);
+    }
+
+    /**
+     * 更新用户
+     * @param $id
+     * @return mixed
+     */
     public function getUpdate($id)
     {
         $data = $this->Manager->find($id);
-        if($data) return admin_view('manager.create' , $data);
+        if(!$data){
+            abort(404 , '用户不存在');
+        }
+        return admin_view('manager.create' , $data);
     }
 
+    /**
+     * 更新用户
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postUpdate(Request $request)
     {
         $data = $request->all();
-
+        $repassword = $data['password'] ? true : false;
+        $validator = $this->validate_update($data , $repassword);
+        if( $validator->fails() )
+        {
+            $this->throwValidationException(
+                $request , $validator
+            );
+        }
+        $result = $this->Manager->update_manager($data);
+        if($result)
+        {
+            return redirect()->route('Manager.getIndex');
+        }
+        else
+        {
+            return back()->withErrors('更新失败')->withInput();
+        }
     }
 
     public function getDelete($id)

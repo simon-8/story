@@ -55,7 +55,15 @@
         </div>
         <div class="row J_mainContent" id="content-main">
             <div class="wrapper wrapper-content">
-            @yield('content')
+                @if(count($errors) > 0)
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger alert-dismissable">
+                            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                            {{  $error }}
+                        </div>
+                    @endforeach
+                @endif
+                @yield('content')
             </div>
         </div>
         <div class="footer" style="clear:both;overflow: auto;overflow-x:hidden">

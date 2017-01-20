@@ -9,11 +9,11 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <link href="/skin/manage/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
-    <link href="/skin/manage/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/skin/manager/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    <link href="/skin/manager/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
 
-    <link href="/skin/manage/css/animate.min.css" rel="stylesheet">
-    <link href="/skin/manage/css/style.min.css?v=4.0.0" rel="stylesheet">
+    <link href="/skin/manager/css/animate.min.css" rel="stylesheet">
+    <link href="/skin/manager/css/style.min.css?v=4.0.0" rel="stylesheet">
 </head>
 
 <body class="gray-bg">
@@ -48,7 +48,8 @@
             <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
 
             <p class="text-muted text-center">
-                <a href="login.html#"><small>忘记密码了？</small></a> | <a href="{{ route('getAdminRegister') }}">注册一个新账号</a>
+                <a href="login.html#"><small>忘记密码了？</small></a>
+                {{--| <a href="{{ route('getAdminRegister') }}">注册一个新账号</a>--}}
             </p>
 
         </form>

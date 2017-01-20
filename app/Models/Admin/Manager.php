@@ -21,14 +21,6 @@ class Manager extends Model
 //        'username'  => '用户名',
 //        'password'  => '密码',
 //    ];
-//    protected $attributes = [
-//        'username'  => '用户名',
-//        'password'  => '密码',
-//        'salt'      => '加点盐',
-//        'lasttime'  => '最后登录时间',
-//        'lastip'    => '最后登录ip',
-//        'remember_token'    => '记住我',
-//    ];
 
     /**
      * 添加用户
@@ -48,7 +40,18 @@ class Manager extends Model
      */
     public function update_manager($data)
     {
-        return $this->update($data);
+        $user = $this->find($data['id']);
+        if(!$user) return false;
+
+        if($data['password'])
+        {
+            $data['password'] = $this->encypt_password($data['password']);
+        }
+        else
+        {
+            unset($data['password']);
+        }
+        return $user->update($data);
     }
 
 
@@ -93,6 +96,14 @@ class Manager extends Model
         return substr(md5($password) ,0 ,8);
     }
 
+    /**
+     * 获取列表
+     * @param array $condition
+     * @param string $order
+     * @param int $page
+     * @param int $pagesize
+     * @return mixed
+     */
     public function lists($condition = [] , $order = 'id DSEC', $page = 1 , $pagesize = 20)
     {
         $order = $order ? explode(' ' , $order) : ['id' ,'DESC'];

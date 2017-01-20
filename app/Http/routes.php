@@ -17,15 +17,21 @@ $admin = [
     //'middleware'    => 'admin'
 ];
 Route::group($admin , function(){
+
+    //debug
     Route::get('form' , function(){
        return view('admin.form');
     });
+    //debug
+
     Route::get('login' , 'AuthController@getLogin')->name('getAdminLogin');
     Route::post('login' , 'AuthController@postLogin')->name('postAdminLogin');
-    Route::get('register' , 'AuthController@getRegister')->name('getAdminRegister');
-    Route::post('register' , 'AuthController@postRegister')->name('postAdminRegister');
+
+//    Route::get('register' , 'AuthController@getRegister')->name('getAdminRegister');
+//    Route::post('register' , 'AuthController@postRegister')->name('postAdminRegister');
     Route::get('logout' , 'AuthController@getLogout')->name('getAdminLogout');
     Route::any('enterpassword' , 'AuthController@getEnterpassword')->name('getEnterpassword');
+
     //AdminAuthenticate中间件接管
     Route::group(['middleware' => 'admin'] ,function(){
 
@@ -38,6 +44,14 @@ Route::group($admin , function(){
             'getUpdate'  => 'Manager.getUpdate',
             'postUpdate' => 'Manager.postUpdate',
             'getDelete'  => 'Manager.getDelete',
+        ]);
+        Route::controller('article' , 'ArticleController' , [
+            'getIndex'   => 'Article.getIndex',
+            'getCreate'  => 'Article.getCreate',
+            'postCreate' => 'Article.postCreate',
+            'getUpdate'  => 'Article.getUpdate',
+            'postUpdate' => 'Article.postUpdate',
+            'getDelete'  => 'Article.getDelete',
         ]);
         Route::controller('menu' , 'MenuController' , [
             'getIndex'   => 'Menu.getIndex',

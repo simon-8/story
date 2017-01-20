@@ -9,11 +9,11 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <link href="/skin/manage/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
-    <link href="/skin/manage/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
-    <link href="/skin/manage/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="/skin/manage/css/animate.min.css" rel="stylesheet">
-    <link href="/skin/manage/css/style.min.css?v=4.0.0" rel="stylesheet">
+    <link href="/skin/manager/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    <link href="/skin/manager/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/skin/manager/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/skin/manager/css/animate.min.css" rel="stylesheet">
+    <link href="/skin/manager/css/style.min.css?v=4.0.0" rel="stylesheet">
 </head>
 
 <body class="gray-bg">

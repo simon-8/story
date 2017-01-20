@@ -70,9 +70,9 @@ return [
         'string'  => 'The :attribute must be :size characters.',
         'array'   => 'The :attribute must contain :size items.',
     ],
-    'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => 'The :attribute 已经存在.',
-    'url'                  => 'The :attribute 格式无效.',
+    'timezone'             => ':attribute must be a valid zone.',
+    'unique'               => ':attribute 已经存在.',
+    'url'                  => ':attribute 格式无效.',
 
     /*
     |--------------------------------------------------------------------------
@@ -86,9 +86,12 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
+/*        'username'  => [
+            'required'  => '请填写用户名.',
+            'unique'    => '用户名已经存在.',
+            'min'   => '用户名 不能少于 :min 个字符.',
+            'max'   => '用户名 不能多于 :max 个字符.',
+        ],*/
     ],
 
     /*
@@ -102,6 +105,15 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'username'  => '用户名',
+        'truename'  => '真实姓名',
+        'password'  => '密码',
+        'email'     => '邮箱',
+        'title'     => '标题',
+        'content'   => '内容',
+        'catid'     => '分类',
+
+    ],
 
 ];
