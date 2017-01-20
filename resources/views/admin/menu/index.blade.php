@@ -22,7 +22,7 @@
             <td>{{ $v->ico }}</td>
             <td>
                 <button class="btn btn-sm btn-info">编辑</button>
-                <button class="btn btn-sm btn-danger" onclick="Delete(1)">删除</button>
+                <button class="btn btn-sm btn-danger" onclick="Delete({{ $v->id }})">删除</button>
             </td>
         </tr>
         @endforeach
