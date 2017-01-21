@@ -28,18 +28,28 @@ class Menu extends Model
     public function lists($condition = [] , $page = 1 , $pagesize = 20)
     {
         $condition = empty($condition) ? ['id' ,'>' ,'0'] : $condition;
-        return $this->where('id' ,'>' ,0)->get();
+        return $this->where('id' ,'>' ,0)->orderBy('listorder' ,'desc')->get();
     }
 
 
+    /**
+     * 创建数据
+     * @param $data
+     * @return static
+     */
     public function create_menu($data)
     {
         return $this->create($data);
     }
 
-    public function update_menu($data)
+    /**
+     * 更新数据
+     * @param $data
+     * @return bool|int
+     */
+    public function update_menu($item , $data)
     {
-        return $this->update($data);
+        return $item->update($data);
     }
 
     /**
@@ -53,4 +63,6 @@ class Menu extends Model
         $this->where('pid' , $itemid)->delete();
         return true;
     }
+
+
 }

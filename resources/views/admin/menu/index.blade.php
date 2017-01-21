@@ -21,7 +21,7 @@
             <td>{{ $v->route }}</td>
             <td>{{ $v->ico }}</td>
             <td>
-                <button class="btn btn-sm btn-info">编辑</button>
+                <button class="btn btn-sm btn-info" id="edit_{{ $v->id }}" data="{{ json_encode($v) }}" onclick="Edit({{ $v->id }})">编辑</button>
                 <button class="btn btn-sm btn-danger" onclick="Delete({{ $v->id }})">删除</button>
             </td>
         </tr>
@@ -38,12 +38,34 @@
 <script>
 
     var deleteModal = '#deleteModal';
-    function Delete(id)
+    var updateModal = '#updateModal';
+
+    function Delete(id , name)
     {
-        $(deleteModal).find('input[type=hidden]').val(id);
+        name = name ? name : 'id';
+        $(deleteModal).find('input[name='+name+']').val(id);
         $(deleteModal).modal('show');
     }
 
+    function Edit(id)
+    {
+
+        var json = $('#edit_' + id).attr('data');
+        json = JSON.parse(json);
+        $.each(json , function(k , v){
+            if( k == 'pid' )
+            {
+                $(updateModal).find('select[name=' + k + ']').val(v);
+            }
+            else
+            {
+                $(updateModal).find('input[name=' + k + ']').val(v);
+            }
+            console.log(k , v);
+        });
+
+        $(updateModal).modal('show');
+    }
 </script>
 
 {{--delete--}}
@@ -64,9 +86,9 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">父分类</label>
                         <div class="col-sm-10">
-                            <select name="pid" id="" class="form-control">
+                            <select name="pid" class="form-control">
                                 <option value="0">请选择</option>
-                                <option value="">创建菜单</option>
+                                <option value="1">创建菜单</option>
                             </select>
                             <span class="help-block m-b-none">选择菜单所属分类，不选择则代表一级分类</span>
                         </div>
@@ -74,7 +96,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">菜单名</label>
                         <div class="col-sm-10">
-                            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="用户管理">
+                            <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="用户管理">
                             <span class="help-block m-b-none">用来显示的名称</span>
                         </div>
                     </div>
@@ -88,21 +110,21 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">详细路由</label>
                         <div class="col-sm-10">
-                            <input id="route" type="text" class="form-control" name="route" value="{{ old('route') }}" placeholder="getIndex">
+                            <input type="text" class="form-control" name="route" value="{{ old('route') }}" placeholder="getIndex">
                             <span class="help-block m-b-none"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">图标</label>
                         <div class="col-sm-10">
-                            <input id="ico" type="text" class="form-control" name="ico" value="{{ old('ico') }}" placeholder="fa-setting">
+                            <input type="text" class="form-control" name="ico" value="{{ old('ico') }}" placeholder="fa-setting">
                             <span class="help-block m-b-none">图标</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">排序</label>
                         <div class="col-sm-10">
-                            <input id="listorder" type="text" class="form-control" name="listorder" value="{{ old('listorder') ? old('listorder') : 0 }}" placeholder="0">
+                            <input type="text" class="form-control" name="listorder" value="{{ old('listorder') ? old('listorder') : 0 }}" placeholder="0">
                             <span class="help-block m-b-none">越大越靠前</span>
                         </div>
                     </div>
@@ -116,4 +138,72 @@
     </div>
 </div>
 
+
+{{--update--}}
+<div class="modal inmodal" id="updateModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInX">
+            <form action="{{ route('Menu.postUpdate') }}" method="POST" class="form-horizontal">
+                {!! csrf_field() !!}
+                <input type="hidden" name="id" value="">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">编辑菜单</h4>
+                    {{--<small class="font-bold text-danger">删了可就没有了我跟你讲，不要搞事情。</small>--}}
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">父分类</label>
+                        <div class="col-sm-10">
+                            <select name="pid" id="" class="form-control">
+                                <option value="0">请选择</option>
+                                <option value="1">创建菜单</option>
+                            </select>
+                            <span class="help-block m-b-none">选择菜单所属分类，不选择则代表一级分类</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">菜单名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="name" value="" placeholder="用户管理">
+                            <span class="help-block m-b-none">用来显示的名称</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">路由前缀</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="prefix" value="" placeholder="Manager">
+                            <span class="help-block m-b-none"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">详细路由</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="route" value="" placeholder="getIndex">
+                            <span class="help-block m-b-none"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">图标</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="ico" value="" placeholder="fa-setting">
+                            <span class="help-block m-b-none">图标</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">排序</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="listorder" value="" placeholder="0">
+                            <span class="help-block m-b-none">越大越靠前</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection('content')
