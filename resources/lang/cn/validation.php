@@ -113,7 +113,9 @@ return [
         'title'     => '标题',
         'content'   => '内容',
         'catid'     => '分类',
-
+        'name'      => '名称',
+        'route'     => '路由',
+        'ico'       => '图标',
     ],
 
 ];

@@ -5678,8 +5678,8 @@ del {
 }
 
 .sk-spinner-cube-grid.sk-spinner {
-    width: 30px;
-    height: 30px;
+    width: 150px;
+    height: 150px;
     margin: 0 auto
 }
 
@@ -6929,3 +6929,28 @@ body.skin-3 {
 
 /* simon自定义 */
 .bg-white{ background-color: #FFF;}
+
+#loadding_box{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    /*display: none;*/
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    z-index: 2050!important;
+    background: rgba(2, 2, 2, 0.15);
+}
+#loadding_animate{
+    position: fixed;
+    top: calc( 50% - 75px);
+    left: calc( 50% - 75px);
+    z-index: 1050;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    z-index: 1200;
+}

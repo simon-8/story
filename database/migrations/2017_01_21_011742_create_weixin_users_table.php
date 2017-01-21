@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAuthTable extends Migration
+class CreateWeixinUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,9 @@ class CreateAuthTable extends Migration
      */
     public function up()
     {
-        Schema::create( 'roles' , function(Blueprint $table){
+        Schema::create('weixin_users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user')->comment('用户名');
-            $table->string('username')->comment('用户名');
-        });
-        Schema::create( 'premisssion' , function(Blueprint $table){
-
+            $table->timestamps();
         });
     }
 
@@ -29,6 +25,6 @@ class CreateAuthTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('weixin_users');
     }
 }

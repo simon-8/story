@@ -70,6 +70,20 @@
                     @endforeach
                 @endif
                 @yield('content')
+
+                <div id="loadding_box">
+                    <div id="loadding_animate" class="sk-spinner sk-spinner-cube-grid">
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footer" style="clear:both;overflow: auto;overflow-x:hidden">

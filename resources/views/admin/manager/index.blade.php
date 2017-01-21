@@ -48,9 +48,10 @@
 <script>
 
 var deleteModal = '#deleteModal';
-function Delete(id)
+function Delete(id , name)
 {
-    $(deleteModal).find('input[type=hidden]').val(id);
+    name = name ? name : 'id';
+    $(deleteModal).find('input[name='+name+']').val(id);
     $(deleteModal).modal('show');
 }
 
