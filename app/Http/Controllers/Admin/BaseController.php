@@ -17,13 +17,18 @@ class BaseController extends Controller
     protected static $truename;
     protected static $user;
     protected $Manager;
+
     public function __construct()
     {
         $this->Manager = new Manager();
-        $this->login();
+        $this->check_login();
     }
 
-    protected function login()
+    /**
+     * 检测用户登录
+     * @return bool|\Illuminate\Http\RedirectResponse
+     */
+    protected function check_login()
     {
         $userinfo = session('userinfo');
         if( $userinfo )
@@ -42,7 +47,7 @@ class BaseController extends Controller
                 }
                 else
                 {
-                    //密码不匹配，确认密码
+                    //密码不匹配，需要确认密码
                     return redirect()->route('getEnterpassword');
                 }
             }

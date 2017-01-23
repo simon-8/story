@@ -15,4 +15,32 @@ class ArticleController extends Controller
 		$data = [];
 		return admin_view('article.index',$data);
 	}
+	public function getCreate()
+    {
+
+    }
+    public function postCreate()
+    {
+
+    }
+    public function getUpdate()
+    {
+
+    }
+    public function postUpdate()
+    {
+
+    }
+    public function getDelete()
+    {
+
+    }
+    public function getCategorys()
+    {
+
+    }
+    public function getRecycle()
+    {
+
+    }
 }

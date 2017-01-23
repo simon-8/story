@@ -52,6 +52,8 @@ Route::group($admin , function(){
             'getUpdate'  => 'Article.getUpdate',
             'postUpdate' => 'Article.postUpdate',
             'getDelete'  => 'Article.getDelete',
+            'getCategorys'  => 'Article.getCategorys',
+            'getRecycle'  => 'Article.getRecycle',
         ]);
         Route::controller('menu' , 'MenuController' , [
             'getIndex'   => 'Menu.getIndex',
@@ -65,6 +67,10 @@ Route::group($admin , function(){
             'getIndex'   => 'Database.getIndex',
             'getFields'  => 'Database.getFields',
         ]);
+/*        Route::controller('weixin' , 'WeixinController' , [
+            'getIndex'   => 'Database.getIndex',
+            'getFields'  => 'Database.getFields',
+        ]);*/
 
 /*        Route::controllers([
             'article' => 'ArticleController',

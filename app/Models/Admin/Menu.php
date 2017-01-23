@@ -25,9 +25,9 @@ class Menu extends Model
      * @param int $pagesize
      * @return mixed
      */
-    public function lists()
+    public static function lists()
     {
-        $all = $this->orderBy('listorder' ,'desc')->get()->toArray();
+        $all = self::orderBy('listorder' ,'desc')->get()->toArray();
         $data = [];
         foreach($all as $k=>$v)
         {

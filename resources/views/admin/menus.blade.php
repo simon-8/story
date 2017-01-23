@@ -23,110 +23,24 @@
           </div>
           <div class="logo-element">SCMS</div>
         </li>
-        <li>
-          <a class="J_menuItem" href="{{ url('/') }}">
-            <i class="fa fa fa-destop"></i> 
-            <span class="nav-label">前台首页</span>
-          </a>
-        </li>
-        <li>
-          <a class="J_menuItem" href="{{ url('admin') }}">
-            <i class="fa fa-home"></i> 
-            <span class="nav-label">后台首页</span>
-          </a>
-        </li>
-        <li>
-          <a href="{{ route('Article.getIndex') }}">
-            <i class="fa fa-book"></i> 
-            <span class="nav-label">文章管理 </span>
-            <span class="fa arrow"></span>
-          </a>
-          <ul class="nav nav-second-level">
-            <li><a class="J_menuItem" href="{{ route('Article.getIndex') }}">文章列表</a></li>
-            <li><a class="J_menuItem" href="{{ route('Article.getIndex') }}">文章分类</a></li>
-            <li><a class="J_menuItem" href="{{ route('Article.getIndex') }}">评价</a></li>
-            <li><a class="J_menuItem" href="{{ route('Article.getIndex') }}">回收站</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="{{ route('Manager.getIndex') }}">
-            <i class="fa fa-user"></i> 
-            <span class="nav-label">管理员管理 </span>
-            <span class="fa arrow"></span>
-          </a>
-          <ul class="nav nav-second-level">
-            <li><a class="J_menuItem" href="{{ route('Manager.getCreate') }}">添加管理员</a></li>
-            <li><a class="J_menuItem" href="{{ route('Manager.getIndex') }}">管理员列表</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin') }}">用户权限</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin/article/recycle') }}">回收站</a></li>
-          </ul>
-        </li>
-
-        <li>
-          <a href="{{ url('admin/article') }}">
-            <i class="fa fa-picture-o"></i> 
-            <span class="nav-label">相册管理 </span>
-            <span class="fa arrow"></span>
-          </a>
-          <ul class="nav nav-second-level">
-            <li><a class="J_menuItem" href="{{ url('admin/article') }}">相册列表</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin') }}">相册分类</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin/article/recycle') }}">回收站</a></li>
-          </ul>
-        </li>
-
-        <li>
-          <a href="{{ url('admin/article') }}">
-            <i class="fa fa-wechat"></i> 
-            <span class="nav-label">微信管理 </span>
-            <span class="fa arrow"></span>
-          </a>
-          <ul class="nav nav-second-level">
-            <li><a class="J_menuItem" href="{{ url('admin/article') }}">相册列表</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin') }}">相册分类</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin/article/recycle') }}">回收站</a></li>
-          </ul>
-        </li>
-
-        <li>
-          <a href="{{ url('admin/article') }}">
-            <i class="fa fa-database"></i> 
-            <span class="nav-label">数据管理 </span>
-            <span class="fa arrow"></span>
-          </a>
-          <ul class="nav nav-second-level">
-            <li><a class="J_menuItem" href="{{ url('admin/article') }}">相册列表</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin') }}">相册分类</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin/article/recycle') }}">回收站</a></li>
-          </ul>
-        </li>
-
-        <li>
-          <a href="{{ route('Menu.getIndex') }}">
-            <i class="fa fa-cog"></i>
-            <span class="nav-label">后台管理菜单 </span>
-            <span class="fa arrow"></span>
-          </a>
-          <ul class="nav nav-second-level">
-            <li><a class="J_menuItem" href="{{ route('Menu.getCreate') }}">添加菜单</a></li>
-            <li><a class="J_menuItem" href="{{ route('Menu.getIndex') }}">后台管理菜单</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin') }}">邮件配置</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin/article/recycle') }}">一键登录</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="{{ url('admin/user') }}">
-            <i class="fa fa-cog"></i> 
-            <span class="nav-label">系统设置 </span>
-            <span class="fa arrow"></span>
-          </a>
-          <ul class="nav nav-second-level">
-            <li><a class="J_menuItem" href="{{ url('admin/user') }}">基本设置</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin') }}">邮件配置</a></li>
-            <li><a class="J_menuItem" href="{{ url('admin/article/recycle') }}">一键登录</a></li>
-          </ul>
-        </li>
-
+        @foreach(App\Models\Admin\Menu::lists() as $v)
+          <li>
+              <a href="">
+                  <i class="{{ $v['ico'] }}"></i>
+                  <span class="nav-label">{{ $v['name'] }} </span>
+                  @if(isset($v['child']))
+                  <span class="fa arrow"></span>
+                  @endif
+              </a>
+              @if(isset($v['child']))
+              <ul class="nav nav-second-level">
+                  @foreach($v['child'] as $vv)
+                    <li><a class="J_menuItem" href=""><i class="{{ $v['ico'] }}"></i>{{ $vv['name'] }}</a></li>
+                  @endforeach
+              </ul>
+              @endif
+          </li>
+        @endforeach
       </ul>
     </div>
   </nav>
