@@ -26,7 +26,8 @@
     <script src="/skin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 </head>
 
-<body class="fixed-sidebar full-height-layout gray-bg mini-navbar" style="overflow:hidden">
+{{--<body class="fixed-sidebar full-height-layout gray-bg mini-navbar" style="overflow:hidden">--}}
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
 <div id="wrapper">
     <!--左侧导航开始-->
 @include('admin.menus')

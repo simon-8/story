@@ -77,6 +77,7 @@ function upload_base64_pic($thumb)
     return $thumb;
 }
 
+
 /**
  * validate.js
  * @return string
@@ -88,6 +89,7 @@ function jquery_validate_js()
     <script src="/skin/js/plugins/validate/messages_zh.min.js"></script>
 php;
 }
+
 /**
  * 生成jquery.validate的默认设置
  * @return string
@@ -116,4 +118,18 @@ function jquery_validate_default()
 php;
     return $js;
 
+}
+
+/**
+ * obj转为数组
+ * @param $obj
+ * @return mixed
+ */
+function obj2arr($obj)
+{
+    if(is_object($obj))
+    {
+        return json_decode(json_encode($obj) , true);
+    }
+    return $obj;
 }

@@ -35,7 +35,6 @@ class MenuController extends BaseController
      */
     public function getCreate(Request $request)
     {
-
         return admin_view('menu.create');
     }
 
