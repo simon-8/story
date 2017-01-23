@@ -24,7 +24,7 @@
           <div class="logo-element">SCMS</div>
         </li>
         <li>
-          <a class="J_menuItem" href="{{ url() }}">
+          <a class="J_menuItem" href="{{ url('/') }}">
             <i class="fa fa fa-destop"></i> 
             <span class="nav-label">前台首页</span>
           </a>

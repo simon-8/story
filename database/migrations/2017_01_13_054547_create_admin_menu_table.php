@@ -20,6 +20,7 @@ class CreateAdminMenuTable extends Migration
             $table->string('route')->comment('详细路由');
             $table->string('ico')->comment('图标名称');
             $table->unsignedSmallInteger('listorder')->comment('排序');
+            $table->unsignedTinyInteger('items')->comment('子分类数量');
         });
     }
 

@@ -6954,3 +6954,6 @@ body.skin-3 {
     outline: 0;
     z-index: 1200;
 }
+.progress{
+    margin:0;
+}

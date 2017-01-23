@@ -61,6 +61,10 @@ Route::group($admin , function(){
             'postUpdate' => 'Menu.postUpdate',
             'getDelete'  => 'Menu.getDelete',
         ]);
+        Route::controller('database' , 'DatabaseController' , [
+            'getIndex'   => 'Database.getIndex',
+            'getFields'  => 'Database.getFields',
+        ]);
 
 /*        Route::controllers([
             'article' => 'ArticleController',
