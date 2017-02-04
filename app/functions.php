@@ -133,3 +133,42 @@ function obj2arr($obj)
     }
     return $obj;
 }
+
+/**
+ * 根据route名称返回URL
+ * @param $route
+ * @return string
+ */
+function route2url($route = '')
+{
+    if(empty($route)) return '/';
+    try{
+        return route($route);
+    }catch (\Exception $exception) {
+        return '';
+    }
+}
+
+function seditor($id){
+    $editor = 'ueditor';
+    if( $editor == 'kindeditor' ){
+        $url = "/plugins/editor/kindeditor/kindeditor.js";
+        $lang = "/plugins/editor/kindeditor/lang/zh_CN.js";
+        echo "<script charset='utf-8' src='$url'></script>";
+        echo "<script charset='utf-8' src='$lang'></script>";
+        echo "<script>";
+
+        echo " KindEditor.ready(function(K) { window.editor = K.create('#$id',{width:'100%',cssPath : '/plugins/editor/kindeditor/plugins/code/new.css',resizeMode:0});});";
+        // echo " KindEditor.ready(function(K) { window.editor = K.create('#$id',{width:'100%',resizeType : 1,allowPreviewEmoticons : false,allowImageUpload : false,items : [
+        // 	'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+        // 	'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+        // 	'insertunorderedlist', '|', 'emoticons', 'image', 'link']});});";
+        echo "</script>";
+    }else{
+        // echo "<script id='container' name='content' type='text/plain'></script>";
+        echo "<script type='text/javascript' src='/skin/plugins/editor/ueditor/ueditor.config.js'></script>";
+        echo "<script type='text/javascript' src='/skin/plugins/editor/ueditor/ueditor.all.js'></script>";
+        echo "<script type='text/javascript'> var ue = UE.getEditor('{$id}',{elementPathEnabled:false,contextMenu:[],enableAutoSave: false,saveInterval:500000});</script>";
+    }
+    return false;
+}

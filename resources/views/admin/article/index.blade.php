@@ -10,14 +10,8 @@
                     <h5>文件夹</h5>
                     <ul class="folder-list m-b-md" style="padding: 0">
                         <li>
-                            <a href="mailbox.html"> <i class="fa fa-inbox "></i> 收件箱 <span class="label label-warning pull-right">16</span>
+                            <a href="mailbox.html"> <i class="fa fa-inbox "></i> 已发布 <span class="label label-warning pull-right">16</span>
                             </a>
-                        </li>
-                        <li>
-                            <a href="mailbox.html"> <i class="fa fa-envelope-o"></i> 发信</a>
-                        </li>
-                        <li>
-                            <a href="mailbox.html"> <i class="fa fa-certificate"></i> 重要</a>
                         </li>
                         <li>
                             <a href="mailbox.html"> <i class="fa fa-file-text-o"></i> 草稿 <span class="label label-danger pull-right">2</span>
@@ -48,22 +42,8 @@
 
                     <h5 class="tag-title">标签</h5>
                     <ul class="tag-list" style="padding: 0">
-                        <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 朋友</a>
-                        </li>
-                        <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 工作</a>
-                        </li>
-                        <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 家庭</a>
-                        </li>
-                        <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 孩子</a>
-                        </li>
-                        <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 假期</a>
-                        </li>
-                        <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 音乐</a>
-                        </li>
-                        <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 照片</a>
-                        </li>
-                        <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 电影</a>
-                        </li>
+                        <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 朋友</a></li>
+                        <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 工作</a></li>
                     </ul>
                     <div class="clearfix"></div>
                 </div>
@@ -94,12 +74,10 @@
                     </button>
 
                 </div>
-                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="刷新邮件列表"><i class="fa fa-refresh"></i> 刷新</button>
-                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为已读"><i class="fa fa-eye"></i>
+                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="刷新邮件列表"><i class="fa fa-refresh"></i> 刷新</button>
+                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="改为待审核"><i class="fa fa-eye"></i>
                 </button>
-                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为重要"><i class="fa fa-exclamation"></i>
-                </button>
-                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为垃圾邮件"><i class="fa fa-trash-o"></i>
+                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-trash-o"></i>
                 </button>
 
             </div>
@@ -108,181 +86,34 @@
 
             <table class="table table-hover table-mail">
                 <tbody>
+                @if(count($lists))
+                    @foreach($lists as $v)
+                        <tr class="read">
+                            <td class="check-mail"><input type="checkbox" class="i-checks"></td>
+                            <td class="mail-ontact"><a href="">{{ $v['title'] }}</a></td>
+                            <td class="mail-subject"><a href="">{{ $v['introduce'] }}</a></td>
+                            {{--<td class=""><i class="fa fa-paperclip"></i></td>--}}
+                            <td class="mail-date">{{ $v['created_at'] }}</td>
+                            <td class="text-right mail-date">
+                                <a href="{{ route('Article.getUpdate' ,['id' => $v['id']]) }}" class="btn btn-sm btn-info">编辑</a>
+                                <a href="" class="btn btn-sm btn-danger">删除</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
                     <tr class="unread">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks">
+                        <td>
+                            暂无数据
                         </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">支付宝</a>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">支付宝提醒</a>
-                        </td>
-                        <td class=""><i class="fa fa-paperclip"></i>
-                        </td>
-                        <td class="text-right mail-date">昨天 10:20</td>
                     </tr>
-                    <tr class="unread">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks" checked>
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">Amaze UI</a>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">Amaze UI Beta2 发布</a>
-                        </td>
-                        <td class=""></td>
-                        <td class="text-right mail-date">上午10:57</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks">
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">WordPress</a> <span class="label label-warning pull-right">验证邮件</span>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">wp-user-frontend-pro v2.1.9</a>
-                        </td>
-                        <td class=""></td>
-                        <td class="text-right mail-date">上午9:21</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks">
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">史上最全！淘宝双11红包疯抢攻略！</a>
-                        </td>
-                        <td class=""></td>
-                        <td class="text-right mail-date">中午12:24</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks">
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a> <span class="label label-danger pull-right">AD</span>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">亲，双11来啦！帮你挑货，还送你4999元红包！仅此一次！</a>
-                        </td>
-                        <td class=""><i class="fa fa-paperclip"></i>
-                        </td>
-                        <td class="text-right mail-date">上午6:48</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks">
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">支付宝</a>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">支付宝提醒</a>
-                        </td>
-                        <td class=""><i class="fa fa-paperclip"></i>
-                        </td>
-                        <td class="text-right mail-date">昨天 10:20</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks">
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">Amaze UI</a>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">Amaze UI Beta2 发布</a>
-                        </td>
-                        <td class=""></td>
-                        <td class="text-right mail-date">上午10:57</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks">
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">WordPress</a> <span class="label label-warning pull-right">验证邮件</span>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">wp-user-frontend-pro v2.1.9</a>
-                        </td>
-                        <td class=""></td>
-                        <td class="text-right mail-date">上午9:21</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks">
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">史上最全！淘宝双11红包疯抢攻略！</a>
-                        </td>
-                        <td class=""></td>
-                        <td class="text-right mail-date">中午12:24</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks">
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a> <span class="label label-danger pull-right">AD</span>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">亲，双11来啦！帮你挑货，还送你4999元红包！仅此一次！</a>
-                        </td>
-                        <td class=""><i class="fa fa-paperclip"></i>
-                        </td>
-                        <td class="text-right mail-date">上午6:48</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks">
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">支付宝</a>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">支付宝提醒</a>
-                        </td>
-                        <td class=""><i class="fa fa-paperclip"></i>
-                        </td>
-                        <td class="text-right mail-date">昨天 10:20</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks">
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">Amaze UI</a>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">Amaze UI Beta2 发布</a>
-                        </td>
-                        <td class=""></td>
-                        <td class="text-right mail-date">上午10:57</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks">
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">WordPress</a> <span class="label label-warning pull-right">验证邮件</span>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">wp-user-frontend-pro v2.1.9</a>
-                        </td>
-                        <td class=""></td>
-                        <td class="text-right mail-date">上午9:21</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks">
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">史上最全！淘宝双11红包疯抢攻略！</a>
-                        </td>
-                        <td class=""></td>
-                        <td class="text-right mail-date">中午12:24</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <input type="checkbox" class="i-checks">
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a> <span class="label label-danger pull-right">AD</span>
-                        </td>
-                        <td class="mail-subject"><a href="mail_detail.html">亲，双11来啦！帮你挑货，还送你4999元红包！仅此一次！</a>
-                        </td>
-                        <td class=""><i class="fa fa-paperclip"></i>
-                        </td>
-                        <td class="text-right mail-date">上午6:48</td>
-                    </tr>
+                @endif
                 </tbody>
             </table>
-
-
+            @if(count($lists))
+                <div class="text-center">
+                    {!! $lists->render() !!}
+                </div>
+            @endif
         </div>
     </div>
 </div>

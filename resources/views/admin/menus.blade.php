@@ -24,8 +24,8 @@
           <div class="logo-element">SCMS</div>
         </li>
         @foreach(App\Models\Admin\Menu::lists() as $v)
-          <li>
-              <a href="">
+          <li class="{{ Request::getUri() == $v['url'] ? 'active' : '' }}">
+              <a href="{{ $v['url'] }}" data="{{ Request::getUri() }}" data="{{ $v['url'] }}">
                   <i class="{{ $v['ico'] }}"></i>
                   <span class="nav-label">{{ $v['name'] }} </span>
                   @if(isset($v['child']))
@@ -35,7 +35,7 @@
               @if(isset($v['child']))
               <ul class="nav nav-second-level">
                   @foreach($v['child'] as $vv)
-                    <li><a class="J_menuItem" href=""><i class="{{ $v['ico'] }}"></i>{{ $vv['name'] }}</a></li>
+                    <li><a class="J_menuItem {{ Request::getUri() == $vv['url'] ? 'current' : '' }}" href="{{ $vv['url'] }}"><i class="{{ $v['ico'] }}"></i>{{ $vv['name'] }}</a></li>
                   @endforeach
               </ul>
               @endif

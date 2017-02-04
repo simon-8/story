@@ -35,7 +35,7 @@ Route::group($admin , function(){
     //AdminAuthenticate中间件接管
     Route::group(['middleware' => 'admin'] ,function(){
 
-        Route::get('/' , 'IndexController@getIndex')->name('getAdminIndex');
+        Route::get('/' , 'IndexController@getIndex')->name('Admin.getIndex');
 
         Route::controller('manager' , 'ManagerController' , [
             'getIndex'   => 'Manager.getIndex',

@@ -6957,3 +6957,7 @@ body.skin-3 {
 .progress{
     margin:0;
 }
+#side-menu .current{
+    background-color: #465C71;
+    color:#FFF;
+}

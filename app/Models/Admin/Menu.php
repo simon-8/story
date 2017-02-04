@@ -33,12 +33,14 @@ class Menu extends Model
         {
             if($v['pid'] == 0)
             {
+                $v['url'] = route2url($v['prefix'] . '.' . $v['route']);
                 $data[$v['id']] = $v;
                 unset($all[$k]);
             }
         }
         foreach($all as $k=>$v)
         {
+            $v['url'] = route2url($v['prefix'] . '.' . $v['route']);
             $data[$v['pid']]['child'][$v['id']] = $v;
         }
         return $data;

@@ -144,6 +144,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // iseed
+        Orangehill\Iseed\IseedServiceProvider::class,
+
     ],
 
     /*

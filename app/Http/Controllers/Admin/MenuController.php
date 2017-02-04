@@ -9,6 +9,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\Admin\Menu;
 use Validator;
+use Route;
 class MenuController extends BaseController
 {
     protected $Menu;

@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
         // $this->call('UserTableSeeder');
 
         Model::reguard();
+        $this->call('ManagersTableSeeder');
+        $this->call('AdminMenusTableSeeder');
     }
 }
