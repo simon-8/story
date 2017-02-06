@@ -72,7 +72,7 @@ class AuthController extends BaseController
                     'lastip'    => $request->ip(),
                 ]);
                 $this->make_login_session($user);
-                return redirect()->route('getAdminIndex');
+                return redirect()->route('Admin.getIndex');
             }
             else
             {
@@ -140,7 +140,7 @@ class AuthController extends BaseController
         $result = $this->Manager->create_manager($data);
         if($result)
         {
-            return redirect()->route('getAdminLogin');
+            return redirect()->route('Admin.getIndex');
         }
         else
         {
@@ -168,7 +168,7 @@ class AuthController extends BaseController
             if( $this->Manager->compare_password($password , self::$user->password) )
             {
                 $this->make_login_session(self::$user);
-                return redirect()->route('getAdminIndex');
+                return redirect()->route('Admin.getIndex');
             }
 
             return back()->withErrors('请输入正确的密码')->withInput();

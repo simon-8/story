@@ -359,7 +359,7 @@ class Uploader
      */
     public function getFileInfo()
     {
-        return array(
+      return array(
             "state" => $this->stateInfo,
             "url" => $this->fullName,
             "title" => $this->fileName,

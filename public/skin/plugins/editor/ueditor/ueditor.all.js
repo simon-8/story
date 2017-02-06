@@ -13175,30 +13175,31 @@ UE.plugins['insertcode'] = function() {
             me.document)
     });
     me.setOpt('insertcode',{
-            'as3':'ActionScript3',
+            'php':'Php',
+            'js':'Javascript',
+            'sql':'Sql',
             'bash':'Bash/Shell',
-            'cpp':'C/C++',
+            'html':'Html',
             'css':'Css',
+            'python':'Python',
+            'cpp':'C/C++',
+            'xml':'Xml'
+/*
+            'as3':'ActionScript3',
             'cf':'CodeFunction',
             'c#':'C#',
             'delphi':'Delphi',
             'diff':'Diff',
             'erlang':'Erlang',
             'groovy':'Groovy',
-            'html':'Html',
             'java':'Java',
             'jfx':'JavaFx',
-            'js':'Javascript',
             'pl':'Perl',
-            'php':'Php',
             'plain':'Plain Text',
             'ps':'PowerShell',
-            'python':'Python',
             'ruby':'Ruby',
             'scala':'Scala',
-            'sql':'Sql',
-            'vb':'Vb',
-            'xml':'Xml'
+            'vb':'Vb',*/
     });
 
     /**

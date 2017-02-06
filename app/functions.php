@@ -50,21 +50,28 @@ function is_email($email)
 }
 
 /**
- * 上传base64编码的图片
+ * 上传base64编码的缩略图
  * @param $thumb
  * @return string
  */
-function upload_base64_pic($thumb)
+function upload_base64_thumb($thumb)
 {
     if( empty($thumb) ) return '';
     if( strpos($thumb ,'data:image') === false ) return $thumb;
-    $filepath = '/uploads/'.date('Ym/d').'/';
+    $filepath = '/uploads/thumbs/'.date('Ym').'/';//缩略图按月划分
+    $fileroot = public_path().$filepath;
+    if( !is_dir($fileroot) ) mkdir($fileroot ,0777,true);
+
+    $filename = time().rand(100000,999999);
     $fileext = str_replace('data:image/' , '' , strstr($thumb , ';' ,true));
-    $filename = date('YmdHis').'_'.rand(10000,99999) . $fileext;
+    in_array($fileext , ['jpg','png','gif','bmp']) or $fileext = 'jpg';//jpeg->jpg
+    $filename .= '.' . $fileext;
+
     if( preg_match('/^(data:\s*image\/(\w+);base64,)/' , $thumb ,$result) )
     {
-        \Storage::disk('local')->put($filepath.$filename , base64_decode(str_replace($result[1] , '' , $thumb)));
-        if( \Storage::disk('local')->has($filepath.$filename) )
+        $result = file_put_contents($fileroot.$filename , base64_decode(str_replace($result[1] , '' , $thumb)));
+
+        if( $result )
         {
             $thumb = $filepath.$filename;
         }
@@ -149,8 +156,12 @@ function route2url($route = '')
     }
 }
 
-function seditor($id){
-    $editor = 'ueditor';
+/**
+ * 编辑器
+ * @param $id
+ * @return bool
+ */
+function seditor($id , $editor = 'ueditor'){
     if( $editor == 'kindeditor' ){
         $url = "/plugins/editor/kindeditor/kindeditor.js";
         $lang = "/plugins/editor/kindeditor/lang/zh_CN.js";
@@ -171,4 +182,12 @@ function seditor($id){
         echo "<script type='text/javascript'> var ue = UE.getEditor('{$id}',{elementPathEnabled:false,contextMenu:[],enableAutoSave: false,saveInterval:500000});</script>";
     }
     return false;
+}
+
+function imgurl($img = ''){
+    if(!$img)
+    {
+        return '/skin/manager/images/nopic.png';
+    }
+    return $img;
 }

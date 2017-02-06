@@ -35,7 +35,9 @@ Route::group($admin , function(){
     //AdminAuthenticate中间件接管
     Route::group(['middleware' => 'admin'] ,function(){
 
+        //
         Route::get('/' , 'IndexController@getIndex')->name('Admin.getIndex');
+        Route::any('ajax' , 'AjaxController@getIndex')->name('Admin.Ajax');
 
         Route::controller('manager' , 'ManagerController' , [
             'getIndex'   => 'Manager.getIndex',
@@ -67,6 +69,9 @@ Route::group($admin , function(){
             'getIndex'   => 'Database.getIndex',
             'getFields'  => 'Database.getFields',
         ]);
+/*        Route::controller('ajax' , 'AjaxController' , [
+            'getIndex'  => 'Ajax.getIndex',
+        ]);*/
 /*        Route::controller('weixin' , 'WeixinController' , [
             'getIndex'   => 'Database.getIndex',
             'getFields'  => 'Database.getFields',

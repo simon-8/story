@@ -22,7 +22,7 @@ class AdminGuest
     {
         if( session('userinfo') )
         {
-            return redirect(route('getAdminIndex'));
+            return redirect(route('Admin.getIndex'));
         }
         return $next($request);
     }

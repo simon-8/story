@@ -8,13 +8,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use App\Models\Admin\Article;
+use App\Models\Admin\Tag;
 class ArticleController extends BaseController
 {
     protected $Article;
+    protected $Tag;
 	public function __construct()
     {
 	    parent::__construct();
         $this->Article = new Article();
+        $this->Tag = new Tag();
 	}
 
     /**
@@ -71,6 +74,7 @@ class ArticleController extends BaseController
                 $request, $validator
             );
         }
+        $data['thumb'] = upload_base64_thumb($data['thumb']);
 
         $result = $this->Article->create_article(array_merge($data , ['username' => self::$username]));
         if($result)
@@ -109,7 +113,12 @@ class ArticleController extends BaseController
                 $request , $validator
             );
         }
+        $data['thumb'] = upload_base64_thumb($data['thumb']);
+
         $result = $this->Article->update_article($data);
+
+        $this->Tag->tag($data['tag'],$data['id']);
+
         if($result)
         {
             return redirect()->route('Article.getIndex');

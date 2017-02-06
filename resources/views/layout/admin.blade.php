@@ -14,6 +14,7 @@
     <!--[if lt IE 8]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="shortcut icon" href="/favicon.ico">
     <link href="/skin/manager/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
@@ -24,6 +25,14 @@
     <script src="/skin/js/jquery.min.js?v=2.1.4"></script>
     <script src="/skin/js/bootstrap.min.js?v=3.3.5"></script>
     <script src="/skin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script>
+        var AJPath = '{{ route('Admin.Ajax') }}';
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
 </head>
 
 {{--<body class="fixed-sidebar full-height-layout gray-bg mini-navbar" style="overflow:hidden">--}}
@@ -103,10 +112,9 @@
 
 
 {{--<script src="/skin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>--}}
-{{--<script src="/skin/js/plugins/layer/layer.min.js"></script>--}}
 <script src="/skin/js/plugins/iCheck/icheck.min.js"></script>
 <script src="/skin/js/manager.min.js?v=4.0.0"></script>
-
+<script src="/skin/js/plugins/layer/layer.min.js"></script>
 {{--<script type="text/javascript" src="/skin/js/contabs.min.js"></script>--}}
 {{--<script src="/skin/js/plugins/pace/pace.min.js"></script>--}}
 
