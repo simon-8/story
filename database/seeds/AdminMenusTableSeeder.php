@@ -17,7 +17,7 @@ class AdminMenusTableSeeder extends Seeder
         \DB::table('admin_menus')->delete();
         
         \DB::table('admin_menus')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'pid' => 0,
@@ -28,7 +28,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 0,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'pid' => 0,
@@ -39,7 +39,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 2,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
                 'pid' => 0,
@@ -50,7 +50,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 4,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
                 'pid' => 0,
@@ -61,7 +61,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 2,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 5,
                 'pid' => 0,
@@ -72,7 +72,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 0,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 6,
                 'pid' => 0,
@@ -83,7 +83,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 99,
                 'items' => 0,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 7,
                 'pid' => 0,
@@ -94,7 +94,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 98,
                 'items' => 0,
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 8,
                 'pid' => 2,
@@ -105,7 +105,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 0,
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 9,
                 'pid' => 2,
@@ -116,7 +116,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 0,
             ),
-            9 =>
+            9 => 
             array (
                 'id' => 10,
                 'pid' => 3,
@@ -127,7 +127,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 0,
             ),
-            10 =>
+            10 => 
             array (
                 'id' => 11,
                 'pid' => 3,
@@ -138,7 +138,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 0,
             ),
-            11 =>
+            11 => 
             array (
                 'id' => 12,
                 'pid' => 3,
@@ -149,7 +149,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 0,
             ),
-            12 =>
+            12 => 
             array (
                 'id' => 13,
                 'pid' => 3,
@@ -160,7 +160,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 0,
             ),
-            13 =>
+            13 => 
             array (
                 'id' => 14,
                 'pid' => 4,
@@ -171,7 +171,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 0,
             ),
-            14 =>
+            14 => 
             array (
                 'id' => 15,
                 'pid' => 4,
@@ -182,8 +182,30 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 0,
             ),
+            15 => 
+            array (
+                'id' => 16,
+                'pid' => 0,
+                'name' => '系统配置',
+                'prefix' => 'Setting',
+                'route' => 'getIndex',
+                'ico' => 'fa fa-cog',
+                'listorder' => 0,
+                'items' => 1,
+            ),
+            16 => 
+            array (
+                'id' => 17,
+                'pid' => 16,
+                'name' => '站点配置',
+                'prefix' => 'Setting',
+                'route' => 'getIndex',
+                'ico' => '',
+                'listorder' => 0,
+                'items' => 0,
+            ),
         ));
-
+        
         
     }
 }

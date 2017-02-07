@@ -5,7 +5,7 @@
         <div class="ibox float-e-margins">
             <div class="ibox-content mailbox-content">
                 <div class="file-manager">
-                    <a class="btn btn-block btn-primary compose-mail" href="mail_compose.html">写信</a>
+                    <a class="btn btn-block btn-primary compose-mail" href="{{ route('Article.getCreate') }}">发布文章</a>
                     <div class="space-25"></div>
                     <h5>文件夹</h5>
                     <ul class="folder-list m-b-md" style="padding: 0">
@@ -42,8 +42,11 @@
 
                     <h5 class="tag-title">标签</h5>
                     <ul class="tag-list" style="padding: 0">
-                        <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 朋友</a></li>
-                        <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 工作</a></li>
+                        @if(count($tags))
+                            @foreach($tags as $v)
+                                <li><a href=""><i class="fa fa-tag"></i> {{ $v->name }}</a></li>
+                            @endforeach
+                        @endif
                     </ul>
                     <div class="clearfix"></div>
                 </div>
@@ -55,7 +58,7 @@
 
             <form method="get" action="index.html" class="pull-right mail-search">
                 <div class="input-group">
-                    <input type="text" class="form-control input-sm" name="search" placeholder="搜索邮件标题，正文等">
+                    <input type="text" class="form-control input-sm" name="kw" placeholder="搜索文章标题">
                     <div class="input-group-btn">
                         <button type="submit" class="btn btn-sm btn-primary">
                             搜索
@@ -64,7 +67,7 @@
                 </div>
             </form>
             <h2>
-            收件箱 (16)
+            已发布
         </h2>
             <div class="mail-tools tooltip-demo m-t-md">
                 <div class="btn-group pull-right">

@@ -6961,3 +6961,28 @@ body.skin-3 {
     background-color: #465C71;
     color:#FFF;
 }
+#pthumb{
+    border:1px solid #DDD;
+}
+/*云标签*/
+.tag-list{
+    border-radius: 3px;
+    border: 1px solid #eee;
+    margin: 10px 0 !important;
+    padding: 5px;
+}
+.tag-list .label {
+    /* padding: 10px; */
+    margin: 2px 3px;
+    font-size: 15px;
+    display: inline-block;
+    padding: 5px 10px;
+}
+#tag_choice{
+    text-decoration: underline;
+    font-size: 15px;
+    display: block;
+}
+.imgview{
+    cursor: pointer;
+}

@@ -27,8 +27,10 @@ class ArticleController extends BaseController
     public function getIndex()
     {
         $lists = $this->Article->lists();
+        $tags = $this->Tag->lists();
 		$data = [
 		    'lists' => $lists,
+            'tags'  => $tags,
         ];
 		return admin_view('article.index',$data);
 	}
@@ -77,6 +79,9 @@ class ArticleController extends BaseController
         $data['thumb'] = upload_base64_thumb($data['thumb']);
 
         $result = $this->Article->create_article(array_merge($data , ['username' => self::$username]));
+
+        $this->Tag->create_tag($data['tag'],$data['id']);
+
         if($result)
         {
             return redirect()->route('Article.getIndex');
@@ -87,11 +92,20 @@ class ArticleController extends BaseController
         }
     }
 
+    /**
+     * 更新用户
+     * @param $id
+     * @return mixed
+     */
     public function getUpdate($id)
     {
         $data = $this->Article->find($id);
         if(!$data){
             abort(404 , '文章不存在');
+        }
+        if($data['tag']){
+            $data['tag_lists'] = explode(',',$data['tag']);
+            $data['tag'] .= ',';
         }
         return admin_view('article.create' , $data);
     }
@@ -117,7 +131,7 @@ class ArticleController extends BaseController
 
         $result = $this->Article->update_article($data);
 
-        $this->Tag->tag($data['tag'],$data['id']);
+        $this->Tag->create_tag($data['tag'],$data['id']);
 
         if($result)
         {

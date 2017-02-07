@@ -8,7 +8,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-
+use App\Models\Admin\Tag;
 class AjaxController extends BaseController
 {
     public function __construct()
@@ -48,8 +48,10 @@ class AjaxController extends BaseController
                 }
                 break;
             case 'tagcloud'://输出所有标签
+                $Tag = new Tag();
                 $res['code'] = 1;
-                $res['msg'] = '';
+                $res['msg'] = $Tag->lists();
+                return $res;
                 break;
         }
     }

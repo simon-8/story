@@ -35,7 +35,7 @@
               @if(isset($v['child']))
               <ul class="nav nav-second-level">
                   @foreach($v['child'] as $vv)
-                    <li><a class="J_menuItem {{ Request::getUri() == $vv['url'] ? 'current' : '' }}" href="{{ $vv['url'] }}"><i class="{{ $v['ico'] }}"></i>{{ $vv['name'] }}</a></li>
+                    <li><a class="J_menuItem {{ Request::getUri() == $vv['url'] ? 'current' : '' }}" href="{{ $vv['url'] }}"><i class="{{ $vv['ico'] }}"></i>{{ $vv['name'] }}</a></li>
                   @endforeach
               </ul>
               @endif

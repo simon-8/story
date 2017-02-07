@@ -39,6 +39,7 @@ Route::group($admin , function(){
         Route::get('/' , 'IndexController@getIndex')->name('Admin.getIndex');
         Route::any('ajax' , 'AjaxController@getIndex')->name('Admin.Ajax');
 
+        //管理员管理
         Route::controller('manager' , 'ManagerController' , [
             'getIndex'   => 'Manager.getIndex',
             'getCreate'  => 'Manager.getCreate',
@@ -47,6 +48,7 @@ Route::group($admin , function(){
             'postUpdate' => 'Manager.postUpdate',
             'getDelete'  => 'Manager.getDelete',
         ]);
+        //文章管理
         Route::controller('article' , 'ArticleController' , [
             'getIndex'   => 'Article.getIndex',
             'getCreate'  => 'Article.getCreate',
@@ -57,6 +59,7 @@ Route::group($admin , function(){
             'getCategorys'  => 'Article.getCategorys',
             'getRecycle'  => 'Article.getRecycle',
         ]);
+        //菜单管理
         Route::controller('menu' , 'MenuController' , [
             'getIndex'   => 'Menu.getIndex',
             'getCreate'  => 'Menu.getCreate',
@@ -65,24 +68,16 @@ Route::group($admin , function(){
             'postUpdate' => 'Menu.postUpdate',
             'getDelete'  => 'Menu.getDelete',
         ]);
+        //数据管理
         Route::controller('database' , 'DatabaseController' , [
             'getIndex'   => 'Database.getIndex',
             'getFields'  => 'Database.getFields',
         ]);
-/*        Route::controller('ajax' , 'AjaxController' , [
-            'getIndex'  => 'Ajax.getIndex',
-        ]);*/
-/*        Route::controller('weixin' , 'WeixinController' , [
-            'getIndex'   => 'Database.getIndex',
-            'getFields'  => 'Database.getFields',
-        ]);*/
-
-/*        Route::controllers([
-            'article' => 'ArticleController',
-            'auth'	  => 'AuthController',
-            'menu'    => 'MenuController',
-            'manager' => 'ManagerController',
-        ]);*/
+        //系统配置
+        Route::controller('setting' , 'SettingController' , [
+            'getIndex'   => 'Setting.getIndex',
+            'postIndex'   => 'Setting.postIndex',
+        ]);
     });
 
 });
