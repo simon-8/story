@@ -31,7 +31,7 @@ class Article extends Model
     public function lists($condition = [] , $order = 'id DSEC',$pagesize = 20)
     {
         $order = $order ? explode(' ' , $order) : ['id' ,'DESC'];
-        return $this->where($condition)->orderBy($order[0] , $order[1])->paginate($pagesize);
+        return $this->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->paginate($pagesize);
     }
 
 
@@ -56,5 +56,20 @@ class Article extends Model
         $article = $this->find($data['id']);
         if(!$article) return false;
         return $article->update($data);
+    }
+
+    /**
+     * 回收站
+     * @return bool
+     */
+    public function recycle()
+    {
+        $this->status = 2;
+        return $this->save();
+    }
+
+    public function get_status_num()
+    {
+
     }
 }

@@ -9,7 +9,7 @@
             <td>总记录数</td>
             <td>空间使用</td>
             <td>创建时间</td>
-            <td>数据字典</td>
+            <td>操 作</td>
         </tr>
         @if(count($lists) > 0)
             @foreach($lists as $v)
@@ -26,7 +26,9 @@
                         </div>
                     </td>
                     <td>{{ $v->Create_time }}</td>
-                    <td><button class="btn btn-info btn-sm" onclick="ShowFields('{{ $v->Name }}')">查看</button></td>
+                    <td>
+                        <button class="btn btn-info btn-sm" onclick="ShowFields('{{ $v->Name }}')">数据字典</button>
+                    </td>
                 </tr>
             @endforeach
         @else

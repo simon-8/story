@@ -145,6 +145,11 @@ class ManagerController extends BaseController
         }
     }
 
+    /**
+     * 删除
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getDelete(Request $request)
     {
         $user = $this->Manager->find($request->id);

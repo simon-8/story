@@ -10,15 +10,15 @@
                     <h5>文件夹</h5>
                     <ul class="folder-list m-b-md" style="padding: 0">
                         <li>
-                            <a href="mailbox.html"> <i class="fa fa-inbox "></i> 已发布 <span class="label label-warning pull-right">16</span>
+                            <a href="{{ route('Article.getIndex') }}"> <i class="fa fa-inbox "></i> 已发布 <span class="label label-warning pull-right">16</span>
                             </a>
                         </li>
                         <li>
-                            <a href="mailbox.html"> <i class="fa fa-file-text-o"></i> 草稿 <span class="label label-danger pull-right">2</span>
+                            <a href="{{ route('Article.getIndex',['status' => 0]) }}"> <i class="fa fa-file-text-o"></i> 草稿 <span class="label label-danger pull-right">2</span>
                             </a>
                         </li>
                         <li>
-                            <a href="mailbox.html"> <i class="fa fa-trash-o"></i> 垃圾箱</a>
+                            <a href="{{ route('Article.getIndex',['status' => 2]) }}"> <i class="fa fa-trash-o"></i> 垃圾箱</a>
                         </li>
                     </ul>
                     <h5>分类</h5>
@@ -91,15 +91,15 @@
                 <tbody>
                 @if(count($lists))
                     @foreach($lists as $v)
-                        <tr class="read">
+                        <tr class="">
                             <td class="check-mail"><input type="checkbox" class="i-checks"></td>
                             <td class="mail-ontact"><a href="">{{ $v['title'] }}</a></td>
                             <td class="mail-subject"><a href="">{{ $v['introduce'] }}</a></td>
                             {{--<td class=""><i class="fa fa-paperclip"></i></td>--}}
                             <td class="mail-date">{{ $v['created_at'] }}</td>
                             <td class="text-right mail-date">
-                                <a href="{{ route('Article.getUpdate' ,['id' => $v['id']]) }}" class="btn btn-sm btn-info">编辑</a>
-                                <a href="" class="btn btn-sm btn-danger">删除</a>
+                                <a onclick="location.href='{{ route('Article.getUpdate' ,['id' => $v['id']]) }}';" class="btn btn-sm btn-info">编辑</a>
+                                <a onclick="Delete({{ $v['id'] }});" class="btn btn-sm btn-danger">删除</a>
                             </td>
                         </tr>
                     @endforeach
@@ -120,4 +120,16 @@
         </div>
     </div>
 </div>
+<script>
+    var deleteModal = '#deleteModal';
+
+    function Delete(id , name)
+    {
+        name = name ? name : 'id';
+        $(deleteModal).find('input[name='+name+']').val(id);
+        $(deleteModal).modal('show');
+    }
+</script>
+{{--delete--}}
+@include('admin.modal.delete' , ['formurl' => route('Article.getRecycle')])
 @endsection('content')

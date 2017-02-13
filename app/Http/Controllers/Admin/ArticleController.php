@@ -24,9 +24,10 @@ class ArticleController extends BaseController
      * 文章列表
      * @return mixed
      */
-    public function getIndex()
+    public function getIndex(Request $request)
     {
-        $lists = $this->Article->lists();
+        $status = $request->has('status') ? $request->status : 1;
+        $lists = $this->Article->lists(['status' => $status]);
         $tags = $this->Tag->lists();
 		$data = [
 		    'lists' => $lists,
@@ -106,6 +107,8 @@ class ArticleController extends BaseController
         if($data['tag']){
             $data['tag_lists'] = explode(',',$data['tag']);
             $data['tag'] .= ',';
+        }else{
+            $data['tag_lists'] = [];
         }
         return admin_view('article.create' , $data);
     }
@@ -144,9 +147,30 @@ class ArticleController extends BaseController
     }
 
 
-    public function getDelete()
+    /**
+     * 删除文章
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getDelete(Request $request)
     {
-
+        $article = $this->Article->find($request->id);
+        if($article)
+        {
+            $result = $article->delete();
+            if($result)
+            {
+                return redirect()->route('Article.getIndex')->with('Message' , '删除成功');
+            }
+            else
+            {
+                return redirect()->route('Article.getIndex')->withErrors('删除失败');
+            }
+        }
+        else
+        {
+            return redirect()->route('Article.getIndex')->withErrors('文章不存在');
+        }
     }
 
     public function getCategorys()
@@ -154,8 +178,29 @@ class ArticleController extends BaseController
 
     }
 
-    public function getRecycle()
+    /**
+     * 移动到回收站
+     * @param Request $request
+     * @return  \Illuminate\Http\RedirectResponse
+     */
+    public function getRecycle(Request $request)
     {
-
+        $article = $this->Article->find($request->id);
+        if($article)
+        {
+            $result = $article->recycle();
+            if($result)
+            {
+                return redirect()->route('Article.getIndex')->with('Message' , '删除到回收站成功');
+            }
+            else
+            {
+                return redirect()->route('Article.getIndex')->withErrors('删除失败');
+            }
+        }
+        else
+        {
+            return redirect()->route('Article.getIndex')->withErrors('文章不存在');
+        }
     }
 }

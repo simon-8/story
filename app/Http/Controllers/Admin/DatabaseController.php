@@ -36,4 +36,15 @@ class DatabaseController extends BaseController
         $lists = DB::select($sql);
         return $lists;
     }
+
+    public function getRepair()
+    {
+        $sql = 'REPAIR TABLE `table_name`';
+        $result = DB::query();
+    }
+
+    public function getFixed()
+    {
+        $sql = 'OPTIMIZE TABLE `table_name`';
+    }
 }

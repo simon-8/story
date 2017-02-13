@@ -1,7 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: admin
+ * User: Liu
  * Date: 2017/1/9
  * Time: 14:39
  */
@@ -12,9 +11,9 @@
  */
 function admin_view($template)
 {
-    $params = func_get_args();
+    $params = func_get_args();//获取函数传入的参数列表 数组
     $params[0] = 'admin.'.$params[0];
-    return call_user_func_array('view' ,$params );
+    return call_user_func_array('view' ,$params );//调用回调函数，并把一个数组参数作为回调函数的参数
 }
 
 /**
@@ -24,9 +23,9 @@ function admin_view($template)
  */
 function home_view($template)
 {
-    $params = func_get_args();
+    $params = func_get_args();//获取函数传入的参数列表 数组
     $params[0] = 'home.'.$params[0];
-    return call_user_func_array('view' ,$params );
+    return call_user_func_array('view' ,$params );//调用回调函数，并把一个数组参数作为回调函数的参数
 }
 
 /**
@@ -184,6 +183,11 @@ function seditor($id , $editor = 'ueditor'){
     return false;
 }
 
+/**
+ *
+ * @param string $img
+ * @return string
+ */
 function imgurl($img = ''){
     if(!$img)
     {
