@@ -10,5 +10,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
+    protected $fillable = [
+        'item',
+        'value'
+    ];
+
+    public function batch_save($data)
+    {
+        foreach($data as $k=>$v){
+            $r = $this->where("item",$k)->find();
+            if(!$r){
+                $this->insert([
+                    'item'=>$k,
+                    'value'=>$v
+                ]);
+            }else{
+                $r->value = $v;
+                $r->save();
+            }
+        }
+    }
 
 }

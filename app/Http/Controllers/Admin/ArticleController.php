@@ -27,11 +27,15 @@ class ArticleController extends BaseController
     public function getIndex(Request $request)
     {
         $status = $request->has('status') ? $request->status : 1;
+
         $lists = $this->Article->lists(['status' => $status]);
         $tags = $this->Tag->lists();
+        $status_num = $this->Article->get_status_num();
+
 		$data = [
 		    'lists' => $lists,
             'tags'  => $tags,
+            'status_num' => $status_num,
         ];
 		return admin_view('article.index',$data);
 	}

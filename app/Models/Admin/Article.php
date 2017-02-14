@@ -68,8 +68,16 @@ class Article extends Model
         return $this->save();
     }
 
+    /**
+     * 获取各个状态的文章数量
+     * @return array
+     */
     public function get_status_num()
     {
-
+        $data = [];
+        $data['0'] = $this->where('status',0)->count();
+        $data['1'] = $this->where('status',1)->count();
+        $data['2'] = $this->where('status',2)->count();
+        return $data;
     }
 }

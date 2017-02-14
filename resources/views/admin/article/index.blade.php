@@ -10,15 +10,15 @@
                     <h5>文件夹</h5>
                     <ul class="folder-list m-b-md" style="padding: 0">
                         <li>
-                            <a href="{{ route('Article.getIndex') }}"> <i class="fa fa-inbox "></i> 已发布 <span class="label label-warning pull-right">16</span>
+                            <a href="{{ route('Article.getIndex') }}"> <i class="fa fa-inbox "></i> 已发布 <span class="label label-warning pull-right">{{ $status_num[1] }}</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('Article.getIndex',['status' => 0]) }}"> <i class="fa fa-file-text-o"></i> 草稿 <span class="label label-danger pull-right">2</span>
+                            <a href="{{ route('Article.getIndex',['status' => 0]) }}"> <i class="fa fa-file-text-o"></i> 草稿 <span class="label label-danger pull-right">{{ $status_num[0] }}</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('Article.getIndex',['status' => 2]) }}"> <i class="fa fa-trash-o"></i> 垃圾箱</a>
+                            <a href="{{ route('Article.getIndex',['status' => 2]) }}"> <i class="fa fa-trash-o"></i> 垃圾箱 <span class="label label-danger pull-right">{{ $status_num[2] }}</a>
                         </li>
                     </ul>
                     <h5>分类</h5>

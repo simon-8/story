@@ -23,8 +23,9 @@ class SettingController extends BaseController
         return admin_view('setting.index');
     }
 
-    public function postIndex()
+    public function postIndex(Request $request)
     {
-
+        $data = $request->all();
+        //$this->Setting->batch_save();
     }
 }
