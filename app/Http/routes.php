@@ -77,6 +77,7 @@ Route::group($admin , function(){
         Route::controller('setting' , 'SettingController' , [
             'getIndex'   => 'Setting.getIndex',
             'postIndex'   => 'Setting.postIndex',
+            'postCreate'   => 'Setting.postCreate',
         ]);
     });
 
