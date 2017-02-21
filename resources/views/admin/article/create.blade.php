@@ -27,8 +27,8 @@
                     <div class="form-group">
                         <label class="col-sm-1 control-label">内容</label>
                         <div class="col-sm-11">
-                            <script id="content" type="text/plain" style="width:100%;height:500px;" name="content">{!! isset($content) ? $content : old('content') !!}</script>
-                            {{ seditor('content') }}
+                            {{--{{ seditor($content , 'content','markdown' ,'rows=10') }}--}}
+                            {{ seditor(isset($content) ? $content : old('content') , 'content','ueditor') }}
                             <span class="help-block m-b-none">文章内容</span>
                         </div>
                     </div>

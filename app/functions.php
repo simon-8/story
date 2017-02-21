@@ -155,30 +155,44 @@ function route2url($route = '')
     }
 }
 
+
 /**
- * 编辑器
  * @param $id
+ * @param string $editor
+ * @param string $extends
  * @return bool
  */
-function seditor($id , $editor = 'ueditor'){
-    if( $editor == 'kindeditor' ){
+function seditor($content = '' , $name = 'content', $editor = 'ueditor', $extends = '')
+{
+
+    if( $editor == 'kindeditor' )
+    {
         $url = "/plugins/editor/kindeditor/kindeditor.js";
         $lang = "/plugins/editor/kindeditor/lang/zh_CN.js";
         echo "<script charset='utf-8' src='$url'></script>";
         echo "<script charset='utf-8' src='$lang'></script>";
         echo "<script>";
-
-        echo " KindEditor.ready(function(K) { window.editor = K.create('#$id',{width:'100%',cssPath : '/plugins/editor/kindeditor/plugins/code/new.css',resizeMode:0});});";
-        // echo " KindEditor.ready(function(K) { window.editor = K.create('#$id',{width:'100%',resizeType : 1,allowPreviewEmoticons : false,allowImageUpload : false,items : [
-        // 	'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
-        // 	'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-        // 	'insertunorderedlist', '|', 'emoticons', 'image', 'link']});});";
+        echo " KindEditor.ready(function(K) { window.editor = K.create('#$name',{width:'100%',cssPath : '/plugins/editor/kindeditor/plugins/code/new.css',resizeMode:0});});";
         echo "</script>";
-    }else{
-        // echo "<script id='container' name='content' type='text/plain'></script>";
+
+    }
+    else if( $editor == 'ueditor' )
+    {
+        echo "<script id='content' type='text/plain' style='width:100%;height:500px;' name='{$name}' {$extends}>".$content."</script>";
         echo "<script type='text/javascript' src='/skin/plugins/editor/ueditor/ueditor.config.js'></script>";
         echo "<script type='text/javascript' src='/skin/plugins/editor/ueditor/ueditor.all.js'></script>";
-        echo "<script type='text/javascript'> var ue = UE.getEditor('{$id}',{elementPathEnabled:false,contextMenu:[],enableAutoSave: false,saveInterval:500000});</script>";
+        echo "<script type='text/javascript'> var ue = UE.getEditor('{$name}',{elementPathEnabled:false,contextMenu:[],enableAutoSave: false,saveInterval:500000});</script>";
+
+    }
+    else if( $editor == 'markdown' )
+    {
+        echo "<textarea name='".$name."' data-provide='markdown' {$extends}>".$content."</textarea>";
+        echo "<link rel='stylesheet' type='text/css' href='/skin/plugins/editor/markdown/bootstrap-markdown.min.css' />";
+        echo "<script type='text/javascript' src='/skin/plugins/editor/markdown/markdown.js'></script>";
+        echo "<script type='text/javascript' src='/skin/plugins/editor/markdown/to-markdown.js'></script>";
+        echo "<script type='text/javascript' src='/skin/plugins/editor/markdown/bootstrap-markdown.js'></script>";
+        echo "<script type='text/javascript' src='/skin/plugins/editor/markdown/bootstrap-markdown.zh.js'></script>";
+
     }
     return false;
 }
@@ -188,7 +202,8 @@ function seditor($id , $editor = 'ueditor'){
  * @param string $img
  * @return string
  */
-function imgurl($img = ''){
+function imgurl($img = '')
+{
     if(!$img)
     {
         return '/skin/manager/images/nopic.png';

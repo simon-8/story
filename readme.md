@@ -17,7 +17,7 @@ git下载本程序后
     
     composer install
     
-> 还原数据库备份 , 生成菜单默认管理员等数据
+> 还原数据库备份 , 生成菜单 , 默认管理员等数据
     
     php artisan migrate --seed
 
