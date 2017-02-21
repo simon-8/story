@@ -10,11 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
+    protected $primaryKey = 'item';//设置自定义主键
     protected $fillable = [
         'item',
         'name',
         'value'
     ];
+    public $timestamps = false;//禁止维护timestamps相关字段
 
     public function lists()
     {
@@ -22,21 +24,13 @@ class Setting extends Model
     }
 
     /**
+     * 新增
      * @param $data
      * @return bool
      */
     public function create_setting($data)
     {
-        $r = $this->where("item", $data['item'])->first();
-        if (!$r) {
-            return $this->insert([
-                'item' => $data['item'],
-                'name' => $data['name'],
-                'value' => $data['value']
-            ]);
-        } else {
-            return false;
-        }
+        return $this->updateOrCreate(['item' => $data['item']] , $data);
     }
     /**
      * 保存
@@ -46,19 +40,25 @@ class Setting extends Model
     public function update_setting($data)
     {
         foreach($data as $k=>$v){
-            $r = $this->where("item",$k)->find();
+            $r = $this->find($k);
             if(!$r){
-                $this->insert([
-                    'item'=>$k,
-                    'name'=>$k,
-                    'value'=>$v
-                ]);
+                continue;
             }else{
-                $r->value = $v;
+                //$r->name = $v['name'];
+                $r->value = $v['value'];
                 $r->save();
             }
         }
         return true;
     }
 
+    /**
+     * 删除
+     * @param $item
+     * @return mixed
+     */
+    public function delete_setting($item)
+    {
+        return $this->destroy($item);
+    }
 }

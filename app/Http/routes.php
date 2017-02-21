@@ -78,6 +78,7 @@ Route::group($admin , function(){
             'getIndex'   => 'Setting.getIndex',
             'postIndex'   => 'Setting.postIndex',
             'postCreate'   => 'Setting.postCreate',
+            'getDelete'   => 'Setting.getDelete',
         ]);
     });
 

@@ -93,7 +93,7 @@ class Menu extends Model
      * 删除菜单及子菜单
      * 后台管理菜单最多两层
      * pid=0的只会是一级菜单，删除一级菜单需要将下面的二级菜单一并删除
-     * @param $itemid
+     * @param $id
      * @return bool
      */
     public function delete_menu($id)
