@@ -40,7 +40,7 @@
             {!! csrf_field() !!}
 
             <div class="form-group">
-                <input name="username" type="username" class="form-control" placeholder="用户名" required="" value="{{ old('username') }}">
+                <input name="username" type="text" class="form-control" placeholder="用户名" required="" value="{{ old('username') }}">
             </div>
             <div class="form-group">
                 <input name="password" type="password" class="form-control" placeholder="密码" required="" value="{{ old('password') }}">
@@ -57,8 +57,13 @@
 </div>
 
 
+
 <script src="/skin/js/jquery.min.js?v=2.1.4"></script>
 <script src="/skin/js/bootstrap.min.js?v=3.4.0"></script>
-
+<script>
+    $(function(){
+        $('input[name=username]').focus();
+    });
+</script>
 </body>
 </html>

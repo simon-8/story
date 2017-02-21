@@ -8,7 +8,7 @@
             @if(count($lists))
                 @foreach($lists as $v)
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">{{ $v['name'] }}</label>
+                    <label class="col-sm-2 control-label"><input type="text" value="{{ $v['name'] }}"></label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="{{ $v['item'] }}" value="{{ $v['value'] }}">
                     </div>
