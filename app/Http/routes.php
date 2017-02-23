@@ -11,6 +11,7 @@
 |
 */
 
+// 后台路由
 $admin = [
     'prefix' => 'admin',
     'namespace' => 'Admin',
@@ -92,6 +93,7 @@ Route::group($admin , function(){
 
 });
 
+//前台模块路由
 $home = [
     'prefix'    => '/',
     'namespace' => 'Home',
@@ -102,3 +104,6 @@ Route::group($home , function(){
         '/'         => 'IndexController'
     ]);
 });
+
+//微信路由
+Route::any('/wechat', 'Wechat\ServerController@getIndex');

@@ -191,7 +191,7 @@ class AdminMenusTableSeeder extends Seeder
                 'route' => 'getIndex',
                 'ico' => 'fa fa-cog',
                 'listorder' => 0,
-                'items' => 1,
+                'items' => 2,
             ),
             16 => 
             array (
@@ -200,6 +200,17 @@ class AdminMenusTableSeeder extends Seeder
                 'name' => '站点配置',
                 'prefix' => 'Setting',
                 'route' => 'getIndex',
+                'ico' => '',
+                'listorder' => 0,
+                'items' => 0,
+            ),
+            17 => 
+            array (
+                'id' => 18,
+                'pid' => 16,
+                'name' => '采集配置',
+                'prefix' => 'Setting',
+                'route' => 'collect',
                 'ico' => '',
                 'listorder' => 0,
                 'items' => 0,

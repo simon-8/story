@@ -7,8 +7,8 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
-        "overtrue/wechat": "~3.1",
-        "orangehill/iseed": "2.2"
+        "orangehill/iseed": "2.2",
+        "overtrue/laravel-wechat": "~3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

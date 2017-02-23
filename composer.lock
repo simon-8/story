@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "597330e2475b59a4837bbba33486621f",
+    "content-hash": "7ad6af0e98d910c076e4d504ee74e4c0",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1090,17 +1090,59 @@
             "time": "2016-09-14T07:59:34+00:00"
         },
         {
-            "name": "overtrue/socialite",
-            "version": "1.0.21",
+            "name": "overtrue/laravel-wechat",
+            "version": "3.1.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/overtrue/socialite.git",
-                "reference": "28d852f188719c57bd8c3282338eb69cc7d6971e"
+                "url": "https://github.com/overtrue/laravel-wechat.git",
+                "reference": "870111586830cee121cff2950b5c40912e59a17a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/overtrue/socialite/28d852f188719c57bd8c3282338eb69cc7d6971e.zip",
-                "reference": "28d852f188719c57bd8c3282338eb69cc7d6971e",
+                "url": "https://packagist.phpcomposer.com/files/overtrue/laravel-wechat/870111586830cee121cff2950b5c40912e59a17a.zip",
+                "reference": "870111586830cee121cff2950b5c40912e59a17a",
+                "shasum": ""
+            },
+            "require": {
+                "overtrue/wechat": "~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\LaravelWechat\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "anzhengchao@gmail.com"
+                }
+            ],
+            "description": "微信 SDK for Laravel",
+            "keywords": [
+                "laravel",
+                "sdk",
+                "wechat",
+                "weixin"
+            ],
+            "time": "2017-02-19T12:06:47+00:00"
+        },
+        {
+            "name": "overtrue/socialite",
+            "version": "1.0.22",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/socialite.git",
+                "reference": "e749ea09ab7b356a94c823804e95650efc616337"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/overtrue/socialite/e749ea09ab7b356a94c823804e95650efc616337.zip",
+                "reference": "e749ea09ab7b356a94c823804e95650efc616337",
                 "shasum": ""
             },
             "require": {
@@ -1137,20 +1179,20 @@
                 "wechat",
                 "weibo"
             ],
-            "time": "2017-01-19T04:17:07+00:00"
+            "time": "2017-02-13T09:01:56+00:00"
         },
         {
             "name": "overtrue/wechat",
-            "version": "3.2.4",
+            "version": "3.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/wechat.git",
-                "reference": "59b9aa7d9e92119d87f53d0ad8e5cf579992bf3d"
+                "reference": "ac77966d3549e14222c15e3950bc2c6949c2ce31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/overtrue/wechat/59b9aa7d9e92119d87f53d0ad8e5cf579992bf3d.zip",
-                "reference": "59b9aa7d9e92119d87f53d0ad8e5cf579992bf3d",
+                "url": "https://packagist.phpcomposer.com/files/overtrue/wechat/ac77966d3549e14222c15e3950bc2c6949c2ce31.zip",
+                "reference": "ac77966d3549e14222c15e3950bc2c6949c2ce31",
                 "shasum": ""
             },
             "require": {
@@ -1195,7 +1237,7 @@
                 "weixin",
                 "weixin-sdk"
             ],
-            "time": "2017-01-24T07:27:49+00:00"
+            "time": "2017-02-04T05:38:34+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1850,16 +1892,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.7.23",
+            "version": "v2.7.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "f84ffa8da993170c10fd3a109400c01ad2c0fe8a"
+                "reference": "393d47141fd8d277049034f34fa8616ab5093e39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/symfony/http-foundation/f84ffa8da993170c10fd3a109400c01ad2c0fe8a.zip",
-                "reference": "f84ffa8da993170c10fd3a109400c01ad2c0fe8a",
+                "url": "https://packagist.phpcomposer.com/files/symfony/http-foundation/393d47141fd8d277049034f34fa8616ab5093e39.zip",
+                "reference": "393d47141fd8d277049034f34fa8616ab5093e39",
                 "shasum": ""
             },
             "require": {
@@ -1902,7 +1944,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-06T17:20:46+00:00"
+            "time": "2017-02-02T13:27:35+00:00"
         },
         {
             "name": "symfony/http-kernel",
