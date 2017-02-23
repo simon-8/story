@@ -72,13 +72,21 @@ Route::group($admin , function(){
         Route::controller('database' , 'DatabaseController' , [
             'getIndex'   => 'Database.getIndex',
             'getFields'  => 'Database.getFields',
+            'getRepair'  => 'Database.getRepair',
+            'getOptimize'=> 'Database.getOptimize',
         ]);
         //系统配置
         Route::controller('setting' , 'SettingController' , [
             'getIndex'   => 'Setting.getIndex',
-            'postIndex'   => 'Setting.postIndex',
-            'postCreate'   => 'Setting.postCreate',
-            'getDelete'   => 'Setting.getDelete',
+            'postIndex'  => 'Setting.postIndex',
+            'postCreate' => 'Setting.postCreate',
+            'getDelete'  => 'Setting.getDelete',
+            'getCollect' => 'Setting.getCollect',
+        ]);
+        //微信配置
+        Route::controller('weixin' , 'WeixinController' , [
+            'getIndex'   => 'Weixin.getIndex',
+            'getUsers'   => 'Weixin.getUsers',
         ]);
     });
 

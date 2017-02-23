@@ -102,4 +102,9 @@ class SettingController extends BaseController
             return back()->withErrors('删除失败')->withInput();
         }
     }
+
+    public function getCollect()
+    {
+        return 'test';
+    }
 }

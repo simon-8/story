@@ -28,6 +28,8 @@
                     <td>{{ $v->Create_time }}</td>
                     <td>
                         <button class="btn btn-info btn-sm" onclick="ShowFields('{{ $v->Name }}')">数据字典</button>
+                        <button class="btn btn-info btn-sm" onclick="RepairTable('{{ $v->Name }}')">修复</button>
+                        <button class="btn btn-info btn-sm" onclick="OptimizeTable('{{ $v->Name }}')">优化</button>
                     </td>
                 </tr>
             @endforeach
@@ -60,7 +62,36 @@
             $(showModal).modal('show');
             loading(true);
         });
-
+    }
+    function RepairTable(table)
+    {
+        loading();
+        $.get('{!! route('Database.getRepair') !!}' , {'table' : table} ,function(response){
+            if(response)
+            {
+                layer.alert('修复成功',{icon:1});
+            }
+            else
+            {
+                layer.alert('修复失败',{icon:2});
+            }
+            loading(true);
+        });
+    }
+    function OptimizeTable(table)
+    {
+        loading();
+        $.get('{!! route('Database.getOptimize') !!}' , {'table' : table} ,function(response){
+            if(response)
+            {
+                layer.alert('优化成功',{icon:1});
+            }
+            else
+            {
+                layer.alert('优化失败',{icon:2});
+            }
+            loading(true);
+        });
     }
 </script>
 {{--show--}}
