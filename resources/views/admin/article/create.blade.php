@@ -214,6 +214,5 @@
                 $('#tag-list').append(tag);
             }
         }
-
     </script>
 @endsection('content')
