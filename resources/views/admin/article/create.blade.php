@@ -58,7 +58,7 @@
                         <label class="col-sm-2 control-label">标签</label>
                         <div class="col-sm-10">
                             <div class="input-group">
-                                <input type="hidden" name="tag" id="tag_input" value="{{ $tag }}">
+                                <input type="hidden" name="tag" id="tag_input" value="{{ isset($tag) ? $tag : old('tag') }}">
                                 <input type="text" id="tag" class="form-control" value="">
                                 <span class="input-group-btn">
                                         <button type="button" class="btn btn-primary" onclick="tag_add();">添加</button>
@@ -68,9 +68,11 @@
                                 <span class="help-block m-b-none">多个标签请用英文逗号（,）分开</span>
                             </div>
                             <div class="form-group mt tag-list" id="tag-list">
-                                @foreach($tag_lists as $t)
-                                    <a href="javascript:" class="label label-info">{{ $t }}</a>
-                                @endforeach
+                                @if(isset($tag_lists) && count($tag_lists))
+                                    @foreach($tag_lists as $t)
+                                        <a href="javascript:" class="label label-info">{{ $t }}</a>
+                                    @endforeach
+                                @endif
                             </div>
                             <div class="input-group">
                                 <a id="tag_choice">从常用标签库里选择</a>
