@@ -89,6 +89,9 @@ Route::group($admin , function(){
             'getIndex'   => 'Weixin.getIndex',
             'getUsers'   => 'Weixin.getUsers',
         ]);
+        Route::controller('collect' , 'CollectController' , [
+            'getIndex'   => 'Collect.getIndex',
+        ]);
     });
 
 });
