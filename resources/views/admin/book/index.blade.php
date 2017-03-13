@@ -85,6 +85,7 @@
         $(updateModal).modal('show');
     }
 
+    //显示该章节内容
     function ShowDetail(id){
         loading();
         $.get("{!! route('Book.getDetail') !!}" , {id:id} ,function(res){
@@ -101,14 +102,17 @@
         });
     }
 
+    //编辑章节
     function UpdateDetail(id) {
         window.open("{!! route('Book.getUpdateDetail') !!}?id=" + id);
     }
 
+    //删除章节
     function DeleteDetail(id) {
         window.open("{!! route('Book.getDeleteDetail') !!}?id=" + id);
     }
 
+    //数据填充至模态层
     function showData(id,res){
         if(res.data.length){
             var tr = '';
@@ -159,7 +163,7 @@
             layer.alert('未找到数据');
         }
     }
-
+    //获取文章章节列表
     function getDetailLists(id,page){
         loading();
         if(parseInt(page) == 0) page = 1;

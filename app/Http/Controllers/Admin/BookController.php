@@ -63,19 +63,40 @@ class BookController extends BaseController
 
     }
 
-    public function getUpdate()
-    {
+//    public function getUpdate()
+//    {
+//
+//    }
 
+    /**
+     * 修改小说
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postUpdate(Request $request)
+    {
+        $result = $this->model->updateBook($request->all());
+        if($result)
+        {
+            return redirect()->route('Book.getIndex')->with('Message','修改成功');
+        }
+        else
+        {
+            return back()->withErrors('修改失败')->withInput();
+        }
     }
 
-    public function postUpdate()
+    public function getDelete(Request $request)
     {
-
-    }
-
-    public function getDelete()
-    {
-
+        $result = $this->model->deleteBook($request->id);
+        if($result)
+        {
+            return redirect()->route('Book.getIndex')->with('Message','删除成功');
+        }
+        else
+        {
+            return back()->withErrors('删除失败')->withInput();
+        }
     }
 
     public function getRecycle()

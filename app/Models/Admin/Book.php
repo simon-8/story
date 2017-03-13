@@ -36,4 +36,33 @@ class Book extends Model
         return $this->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->paginate($pagesize);
     }
 
+    /**
+     * 更新小说
+     * @param $data
+     * @return bool
+     */
+    public function updateBook($data)
+    {
+        $item = $this->find($data['id']);
+        if(!$item) return false;
+        foreach($data as $k => $v){
+            if(isset($item->$k)){
+                $item->$k = $v;
+            }
+        }
+        return $item->save();
+    }
+
+    /**
+     * 删除
+     * @param $id
+     * @return mixed
+     */
+    public function deleteBook($id)
+    {
+        $item = $this->find($id);
+        $item->status = 0;
+        return $item->save();
+    }
+
 }
