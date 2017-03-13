@@ -215,6 +215,39 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 0,
             ),
+            18 => 
+            array (
+                'id' => 19,
+                'pid' => 0,
+                'name' => '小说管理',
+                'prefix' => 'Book',
+                'route' => 'getIndex',
+                'ico' => 'fa fa-book',
+                'listorder' => 0,
+                'items' => 2,
+            ),
+            19 => 
+            array (
+                'id' => 20,
+                'pid' => 19,
+                'name' => '小说列表',
+                'prefix' => 'Book',
+                'route' => 'getIndex',
+                'ico' => '',
+                'listorder' => 0,
+                'items' => 0,
+            ),
+            20 => 
+            array (
+                'id' => 22,
+                'pid' => 19,
+                'name' => '栏目管理',
+                'prefix' => 'Book',
+                'route' => 'getCategorys',
+                'ico' => '',
+                'listorder' => 0,
+                'items' => 0,
+            ),
         ));
         
         

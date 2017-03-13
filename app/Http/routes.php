@@ -15,7 +15,6 @@
 $admin = [
     'prefix' => 'admin',
     'namespace' => 'Admin',
-    //'middleware'    => 'admin'
 ];
 Route::group($admin , function(){
 
@@ -28,15 +27,13 @@ Route::group($admin , function(){
     Route::get('login' , 'AuthController@getLogin')->name('getAdminLogin');
     Route::post('login' , 'AuthController@postLogin')->name('postAdminLogin');
 
-//    Route::get('register' , 'AuthController@getRegister')->name('getAdminRegister');
-//    Route::post('register' , 'AuthController@postRegister')->name('postAdminRegister');
+
     Route::get('logout' , 'AuthController@getLogout')->name('getAdminLogout');
     Route::any('enterpassword' , 'AuthController@getEnterpassword')->name('getEnterpassword');
 
     //AdminAuthenticate中间件接管
     Route::group(['middleware' => 'admin'] ,function(){
 
-        //
         Route::get('/' , 'IndexController@getIndex')->name('Admin.getIndex');
         Route::any('ajax' , 'AjaxController@getIndex')->name('Admin.Ajax');
 
@@ -51,14 +48,14 @@ Route::group($admin , function(){
         ]);
         //文章管理
         Route::controller('article' , 'ArticleController' , [
-            'getIndex'   => 'Article.getIndex',
-            'getCreate'  => 'Article.getCreate',
-            'postCreate' => 'Article.postCreate',
-            'getUpdate'  => 'Article.getUpdate',
-            'postUpdate' => 'Article.postUpdate',
-            'getDelete'  => 'Article.getDelete',
+            'getIndex'      => 'Article.getIndex',
+            'getCreate'     => 'Article.getCreate',
+            'postCreate'    => 'Article.postCreate',
+            'getUpdate'     => 'Article.getUpdate',
+            'postUpdate'    => 'Article.postUpdate',
+            'getDelete'     => 'Article.getDelete',
             'getCategorys'  => 'Article.getCategorys',
-            'getRecycle'  => 'Article.getRecycle',
+            'getRecycle'    => 'Article.getRecycle',
         ]);
         //菜单管理
         Route::controller('menu' , 'MenuController' , [
@@ -89,8 +86,25 @@ Route::group($admin , function(){
             'getIndex'   => 'Weixin.getIndex',
             'getUsers'   => 'Weixin.getUsers',
         ]);
+        //采集配置
         Route::controller('collect' , 'CollectController' , [
             'getIndex'   => 'Collect.getIndex',
+        ]);
+        //小说管理
+        Route::controller('book' , 'BookController' , [
+            'getIndex'          => 'Book.getIndex',
+            'getCreate'         => 'Book.getCreate',
+            'postCreate'        => 'Book.postCreate',
+            'getUpdate'         => 'Book.getUpdate',
+            'postUpdate'        => 'Book.postUpdate',
+            'getDelete'         => 'Book.getDelete',
+            'getCategorys'      => 'Book.getCategorys',
+            'getRecycle'        => 'Book.getRecycle',
+            'getDetailLists'    => 'Book.getDetailLists',
+            'getDetail'         => 'Book.getDetail',
+            'getUpdateDetail'   => 'Book.getUpdateDetail',
+            'postUpdateDetail'  => 'Book.postUpdateDetail',
+            'getDeleteDetail'   => 'Book.getDeleteDetail',
         ]);
     });
 

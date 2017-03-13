@@ -17,6 +17,10 @@ git下载本程序后
     
     composer install
     
+> 生成应用程序密钥
+
+    php artisan key:generate
+
 > 还原数据库备份 , 生成菜单 , 默认管理员等数据
     
     php artisan migrate --seed

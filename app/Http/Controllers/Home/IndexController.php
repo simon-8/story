@@ -35,7 +35,8 @@ class IndexController extends Controller
     public function getTest()
     {
         $baseUrl = 'http://www.8dushu.com';
-        $url = $baseUrl . '/sort1/1/';//玄幻
+        $catid = 1;
+        $url = $baseUrl . '/sort1/'.$catid.'/';//玄幻
         $rules = [
             'title' => [
                 '.sm a','text'
@@ -59,6 +60,7 @@ class IndexController extends Controller
         $data = QueryList::Query($url,$rules,'','UTF-8','GBK',true);
         $data = $data->getData();
 
+        $count = 0;
         foreach($data as &$v){
             if( !empty($v['linkurl']) ){
                 $v['linkurl'] = $baseUrl . $v['linkurl'];
@@ -80,7 +82,7 @@ class IndexController extends Controller
                 }else{
 
                     $id = DB::table('books')->insertGetId([
-                        'catid' => 0,
+                        'catid' => $catid,
                         'title' => $v['title'],
                         'introduce' => '',
                         'zhangjie'  => $v['zhangjie'],
@@ -95,9 +97,12 @@ class IndexController extends Controller
                     $v['id'] = $id;
 
                 }
+                if($count > 15){
+                    break;
+                }
                 //推送到任务队列
                 $this->dispatch(new ArtCaiJi($v));
-                break;
+                $count++;
             }
 
         }

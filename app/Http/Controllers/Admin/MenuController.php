@@ -118,7 +118,8 @@ class MenuController extends BaseController
      */
     public function getDelete(Request $request)
     {
-        $itemid = $request->itemid;
-        $this->Menu->delete_menu($itemid);
+        $id = $request->id;
+        $this->Menu->delete_menu($id);
+        return redirect()->route('Menu.getIndex')->with('Message' , '删除成功');
     }
 }

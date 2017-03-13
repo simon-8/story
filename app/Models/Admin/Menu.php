@@ -109,7 +109,6 @@ class Menu extends Model
         }
         $this->where('id' , $id)->delete();
 
-
         return true;
     }
 
