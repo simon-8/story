@@ -96,7 +96,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer" style="clear:both;overflow: auto;overflow-x:hidden">
+        <div class="footer" style="">
             <div class="pull-right">&copy; {{ date('Y')-1 }}-{{ date('Y')+1 }} <a href="/" target="_blank">Simon's blog</a></div>
         </div>
     </div>

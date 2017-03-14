@@ -21,6 +21,7 @@ class CreateBooksDetailTable extends Migration
             $table->Text('content')->comment('小说内容');
             $table->unsignedBigInteger('hits')->comment('浏览次数');
             $table->unsignedTinyInteger('status')->comment('状态');
+            $table->string('hash')->comment('标题和ID组合hash值');
             $table->timestamps();
         });
     }

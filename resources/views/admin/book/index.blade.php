@@ -1,6 +1,10 @@
 @extends('layout.admin')
 
 @section('content')
+<div class="alert alert-success alert-dismissable">
+    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+    当前队列数量 <strong id="queueNumber">0</strong>
+</div>
 <table class="table table-bordered table-hover bg-white text-center">
     <tr>
         <td width="50">编号</td>
@@ -48,7 +52,7 @@
         </tr>
     @endif
 </table>
-<button class="btn btn-success" data-toggle="modal" data-target="#createModal">添加菜单</button>
+<button class="btn btn-success" data-toggle="modal" data-target="#createModal">添加采集队列</button>
 <script>
 
     var dlistsModal = '#DetailListsModal';
@@ -117,7 +121,7 @@
         if(res.data.length){
             var tr = '';
             $.each(res.data , function(k,v){
-                tr += '<tr><td>' + v.id + '</td><td align="left"><strong>' + v.title + '</strong></td><td>' + v.hits + '</td><td>' + v.created_at + '</td><td>' + v.updated_at + '</td> <td><button class="btn btn-sm btn-success" onclick="ShowDetail(' + v.id + ')">内容</button><button class="btn btn-sm btn-info" onclick="UpdateDetail(' + v.id + ')">编辑</button><button class="btn btn-sm btn-danger" onclick="DeleteDetail(' + v.id + ')">删除</button></td></tr>';
+                tr += '<tr><td>' + v.id + '</td><td align="left"><strong>' + v.title + '</strong></td><td>' + v.created_at + '</td><td>' + v.updated_at + '</td> <td><button class="btn btn-sm btn-success" onclick="ShowDetail(' + v.id + ')">内容</button><button class="btn btn-sm btn-info" onclick="UpdateDetail(' + v.id + ')">编辑</button><button class="btn btn-sm btn-danger" onclick="DeleteDetail(' + v.id + ')">删除</button></td></tr>';
             });
             $(dlistsModal).find('tbody').html(tr);
 
@@ -180,10 +184,88 @@
             }
         });
     }
+    setInterval(function(){
+        $.get("{!! route('Book.getQueueNumber') !!}",{},function(res){
+            $('#queueNumber').text(res);
+        });
+    },3000);
 </script>
 
 {{--delete--}}
 @include('admin.modal.delete' , ['formurl' => route('Book.getDelete')])
+
+{{--createQueue--}}
+<div class="modal inmodal" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInX">
+            <form action="{{ route('Book.getCreateQueue') }}" method="get" class="form-horizontal">
+                {!! csrf_field() !!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">创建采集队列</h4>
+                </div>
+                <div class="modal-body">
+                    {{--<div class="form-group">--}}
+                        {{--<label class="col-sm-2 control-label">采集类型</label>--}}
+                        {{--<div class="col-sm-10">--}}
+                            {{--<select name="type" class="form-control">--}}
+                                {{--<option value="0">指定栏目</option>--}}
+                                {{--<option value="1">指定文章</option>--}}
+                            {{--</select>--}}
+                            {{--<span class="help-block m-b-none"></span>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">源选择</label>
+                        <div class="col-sm-9">
+                            <select name="source" class="form-control">
+                                <option value="dushu88">88读书网</option>
+                            </select>
+                            <span class="help-block m-b-none"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">栏目选择</label>
+                        <div class="col-sm-9">
+                            <select name="catid" class="form-control">
+                                <option value="0">请选择</option>
+                                @foreach($categorys as $v)
+                                    <option value="{{ $v['id'] }}">{{ $v['name'] }}</option>
+                                @endforeach
+                            </select>
+                            <span class="help-block m-b-none"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">采集数量</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" name="number" value="{{ old('number') }}" placeholder="100">
+                            <span class="help-block m-b-none">采集多少篇</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">指定文章ID</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" name="targetId" value="{{ old('targetId') }}" placeholder="89757">
+                            <span class="help-block m-b-none"></span>
+                        </div>
+                    </div>
+                    {{--<div class="form-group">--}}
+                        {{--<label class="col-sm-2 control-label">列表页链接</label>--}}
+                        {{--<div class="col-sm-10">--}}
+                            {{--<input type="text" class="form-control" name="linkurl" value="{{ old('linkurl') }}" placeholder="getIndex">--}}
+                            {{--<span class="help-block m-b-none">弱</span>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {{--update--}}
 <div class="modal inmodal" id="updateModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -260,9 +342,9 @@
                     <tr>
                         <td width="50">编号</td>
                         <td width="150" align="left">标题</td>
-                        <td>点击量</td>
-                        <td>添加时间</td>
-                        <td>更新时间</td>
+                        {{--<td>点击量</td>--}}
+                        <td width="150">添加时间</td>
+                        <td width="150">更新时间</td>
                         <td width="180">操作</td>
                     </tr>
                     </thead>
@@ -271,7 +353,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="6">
+                            <td colspan="5">
 
                             </td>
                         </tr>

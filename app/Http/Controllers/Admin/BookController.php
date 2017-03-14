@@ -10,7 +10,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Book;
 use App\Models\Admin\BookDetail;
 use Illuminate\Http\Request;
+use QL\QueryList;
 
+use DB;
+use App\Jobs\ArtCaiJi;
 class BookController extends BaseController
 {
     protected $model;
@@ -36,23 +39,6 @@ class BookController extends BaseController
         return admin_view('book.index',$data);
     }
 
-    /**
-     * 获取章节列表
-     * @param Request $request
-     * @param BookDetail $bookDetail
-     * @return mixed
-     */
-    public function getDetailLists(Request $request, BookDetail $bookDetail)
-    {
-        $lists = $bookDetail->lists(['pid' => $request->id],'id DSEC',10);
-        return $lists;
-    }
-
-    public function getDetail(Request $request ,BookDetail $bookDetail)
-    {
-        return $bookDetail->find($request->id);
-    }
-
     public function getCreate()
     {
         dd(base_path('config'));
@@ -63,13 +49,8 @@ class BookController extends BaseController
 
     }
 
-//    public function getUpdate()
-//    {
-//
-//    }
-
     /**
-     * 修改小说
+     * 更新文章资料
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -86,6 +67,11 @@ class BookController extends BaseController
         }
     }
 
+    /**
+     * 删除对应文章
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getDelete(Request $request)
     {
         $result = $this->model->deleteBook($request->id);
@@ -99,6 +85,7 @@ class BookController extends BaseController
         }
     }
 
+    //回收站
     public function getRecycle()
     {
 
@@ -123,73 +110,31 @@ class BookController extends BaseController
      */
     public function Categorys()
     {
-        return  [
-            1 => [
-                'id' => 1,
-                'pid'=> 0,
-                'listorder' => 0,
-                'items' => 0,
-                'name' => '玄幻魔法',
-            ],
-            2 => [
-                'id' => 2,
-                'pid'=> 0,
-                'listorder' => 0,
-                'items' => 0,
-                'name' => '武侠修真',
-            ],
-            3 => [
-                'id' => 3,
-                'pid'=> 0,
-                'listorder' => 0,
-                'items' => 0,
-                'name' => '都市言情',
-            ],
-            4 => [
-                'id' => 4,
-                'pid'=> 0,
-                'listorder' => 0,
-                'items' => 0,
-                'name' => '历史穿越',
-            ],
-            5 => [
-                'id' => 5,
-                'pid'=> 0,
-                'listorder' => 0,
-                'items' => 0,
-                'name' => '恐怖悬疑',
-            ],
-            6 => [
-                'id' => 6,
-                'pid'=> 0,
-                'listorder' => 0,
-                'items' => 0,
-                'name' => '游戏竞技',
-            ],
-            7 => [
-                'id' => 7,
-                'pid'=> 0,
-                'listorder' => 0,
-                'items' => 0,
-                'name' => '军事科幻',
-            ],
-            8 => [
-                'id' => 8,
-                'pid'=> 0,
-                'listorder' => 0,
-                'items' => 0,
-                'name' => '综合类型',
-            ],
-            9 => [
-                'id' => 9,
-                'pid'=> 0,
-                'listorder' => 0,
-                'items' => 0,
-                'name' => '女生频道',
-            ],
-        ];
+        return config('book.categorys');
     }
 
+    /**
+     * 获取章节列表
+     * @param Request $request
+     * @param BookDetail $bookDetail
+     * @return mixed
+     */
+    public function getDetailLists(Request $request, BookDetail $bookDetail)
+    {
+        $lists = $bookDetail->lists(['pid' => $request->id],'id DSEC',10);
+        return $lists;
+    }
+
+    /**
+     * 获取章节内容
+     * @param Request $request
+     * @param BookDetail $bookDetail
+     * @return mixed
+     */
+    public function getDetail(Request $request , BookDetail $bookDetail)
+    {
+        return $bookDetail->find($request->id);
+    }
 
     /**
      * 更新指定章节
@@ -239,6 +184,95 @@ class BookController extends BaseController
         {
             return back()->withErrors('删除失败')->withInput();
         }
+    }
+
+    /**
+     * 加入任务队列
+     * @param Request $request
+     * @return mixed
+     */
+    public function getCreateQueue(Request $request)
+    {
+        $data = $request->all();
+        $source = $data['source'];
+        return $this->$source($data);
+    }
+
+    protected function dushu88($data)
+    {
+
+        $baseUrl = 'http://www.8dushu.com';
+
+        $catid = $data['catid'];
+
+        $pagesize = 31;
+        $totalPage = ceil($data['number'] / $pagesize);//需要采集的总页码
+
+        $rules = config('book.rules.88dushu.lists');
+
+        $SuccessCount = 0;
+        for($page = 1;$page <= $totalPage;$page++)
+        {
+            $url = $baseUrl . '/sort'.$catid.'/'.$page.'/';
+            $result = QueryList::Query($url,$rules,'','UTF-8','GBK',true)->getData();
+
+            foreach($result as &$v){
+
+                if($SuccessCount >= $data['number']){
+                    break;
+                }
+
+                if( !empty($v['linkurl']) ){
+                    $v['linkurl'] = $baseUrl . $v['linkurl'];
+                }
+                $v['wordcount'] = preg_replace('/[^0-9]+/','',$v['wordcount']);
+
+                if( !empty($v['title']) ){
+
+                    $item = DB::table('books')->where('title',trim($v['title']))->first();
+
+                    if($item){
+
+                        DB::table('books')->where('id',$item->id)->update([
+                            'wordcount' => $v['wordcount'],
+                            'zhangjie'  => $v['zhangjie'],
+                        ]);
+                        $v['id'] = $item->id;
+
+                    }else{
+
+                        $id = DB::table('books')->insertGetId([
+                            'catid' => $catid,
+                            'title' => $v['title'],
+                            'introduce' => '',
+                            'zhangjie'  => $v['zhangjie'],
+                            'author'=> $v['author'],
+                            'wordcount' => $v['wordcount'],
+                            'follow'    => 0,
+                            'hits'      => 0,
+                            'status'    => 1,
+                            'created_at'=> date('Y-m-d H:i:s'),
+                            'updated_at'=> date('Y-m-d H:i:s'),
+                        ]);
+                        $v['id'] = $id;
+
+                    }
+
+                    //推送到任务队列
+                    $this->dispatch(new ArtCaiJi($v));
+                    $SuccessCount++;
+                }
+            }
+        }
+
+        \File::put( public_path().'/caiji/data.php' , '<?php return ' . var_export($data,true) .';?>' );
+
+        return redirect()->route('Book.getIndex')->with('Message','操作成功');
+    }
+
+    public function getQueueNumber()
+    {
+        return DB::table('jobs')->count();
     }
 
 }

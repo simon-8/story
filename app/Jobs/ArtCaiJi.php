@@ -60,7 +60,7 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
             $book = $html->setQuery($rules);
             $booksDetailLists = $book->getData();
 
-            $count = 0;
+            //$count = 0;
 
             foreach($booksDetailLists as $v)
             {
@@ -72,14 +72,14 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
                     if( $detail ){
                         \Log::debug('-------> 该章节已采集过，跳过此节 -------> ' . $this->Book['title'] . '  章节: ' . $v['title']);
                     }else{
-                        if($count > 5){
-                            break;
-                        }
+//                        if($count > 5){
+//                            break;
+//                        }
                         //推送到章节采集队列
                         dispatch(
                             new ArticleDetail( array_merge($v,['pid' => $this->Book['id']]) )
                         );
-                        $count++;
+                        //$count++;
                     }
                 }
             }

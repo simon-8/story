@@ -46,9 +46,10 @@ class ArticleDetail extends Job implements SelfHandling, ShouldQueue
         DB::table('books_detail')->insert([
             'pid'    => $this->Info['pid'],
             'title'  => $this->Info['title'],
-            'content'=> $result['content'],
+            'content'=> ($result['content'] ? $result['content'] : ''),
             'hits'   => 0,
             'status' => 1,
+            'hash'   => md5($this->Info['pid'] . $this->Info['title']),
             'created_at'=> date('Y-m-d H:i:s'),
             'updated_at'=> date('Y-m-d H:i:s'),
         ]);
