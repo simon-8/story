@@ -29,7 +29,13 @@ class BookDetail extends Model
     public function lists($condition = [] , $order = 'id DSEC',$pagesize = 20)
     {
         $order = $order ? explode(' ' , $order) : ['id' ,'DESC'];
-        return $this->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->paginate($pagesize);
+        return $this->select([
+            'id',
+            'pid',
+            'title',
+            'created_at',
+            'updated_at',
+        ])->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->paginate($pagesize);
     }
 
     public function updateDetail($data)
