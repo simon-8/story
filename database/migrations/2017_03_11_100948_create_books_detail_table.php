@@ -18,10 +18,10 @@ class CreateBooksDetailTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('pid')->comment('小说ID');
             $table->string('title')->comment('标题');
-            $table->Text('content')->comment('小说内容');
+            //$table->Text('content')->comment('小说内容');
             $table->unsignedBigInteger('hits')->comment('浏览次数');
             $table->unsignedTinyInteger('status')->comment('状态');
-            $table->string('hash')->comment('标题和ID组合hash值');
+            $table->string('fromhash')->comment('来源链接hash值')->unique();
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateBooksDetailTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('books_detail');
     }
 }

@@ -20,6 +20,8 @@ class Book extends Model
         'follow',
         'hits',
         'status',
+        'fromurl',
+        'fromhash',
     ];
 
     /**

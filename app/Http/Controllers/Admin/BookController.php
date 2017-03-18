@@ -198,6 +198,12 @@ class BookController extends BaseController
         return $this->$source($data);
     }
 
+    /*
+     * 1.读取待采集栏目页面所有指定链接
+     * 2.对链接进行补全，得到完整链接
+     * 3.将该链接放入数据库中查询,判断是否存在记录
+     *
+     * */
     protected function dushu88($data)
     {
 
@@ -208,7 +214,7 @@ class BookController extends BaseController
         $pagesize = 31;
         $totalPage = ceil($data['number'] / $pagesize);//需要采集的总页码
 
-        $rules = config('book.rules.88dushu.lists');
+        $rules = config('book.rules.88dushu.lists');//列表页采集规则
 
         $SuccessCount = 0;
         for($page = 1;$page <= $totalPage;$page++)
@@ -217,30 +223,31 @@ class BookController extends BaseController
             $result = QueryList::Query($url,$rules,'','UTF-8','GBK',true)->getData();
 
             foreach($result as &$v){
+                $v = array_map('trim',$v);//移除所有字段空格
 
                 if($SuccessCount >= $data['number']){
                     break;
                 }
 
                 if( !empty($v['linkurl']) ){
-                    $v['linkurl'] = $baseUrl . $v['linkurl'];
+                    if(substr($v['linkurl'],0,4) !== 'http') $v['linkurl'] = $baseUrl . $v['linkurl'];
+                }else{
+                    continue;
                 }
                 $v['wordcount'] = preg_replace('/[^0-9]+/','',$v['wordcount']);
 
                 if( !empty($v['title']) ){
+                    //1062 Duplicate entry
 
-                    $item = DB::table('books')->where('title',trim($v['title']))->first();
+                    $item = DB::table('books')->where('fromhash',md5(trim($v['linkurl'])))->first();//根据unique索引检查数据是否存在
 
                     if($item){
-
-                        DB::table('books')->where('id',$item->id)->update([
-                            'wordcount' => $v['wordcount'],
-                            'zhangjie'  => $v['zhangjie'],
-                        ]);
+                        //DB::table('books')->where('id',$item->id)->update([
+                        //    'wordcount' => $v['wordcount'],
+                        //    'zhangjie'  => $v['zhangjie'],
+                        //]);
                         $v['id'] = $item->id;
-
                     }else{
-
                         $id = DB::table('books')->insertGetId([
                             'catid' => $catid,
                             'title' => $v['title'],
@@ -251,21 +258,21 @@ class BookController extends BaseController
                             'follow'    => 0,
                             'hits'      => 0,
                             'status'    => 1,
+                            'fromurl'   => $v['linkurl'],
+                            'fromhash'  => md5($v['linkurl']),
                             'created_at'=> date('Y-m-d H:i:s'),
                             'updated_at'=> date('Y-m-d H:i:s'),
                         ]);
                         $v['id'] = $id;
-
                     }
 
-                    //推送到任务队列
-                    $this->dispatch(new ArtCaiJi($v));
+                    $this->dispatch(new ArtCaiJi($v));//推送到任务队列
                     $SuccessCount++;
                 }
             }
         }
 
-        \File::put( public_path().'/caiji/data.php' , '<?php return ' . var_export($data,true) .';?>' );
+        /*\File::put( public_path().'/caiji/data.php' , '<?php return ' . var_export($data,true) .';?>' );*/
 
         return redirect()->route('Book.getIndex')->with('Message','操作成功');
     }

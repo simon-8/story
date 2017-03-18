@@ -72,18 +72,7 @@
         var json = $('#edit_' + id).attr('data');
         json = JSON.parse(json);
         $.each(json , function(k , v){
-//            if( k == 'catid' )
-//            {
-//                $(updateModal).find('select[name=' + k + ']').val(v);
-//            }
-//            else if( k == 'introduce' )
-//            {
-//                $(updateModal).find('textarea[name=' + k + ']').val(v);
-//            }
-//            else
-//            {
-                $(updateModal).find('[name=' + k + ']').val(v);
-//            }
+            $(updateModal).find('[name=' + k + ']').val(v);
         });
 
         $(updateModal).modal('show');
@@ -184,8 +173,13 @@
             }
         });
     }
-    setInterval(function(){
+    var QueryRequest;
+    QueryRequest = setInterval(function(){
         $.get("{!! route('Book.getQueueNumber') !!}",{},function(res){
+            if( res == 0 ){
+                window.clearInterval(QueryRequest);
+                return false;
+            }
             $('#queueNumber').text(res);
         });
     },3000);

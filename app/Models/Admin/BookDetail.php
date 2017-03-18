@@ -13,9 +13,10 @@ class BookDetail extends Model
     protected $fillable = [
         'pid',
         'title',
-        'content',
+        //'content',
         'hits',
         'status',
+        'fromhash',
     ];
 
     /**
@@ -43,7 +44,7 @@ class BookDetail extends Model
         $item = $this->find($data['id']);
         if(!$item) return false;
         $item->title = $data['title'];
-        $item->content = $data['content'];
+        //$item->content = $data['content'];
         $item->status = $data['status'];
         return $item->save();
     }
