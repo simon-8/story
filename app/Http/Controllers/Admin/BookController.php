@@ -274,6 +274,7 @@ class BookController extends BaseController
         $catid = $data['catid'];
 
         $pagesize = 31;
+        $data['number'] = intval($data['number']) < 1 ? 10 : intval($data['number']);
         $totalPage = ceil($data['number'] / $pagesize);//需要采集的总页码
 
         $rules = config('book.rules.88dushu.lists');//列表页采集规则
