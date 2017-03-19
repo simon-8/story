@@ -97,6 +97,7 @@ Route::group($admin , function(){
             'postCreate'            => 'Book.postCreate',
             'getCreateQueue'        => 'Book.getCreateQueue',
             'getQueueNumber'        => 'Book.getQueueNumber',
+            'getDetailUpdate'       => 'Book.getDetailUpdate',
 //            'getUpdate'             => 'Book.getUpdate',
             'postUpdate'            => 'Book.postUpdate',
             'getDelete'             => 'Book.getDelete',

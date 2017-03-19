@@ -54,7 +54,7 @@
     @endif
 </table>
 <button class="btn btn-success" data-toggle="modal" data-target="#createModal">添加采集队列</button>
-<button class="btn btn-success" data-toggle="modal" data-target="#createModal">添加更新队列</button>
+<button class="btn btn-success" onclick="getListsUpdate();">添加更新队列</button>
 <script>
 
     var dlistsModal = '#DetailListsModal';
@@ -179,29 +179,58 @@
     {
         layer.open({
             title:'一次更新多少章节?',
-            //area:'400px',
-//            btn:[],
             shadeClose:true,
             content:'<input type="number" name="UpdateNumber" value="10"/>',
-            success:function(){
+            yes:function(){
                 loading();
                 var n = $('[name=UpdateNumber]').val();
                 $.get("{!! route('Book.getDtailListsUpdate') !!}",{'id':id,'number':n},function(res){
+                    getQuery();
                     loading(true);
                 });
             }
         });
     }
-    var QueryRequest;
-    QueryRequest = setInterval(function(){
-        $.get("{!! route('Book.getQueueNumber') !!}",{},function(res){
-            if( res == 0 ){
-                window.clearInterval(QueryRequest);
-                return false;
+
+    function getListsUpdate()
+    {
+        layer.open({
+            title:'一次更新多少本书?',
+            shadeClose:true,
+            content:'<input type="number" name="UpdateNumber" value="10" class="form-control"/>',
+            yes:function(i){
+                loading();
+                layer.close(i);
+                var n = $('[name=UpdateNumber]').val();
+                $.get("{!! route('Book.getDetailUpdate') !!}",{'number':n},function(res){
+                    loading(true);
+                    layer.alert('操作成功',function(){
+                        getQuery();
+                        layer.closeAll();
+                    });
+                });
             }
-            $('#queueNumber').text(res);
         });
-    },3000);
+    }
+
+    var QueryRequest;
+
+    //定时查询队列数量
+    function getQuery()
+    {
+        window.clearInterval(QueryRequest);
+        QueryRequest = setInterval(function(){
+            $.get("{!! route('Book.getQueueNumber') !!}",{},function(res){
+                if( res == 0 ){
+                    window.clearInterval(QueryRequest);
+                    return false;
+                }
+                $('#queueNumber').text(res);
+            });
+        },3000);
+    }
+
+    getQuery();
 </script>
 
 {{--delete--}}

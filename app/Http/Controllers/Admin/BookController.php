@@ -127,9 +127,25 @@ class BookController extends BaseController
         return $lists;
     }
 
+    /**
+     * 更新指定数量小说小说
+     * @param Request $request
+     * @param Book $book
+     * @return int
+     */
+    public function getDetailUpdate(Request $request, Book $book)
+    {
+        $number = intval($request->number) < 1 ? 10 : intval($request->number);
+        $lists = $book->lists([],'updated_at asc',$number);
+        foreach($lists as $v)
+        {
+            $this->dushu88Detail(['id' => $v->id ,'fromurl' => $v->fromurl],10);
+        }
+        return 1;
+    }
 
     /**
-     * 更新指定文章章节
+     * 采集指定文章章节
      * @param Request $request
      * @param Book $book
      * @return bool
@@ -139,7 +155,12 @@ class BookController extends BaseController
         $id = $request->id;
         $number = intval($request->number) < 1 ? 10 : intval($request->number);
         $data = $book->find($id);
+        $this->dushu88Detail(['id' => $data->id ,'fromurl' => $data->fromurl],$number);
+        return 1;
+    }
 
+    protected function dushu88Detail($data,$number)
+    {
         //获取章节列表
         $rules = [
             'title' => [
@@ -149,7 +170,7 @@ class BookController extends BaseController
                 '.mulu li a' , 'href'
             ],
         ];
-        $result = QueryList::Query($data->fromurl,$rules,'','UTF-8','GBK',true)->getData();
+        $result = QueryList::Query($data['fromurl'],$rules,'','UTF-8','GBK',true)->getData();
 
         $count = 0;
         foreach($result as $v)
@@ -157,9 +178,9 @@ class BookController extends BaseController
             $v = array_map('trim',$v);
             if(!empty($v['linkurl'])){
 
-                $v['linkurl'] = substr($v['linkurl'],0,4) != 'http' ? $data->fromurl . $v['linkurl'] : $v['linkurl'];
+                $v['linkurl'] = substr($v['linkurl'],0,4) != 'http' ? $data['fromurl'] . $v['linkurl'] : $v['linkurl'];
 
-                $detail = DB::table('books_detail')->select('id')->where('fromhash',md5($v['linkurl']))->where('pid',$data->id)->first();
+                $detail = DB::table('books_detail')->select('id')->where('fromhash',md5($v['linkurl']))->where('pid',$data['id'])->first();
                 if( $detail ){
                     //\Log::debug('-------> 该章节已采集过，跳过此节 -------> ' . $this->Book['title'] . '  章节: ' . $v['title']);
                 }else{
@@ -168,15 +189,14 @@ class BookController extends BaseController
                     }
                     //推送到章节采集队列
                     dispatch(
-                        new ArticleDetail( array_merge($v,['pid' => $data->id]) )
+                        new ArticleDetail( array_merge($v,['pid' => $data['id']]) )
                     );
                     $count++;
                 }
             }
         }
-        return 1;
+        return true;
     }
-
     /**
      * 获取章节内容
      * @param Request $request
@@ -340,6 +360,10 @@ class BookController extends BaseController
         return redirect()->route('Book.getIndex')->with('Message','操作成功');
     }
 
+    /**
+     * 获取当前队列数量
+     * @return int
+     */
     public function getQueueNumber()
     {
         return DB::table('jobs')->count();
