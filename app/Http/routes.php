@@ -92,21 +92,22 @@ Route::group($admin , function(){
         ]);
         //小说管理
         Route::controller('book' , 'BookController' , [
-            'getIndex'          => 'Book.getIndex',
-            'getCreate'         => 'Book.getCreate',
-            'postCreate'        => 'Book.postCreate',
-            'getCreateQueue'    => 'Book.getCreateQueue',
-            'getQueueNumber'    => 'Book.getQueueNumber',
-            //'getUpdate'         => 'Book.getUpdate',
-            'postUpdate'        => 'Book.postUpdate',
-            'getDelete'         => 'Book.getDelete',
-            'getCategorys'      => 'Book.getCategorys',
-            'getRecycle'        => 'Book.getRecycle',
-            'getDetailLists'    => 'Book.getDetailLists',
-            'getDetail'         => 'Book.getDetail',
-            'getUpdateDetail'   => 'Book.getUpdateDetail',
-            'postUpdateDetail'  => 'Book.postUpdateDetail',
-            'getDeleteDetail'   => 'Book.getDeleteDetail',
+            'getIndex'              => 'Book.getIndex',
+            'getCreate'             => 'Book.getCreate',
+            'postCreate'            => 'Book.postCreate',
+            'getCreateQueue'        => 'Book.getCreateQueue',
+            'getQueueNumber'        => 'Book.getQueueNumber',
+//            'getUpdate'             => 'Book.getUpdate',
+            'postUpdate'            => 'Book.postUpdate',
+            'getDelete'             => 'Book.getDelete',
+            'getCategorys'          => 'Book.getCategorys',
+            'getRecycle'            => 'Book.getRecycle',
+            'getDetailLists'        => 'Book.getDetailLists',
+            'getDtailListsUpdate'   => 'Book.getDtailListsUpdate',
+            'getDetail'             => 'Book.getDetail',
+            'getUpdateDetail'       => 'Book.getUpdateDetail',
+            'postUpdateDetail'      => 'Book.postUpdateDetail',
+            'getDeleteDetail'       => 'Book.getDeleteDetail',
         ]);
     });
 

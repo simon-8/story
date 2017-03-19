@@ -67,11 +67,11 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
                 $v = array_map('trim',$v);
                 if(!empty($v['linkurl'])){
 
-                    $v['linkurl'] = strpos($v['linkurl'],'http') === false ? $this->Book['linkurl'] . $v['linkurl'] : $v['linkurl'];
+                    $v['linkurl'] = substr($v['linkurl'],0,4) != 'http' ? $this->Book['linkurl'] . $v['linkurl'] : $v['linkurl'];
 
-                    $detail = DB::table('books_detail')->where('fromhash',md5($v['linkurl']))->where('pid',$this->Book['id'])->first();
+                    $detail = DB::table('books_detail')->select('id')->where('fromhash',md5($v['linkurl']))->where('pid',$this->Book['id'])->first();
                     if( $detail ){
-                        \Log::debug('-------> 该章节已采集过，跳过此节 -------> ' . $this->Book['title'] . '  章节: ' . $v['title']);
+                        //\Log::debug('-------> 该章节已采集过，跳过此节 -------> ' . $this->Book['title'] . '  章节: ' . $v['title']);
                     }else{
                         if($count > 9){
                             break;

@@ -66,7 +66,7 @@
         <div class="row J_mainContent" id="content-main">
             <div class="wrapper wrapper-content">
                 @if(session('Message'))
-                    <div class="alert alert-success alert-dismissable">
+                    <div class="alert alert-success alert-dismissable" id="MessageBox">
                         <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                         {{ session('Message') }}
                     </div>

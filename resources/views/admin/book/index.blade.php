@@ -34,6 +34,7 @@
                 <td>{{ $v['updated_at'] }}</td>
                 <td>
                     <button class="btn btn-sm btn-success" onclick="getDetailLists({{ $v['id'] }})">章节</button>
+                    <button class="btn btn-sm btn-success" onclick="getDetailListsUpdate({{ $v['id'] }})">更新</button>
                     <button class="btn btn-sm btn-info" id="edit_{{ $v['id'] }}" data="{{ json_encode($v) }}" onclick="Edit({{ $v['id'] }})">编辑</button>
                     <button class="btn btn-sm btn-danger" onclick="Delete({{ $v['id'] }})">删除</button>
                 </td>
@@ -53,6 +54,7 @@
     @endif
 </table>
 <button class="btn btn-success" data-toggle="modal" data-target="#createModal">添加采集队列</button>
+<button class="btn btn-success" data-toggle="modal" data-target="#createModal">添加更新队列</button>
 <script>
 
     var dlistsModal = '#DetailListsModal';
@@ -87,7 +89,7 @@
                 area:'800px',
                 btn:false,
                 shadeClose:true,
-                content:res.content,
+                content:res,
                 success:function(){
                     loading(true);
                 }
@@ -170,6 +172,23 @@
             },error:function(res){
                 showData(id,res);
                 loading(true);
+            }
+        });
+    }
+    function getDetailListsUpdate(id)
+    {
+        layer.open({
+            title:'一次更新多少章节?',
+            //area:'400px',
+//            btn:[],
+            shadeClose:true,
+            content:'<input type="number" name="UpdateNumber" value="10"/>',
+            success:function(){
+                loading();
+                var n = $('[name=UpdateNumber]').val();
+                $.get("{!! route('Book.getDtailListsUpdate') !!}",{'id':id,'number':n},function(res){
+                    loading(true);
+                });
             }
         });
     }
@@ -262,7 +281,7 @@
 </div>
 
 {{--update--}}
-<div class="modal inmodal" id="updateModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal" id="updateModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content animated flipInX">
             <form action="{{ route('Book.postUpdate') }}" method="POST" class="form-horizontal">

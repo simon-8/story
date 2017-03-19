@@ -14,6 +14,7 @@ class BookContent extends Model
         'id',
         'content',
     ];
+    public $timestamps = false;
 
     /**
      * 获取内容

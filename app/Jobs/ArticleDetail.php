@@ -43,17 +43,25 @@ class ArticleDetail extends Job implements SelfHandling, ShouldQueue
         $html = QueryList::Query($this->Info['linkurl'] , $rules , '' ,'UTF-8','GBK',true)->getData();
         $result = array_shift($html);
 
-        DB::table('books_detail')->insert([
+        $id = DB::table('books_detail')->insertGetId([
             'pid'    => $this->Info['pid'],
             'title'  => $this->Info['title'],
-            'content'=> ($result['content'] ? $result['content'] : ''),
             'hits'   => 0,
             'status' => 1,
-            'hash'   => md5($this->Info['pid'] . $this->Info['title']),
+            'fromhash'   => md5($this->Info['linkurl']),
             'created_at'=> date('Y-m-d H:i:s'),
             'updated_at'=> date('Y-m-d H:i:s'),
         ]);
-        \Log::debug('-------> 成功采集 -------> ' . $this->Info['title']);
+        if($id){
+            DB::table('books_content')->insert([
+                'id' => $id,
+                'content' => ($result['content'] ? $result['content'] : ''),
+            ]);
+        }else{
+            \Log::debug('-------> 采集失败 -------> ' . $this->Info['linkurl']);
+        }
+
+        //\Log::debug('-------> 成功采集 -------> ' . $this->Info['title']);
         return true;
     }
 }

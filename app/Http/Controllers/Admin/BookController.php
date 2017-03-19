@@ -8,12 +8,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\Admin\Book;
+use App\Models\Admin\BookContent;
 use App\Models\Admin\BookDetail;
 use Illuminate\Http\Request;
 use QL\QueryList;
 
 use DB;
 use App\Jobs\ArtCaiJi;
+use App\Jobs\ArticleDetail;
 class BookController extends BaseController
 {
     protected $model;
@@ -125,40 +127,97 @@ class BookController extends BaseController
         return $lists;
     }
 
+
+    /**
+     * 更新指定文章章节
+     * @param Request $request
+     * @param Book $book
+     * @return bool
+     */
+    public function getDtailListsUpdate(Request $request, Book $book)
+    {
+        $id = $request->id;
+        $number = intval($request->number) < 1 ? 10 : intval($request->number);
+        $data = $book->find($id);
+
+        //获取章节列表
+        $rules = [
+            'title' => [
+                '.mulu li a' , 'text'
+            ],
+            'linkurl' => [
+                '.mulu li a' , 'href'
+            ],
+        ];
+        $result = QueryList::Query($data->fromurl,$rules,'','UTF-8','GBK',true)->getData();
+
+        $count = 0;
+        foreach($result as $v)
+        {
+            $v = array_map('trim',$v);
+            if(!empty($v['linkurl'])){
+
+                $v['linkurl'] = substr($v['linkurl'],0,4) != 'http' ? $data->fromurl . $v['linkurl'] : $v['linkurl'];
+
+                $detail = DB::table('books_detail')->select('id')->where('fromhash',md5($v['linkurl']))->where('pid',$data->id)->first();
+                if( $detail ){
+                    //\Log::debug('-------> 该章节已采集过，跳过此节 -------> ' . $this->Book['title'] . '  章节: ' . $v['title']);
+                }else{
+                    if($count > $number){
+                        break;
+                    }
+                    //推送到章节采集队列
+                    dispatch(
+                        new ArticleDetail( array_merge($v,['pid' => $data->id]) )
+                    );
+                    $count++;
+                }
+            }
+        }
+        return 1;
+    }
+
     /**
      * 获取章节内容
      * @param Request $request
-     * @param BookDetail $bookDetail
-     * @return mixed
+     * @param BookContent $bookContent
+     * @return string
      */
-    public function getDetail(Request $request , BookDetail $bookDetail)
+    public function getDetail(Request $request , BookContent $bookContent)
     {
-        return $bookDetail->find($request->id);
+        return $bookContent->getContent($request->id);
     }
+
 
     /**
      * 更新指定章节
      * @param Request $request
      * @param BookDetail $bookDetail
+     * @param BookContent $bookContent
      * @return mixed
      */
-    public function getUpdateDetail(Request $request , BookDetail $bookDetail)
+    public function getUpdateDetail(Request $request , BookDetail $bookDetail , BookContent $bookContent)
     {
         $item = $bookDetail->find($request->id);
+        $item->content = $bookContent->getContent($request->id);
         return admin_view('book.create_detail',$item);
     }
 
+
     /**
      * 更新指定章节
      * @param Request $request
      * @param BookDetail $bookDetail
+     * @param BookContent $bookContent
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postUpdateDetail(Request $request , BookDetail $bookDetail)
+    public function postUpdateDetail(Request $request , BookDetail $bookDetail , BookContent $bookContent)
     {
-        $result = $bookDetail->updateDetail($request->all());
+        $data = $request->all();
+        $result = $bookDetail->updateDetail($data);
         if($result)
         {
+            $bookContent->updateContent($data);
             return redirect()->route('Book.getIndex')->with('Message','修改成功');
         }
         else
@@ -167,17 +226,20 @@ class BookController extends BaseController
         }
     }
 
+
     /**
      * 删除指定章节
      * @param Request $request
      * @param BookDetail $bookDetail
+     * @param BookContent $bookContent
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function getDeleteDetail(Request $request , BookDetail $bookDetail)
+    public function getDeleteDetail(Request $request , BookDetail $bookDetail , BookContent $bookContent)
     {
         $result = $bookDetail->destroy($request->id);
         if($result)
         {
+            $bookContent->where('id',$request->id)->delete();
             return redirect()->route('Book.getIndex')->with('Message','删除成功');
         }
         else
