@@ -73,7 +73,7 @@ return  [
     ],
     'rules' => [
         '88dushu'  => [
-            //列表页规则
+            //小说列表页规则
             'lists' => [
                 'title' => [
                     '.sm a','text'
@@ -94,8 +94,14 @@ return  [
                     '.zj','text'
                 ]
             ],
-            'details' => [
-
+            //章节列表页规则
+            'detail_list' => [
+                'title' => [
+                    '.mulu li a' , 'text'
+                ],
+                'linkurl' => [
+                    '.mulu li a' , 'href'
+                ],
             ],
         ]
     ]

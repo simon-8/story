@@ -34,80 +34,46 @@ class IndexController extends Controller
 
     public function getTest()
     {
-        $baseUrl = 'http://www.8dushu.com';
-        $catid = 1;
-        $url = $baseUrl . '/sort1/'.$catid.'/';//玄幻
+
+        $rules = [
+            'introduce' => [
+                '.intro','text'
+            ],
+        ];
+        $linkurl = 'http://www.8dushu.com/xiaoshuo/71/71986/';
+        $html = QueryList::Query($linkurl , $rules , '' ,'UTF-8','GBK',true);
+
+        //获取章节列表
         $rules = [
             'title' => [
-                '.sm a','text'
+                '.mulu li a' , 'text'
             ],
             'linkurl' => [
-                '.sm a','href'
+                '.mulu li a' , 'href'
             ],
-            'author'  => [
-                '.zz ','text'
-            ],
-            'wordcount'=> [
-                '.zs','text'
-            ],
-            'updatetime'=>[
-                '.sj','text'
-            ],
-            'zhangjie' => [
-                '.zj','text'
-            ]
         ];
-        $data = QueryList::Query($url,$rules,'','UTF-8','GBK',true);
-        $data = $data->getData();
+        $book = $html->setQuery($rules);
+        $booksDetailLists = $book->getData();
 
-        $count = 0;
-        foreach($data as &$v){
-            if( !empty($v['linkurl']) ){
-                $v['linkurl'] = $baseUrl . $v['linkurl'];
+        $offset = 0;
+        $title = '第八十四章：身份转变，古尔丹召见';
+        foreach($booksDetailLists as $k => $v)
+        {
+            $v = array_map('trim',$v);
+            if(!empty($v['linkurl']) && $v['title'] == $title){
+                $offset = $k;
+                break;
             }
-            $v['wordcount'] = preg_replace('/[^0-9]+/','',$v['wordcount']);
-
-            if( !empty($v['title']) ){
-
-                $item = DB::table('books')->where('title',trim($v['title']))->first();
-
-                if($item){
-
-                    DB::table('books')->where('id',$item->id)->update([
-                        'wordcount' => $v['wordcount'],
-                        'zhangjie'  => $v['zhangjie'],
-                    ]);
-                    $v['id'] = $item->id;
-
-                }else{
-
-                    $id = DB::table('books')->insertGetId([
-                        'catid' => $catid,
-                        'title' => $v['title'],
-                        'introduce' => '',
-                        'zhangjie'  => $v['zhangjie'],
-                        'author'=> $v['author'],
-                        'wordcount' => $v['wordcount'],
-                        'follow'    => 0,
-                        'hits'      => 0,
-                        'status'    => 0,
-                        'created_at'=> date('Y-m-d H:i:s'),
-                        'updated_at'=> date('Y-m-d H:i:s'),
-                    ]);
-                    $v['id'] = $id;
-
-                }
-                if($count > 15){
-                    break;
-                }
-                //推送到任务队列
-                $this->dispatch(new ArtCaiJi($v));
-                $count++;
-            }
-
         }
-        \File::put( public_path().'/caiji/data.php' , '<?php return ' . var_export($data,true) .';?>' );
-        echo '生成列表数据成功';
+        $links = array_slice($booksDetailLists, $offset+1 , 10);
+        $tmp = array_map(function($v) use ($linkurl){
+            if(substr($v['linkurl'],0,4) !== 'http'){
+                $v['linkurl'] = $linkurl . $v['linkurl'];
+            }
+            return $v;
+        },$links);
+        dd($tmp);
+
     }
 
     public function getPost($item)

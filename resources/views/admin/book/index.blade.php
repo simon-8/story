@@ -181,10 +181,11 @@
             title:'一次更新多少章节?',
             shadeClose:true,
             content:'<input type="number" name="UpdateNumber" value="10"/>',
-            yes:function(){
+            yes:function(i){
                 loading();
                 var n = $('[name=UpdateNumber]').val();
-                $.get("{!! route('Book.getDtailListsUpdate') !!}",{'id':id,'number':n},function(res){
+                layer.close(i);
+                $.get("{!! route('Book.getDetailListsUpdate') !!}",{'id':id,'number':n},function(res){
                     getQuery();
                     loading(true);
                 });

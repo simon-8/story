@@ -150,7 +150,7 @@ class BookController extends BaseController
      * @param Book $book
      * @return bool
      */
-    public function getDtailListsUpdate(Request $request, Book $book)
+    public function getDetailListsUpdate(Request $request, Book $book)
     {
         $id = $request->id;
         $number = intval($request->number) < 1 ? 10 : intval($request->number);
@@ -162,41 +162,52 @@ class BookController extends BaseController
     protected function dushu88Detail($data,$number)
     {
         //获取章节列表
-        $rules = [
-            'title' => [
-                '.mulu li a' , 'text'
-            ],
-            'linkurl' => [
-                '.mulu li a' , 'href'
-            ],
-        ];
-        $result = QueryList::Query($data['fromurl'],$rules,'','UTF-8','GBK',true)->getData();
+        $rules = config('book.rules.88dushu.detail_list');
+        $booksDetailLists = QueryList::Query($data['fromurl'],$rules,'','UTF-8','GBK',true)->getData();
 
-        $count = 0;
-        foreach($result as $v)
+        //最后一个章节
+        $lastArticle = $this->getLastArticle($data['id']);
+
+        $offset = 0;
+
+        foreach($booksDetailLists as $k => $v)
         {
             $v = array_map('trim',$v);
-            if(!empty($v['linkurl'])){
-
-                $v['linkurl'] = substr($v['linkurl'],0,4) != 'http' ? $data['fromurl'] . $v['linkurl'] : $v['linkurl'];
-
-                $detail = DB::table('books_detail')->select('id')->where('fromhash',md5($v['linkurl']))->where('pid',$data['id'])->first();
-                if( $detail ){
-                    //\Log::debug('-------> 该章节已采集过，跳过此节 -------> ' . $this->Book['title'] . '  章节: ' . $v['title']);
-                }else{
-                    if($count > $number){
-                        break;
-                    }
-                    //推送到章节采集队列
-                    dispatch(
-                        new ArticleDetail( array_merge($v,['pid' => $data['id']]) )
-                    );
-                    $count++;
-                }
+            if(!empty($v['linkurl']) && $v['title'] == $lastArticle->title){
+                $offset = $k;
+                break;
             }
+        }
+
+        $links = array_slice($booksDetailLists, $offset+1 , $number);
+
+        $linkurl = $data['fromurl'];
+        $tmp = array_map(function($v) use ($linkurl){
+            if(substr($v['linkurl'],0,4) !== 'http'){
+                $v['linkurl'] = $linkurl . $v['linkurl'];
+            }
+            return $v;
+        },$links);
+
+        foreach($tmp as $v){
+            //推送到章节采集队列
+            dispatch(
+                new ArticleDetail( array_merge($v,['pid' => $data['id']]) )
+            );
         }
         return true;
     }
+
+    /**
+     * 获取最新章节信息
+     * @param $pid
+     * @return mixed
+     */
+    protected function getLastArticle($pid)
+    {
+        return DB::table('books_detail')->select('id','title','fromhash')->where('pid',$pid)->orderBy('id','desc')->first();
+    }
+
     /**
      * 获取章节内容
      * @param Request $request

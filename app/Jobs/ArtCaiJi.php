@@ -35,6 +35,9 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
      */
     public function handle()
     {
+        if($this->attempts() > 3){
+
+        }
         if( $this->Book['linkurl'] && $this->Book['id'] ){
             $rules = [
                 'introduce' => [
@@ -49,42 +52,52 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
                 'introduce' => $introduce,
             ]);
             //获取章节列表
-            $rules = [
-                'title' => [
-                    '.mulu li a' , 'text'
-                ],
-                'linkurl' => [
-                    '.mulu li a' , 'href'
-                ],
-            ];
+            $rules = config('book.rules.88dushu.detail_list');
             $book = $html->setQuery($rules);
             $booksDetailLists = $book->getData();
 
-            $count = 0;
+            $lastArticle = $this->getLastArticle($this->Book['id']);
 
-            foreach($booksDetailLists as $v)
+            $offset = 0;
+
+            foreach($booksDetailLists as $k => $v)
             {
                 $v = array_map('trim',$v);
-                if(!empty($v['linkurl'])){
-
-                    $v['linkurl'] = substr($v['linkurl'],0,4) != 'http' ? $this->Book['linkurl'] . $v['linkurl'] : $v['linkurl'];
-
-                    $detail = DB::table('books_detail')->select('id')->where('fromhash',md5($v['linkurl']))->where('pid',$this->Book['id'])->first();
-                    if( $detail ){
-                        //\Log::debug('-------> 该章节已采集过，跳过此节 -------> ' . $this->Book['title'] . '  章节: ' . $v['title']);
-                    }else{
-                        if($count > 9){
-                            break;
-                        }
-                        //推送到章节采集队列
-                        dispatch(
-                            new ArticleDetail( array_merge($v,['pid' => $this->Book['id']]) )
-                        );
-                        $count++;
-                    }
+                if(!empty($v['linkurl']) && $v['title'] == $lastArticle->title){
+                    $offset = $k;
+                    break;
                 }
+            }
+
+            //从最后一个章节开始截取10章
+            $links = array_slice($booksDetailLists, $offset+1 , 10);
+
+            $baseUrl = $this->Book['linkurl'];
+            $tmp = array_map(function($v) use ($baseUrl){
+                $v = array_map('trim',$v);
+                if(substr($v['linkurl'],0,4) !== 'http'){
+                    $v['linkurl'] = $baseUrl . $v['linkurl'];
+                }
+                return $v;
+            },$links);
+
+            foreach($tmp as $v){
+                //推送到章节采集队列
+                dispatch(
+                    new ArticleDetail( array_merge($v,['pid' => $this->Book['id']]) )
+                );
             }
         }
         return true;
+    }
+
+    /**
+     * 获取最新章节信息
+     * @param $pid
+     * @return mixed
+     */
+    protected function getLastArticle($pid)
+    {
+        return DB::table('books_detail')->select('id','title','fromhash')->where('pid',$pid)->orderBy('id','desc')->first();
     }
 }
