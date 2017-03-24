@@ -104,7 +104,7 @@ Route::group($admin , function(){
             'getCategorys'          => 'Book.getCategorys',
             'getRecycle'            => 'Book.getRecycle',
             'getDetailLists'        => 'Book.getDetailLists',
-            'getDetailListsUpdate'   => 'Book.getDetailListsUpdate',
+            'getDetailListsUpdate'  => 'Book.getDetailListsUpdate',
             'getDetail'             => 'Book.getDetail',
             'getUpdateDetail'       => 'Book.getUpdateDetail',
             'postUpdateDetail'      => 'Book.postUpdateDetail',
