@@ -78,7 +78,7 @@ return  [
                 'title' => [
                     '.sm a','text'
                 ],
-                'linkurl' => [
+                'fromurl' => [
                     '.sm a','href'
                 ],
                 'author'  => [
@@ -99,7 +99,7 @@ return  [
                 'title' => [
                     '.mulu li a' , 'text'
                 ],
-                'linkurl' => [
+                'fromurl' => [
                     '.mulu li a' , 'href'
                 ],
             ],

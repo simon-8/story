@@ -161,40 +161,7 @@ class BookController extends BaseController
 
     protected function dushu88Detail($data,$number)
     {
-        //获取章节列表
-        $rules = config('book.rules.88dushu.detail_list');
-        $booksDetailLists = QueryList::Query($data['fromurl'],$rules,'','UTF-8','GBK',true)->getData();
-
-        //最后一个章节
-        $lastArticle = $this->getLastArticle($data['id']);
-
-        $offset = 0;
-
-        foreach($booksDetailLists as $k => $v)
-        {
-            $v = array_map('trim',$v);
-            if(!empty($v['linkurl']) && $v['title'] == $lastArticle->title){
-                $offset = $k;
-                break;
-            }
-        }
-
-        $links = array_slice($booksDetailLists, $offset+1 , $number);
-
-        $linkurl = $data['fromurl'];
-        $tmp = array_map(function($v) use ($linkurl){
-            if(substr($v['linkurl'],0,4) !== 'http'){
-                $v['linkurl'] = $linkurl . $v['linkurl'];
-            }
-            return $v;
-        },$links);
-
-        foreach($tmp as $v){
-            //推送到章节采集队列
-            dispatch(
-                new ArticleDetail( array_merge($v,['pid' => $data['id']]) )
-            );
-        }
+        $this->dispatch(new ArtCaiJi($data,$number));
         return true;
     }
 
@@ -316,6 +283,7 @@ class BookController extends BaseController
             $url = $baseUrl . '/sort'.$catid.'/'.$page.'/';
             $result = QueryList::Query($url,$rules,'','UTF-8','GBK',true)->getData();
 
+
             foreach($result as &$v){
                 $v = array_map('trim',$v);//移除所有字段空格
 
@@ -323,8 +291,8 @@ class BookController extends BaseController
                     break;
                 }
 
-                if( !empty($v['linkurl']) ){
-                    if(substr($v['linkurl'],0,4) !== 'http') $v['linkurl'] = $baseUrl . $v['linkurl'];
+                if( !empty($v['fromurl']) ){
+                    if(substr($v['fromurl'],0,4) !== 'http') $v['fromurl'] = $baseUrl . $v['fromurl'];
                 }else{
                     continue;
                 }
@@ -333,7 +301,7 @@ class BookController extends BaseController
                 if( !empty($v['title']) ){
                     //1062 Duplicate entry
 
-                    $item = DB::table('books')->where('fromhash',md5(trim($v['linkurl'])))->first();//根据unique索引检查数据是否存在
+                    $item = DB::table('books')->where('fromhash',md5(trim($v['fromurl'])))->first();//根据unique索引检查数据是否存在
 
                     if($item){
                         //DB::table('books')->where('id',$item->id)->update([
@@ -352,7 +320,7 @@ class BookController extends BaseController
                             'follow'    => 0,
                             'hits'      => 0,
                             'status'    => 1,
-                            'fromurl'   => $v['linkurl'],
+                            'fromurl'   => $v['fromurl'],
                             'fromhash'  => md5($v['linkurl']),
                             'created_at'=> date('Y-m-d H:i:s'),
                             'updated_at'=> date('Y-m-d H:i:s'),

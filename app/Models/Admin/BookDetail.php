@@ -16,6 +16,7 @@ class BookDetail extends Model
         //'content',
         'hits',
         'status',
+        'fromurl',
         'fromhash',
     ];
 

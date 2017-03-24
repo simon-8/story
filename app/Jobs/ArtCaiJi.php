@@ -22,10 +22,12 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
      *
      * @return void
      */
-    protected $Book;
-    public function __construct($Book)
+    protected $Book; //[id,formurl]
+    protected $Count;
+    public function __construct($Book , $Count = 10)
     {
         $this->Book = $Book;
+        $this->Count = $Count;
     }
 
     /**
@@ -35,18 +37,19 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
      */
     public function handle()
     {
-        if($this->attempts() > 3){
+        //if($this->attempts() > 3){
 
-        }
-        if( $this->Book['linkurl'] && $this->Book['id'] ){
+        //}
+        if( $this->Book['fromurl'] && $this->Book['id'] ){
+            //更新文章详情
             $rules = [
                 'introduce' => [
                     '.intro','text'
                 ],
             ];
-            $html = QueryList::Query($this->Book['linkurl'] , $rules , '' ,'UTF-8','GBK',true);
+            $html = QueryList::Query($this->Book['fromurl'] , $rules , '' ,'UTF-8','GBK',true);
             $bookInfo = $html->getData();
-            $introduce = $bookInfo[0]['introduce'];
+            $introduce = empty($bookInfo[0]['introduce']) ? '' : $bookInfo[0]['introduce'];
 
             DB::table('books')->where('id',$this->Book['id'])->update([
                 'introduce' => $introduce,
@@ -56,37 +59,47 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
             $book = $html->setQuery($rules);
             $booksDetailLists = $book->getData();
 
-            $lastArticle = $this->getLastArticle($this->Book['id']);
+            if(count($booksDetailLists)){
 
-            $offset = 0;
+                $baseUrl = $this->Book['fromurl'];
 
-            foreach($booksDetailLists as $k => $v)
-            {
-                $v = array_map('trim',$v);
-                if(!empty($v['linkurl']) && $v['title'] == $lastArticle->title){
-                    $offset = $k;
-                    break;
+                foreach($booksDetailLists as $k => &$v){
+                    $v = array_map('trim',$v);
+                    if(empty($v['fromurl'])){
+                        unset($booksDetailLists[$k]);
+                    }else{
+                        if(substr($v['fromurl'],0,4) !== 'http'){
+                            $v['fromurl'] = $baseUrl . $v['fromurl'];
+                        }
+                    }
+                }
+
+                $lastArticle = $this->getLastArticle($this->Book['id']);
+
+                if($lastArticle){
+                    $offset = 0;
+                    foreach($booksDetailLists as $k => $v)
+                    {
+                        if($v['title'] == $lastArticle->title){
+                            $offset = $k;
+                            break;
+                        }
+                    }
+                    //从最后一个章节开始截取10章
+                    $links = array_slice($booksDetailLists, $offset+1 , $this->Count);
+                }else{
+                    $links = array_slice($booksDetailLists, 0 , $this->Count);
+                }
+
+
+                foreach($links as $v){
+                    //推送到章节采集队列
+                    dispatch(
+                        new ArticleDetail( array_merge($v,['pid' => $this->Book['id']]) )
+                    );
                 }
             }
 
-            //从最后一个章节开始截取10章
-            $links = array_slice($booksDetailLists, $offset+1 , 10);
-
-            $baseUrl = $this->Book['linkurl'];
-            $tmp = array_map(function($v) use ($baseUrl){
-                $v = array_map('trim',$v);
-                if(substr($v['linkurl'],0,4) !== 'http'){
-                    $v['linkurl'] = $baseUrl . $v['linkurl'];
-                }
-                return $v;
-            },$links);
-
-            foreach($tmp as $v){
-                //推送到章节采集队列
-                dispatch(
-                    new ArticleDetail( array_merge($v,['pid' => $this->Book['id']]) )
-                );
-            }
         }
         return true;
     }
