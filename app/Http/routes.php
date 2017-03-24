@@ -108,7 +108,7 @@ Route::group($admin , function(){
             'getDetail'             => 'Book.getDetail',
             'getUpdateDetail'       => 'Book.getUpdateDetail',
             'postUpdateDetail'      => 'Book.postUpdateDetail',
-            'getDeleteDetail'       => 'Book.getDeleteDetail',//
+            'getDeleteDetail'       => 'Book.getDeleteDetail',
         ]);
     });
 
