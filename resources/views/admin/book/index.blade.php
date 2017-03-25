@@ -222,11 +222,11 @@
         window.clearInterval(QueryRequest);
         QueryRequest = setInterval(function(){
             $.get("{!! route('Book.getQueueNumber') !!}",{},function(res){
+                $('#queueNumber').text(res);
                 if( res == 0 ){
                     window.clearInterval(QueryRequest);
                     return false;
                 }
-                $('#queueNumber').text(res);
             });
         },3000);
     }
