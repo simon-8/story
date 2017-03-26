@@ -7,14 +7,22 @@
  */
 namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
-use App\Jobs\ArtCaiJi;
-use QL\QueryList;
+
 use DB;
+
+use App\Models\Admin\Book;
+
 class IndexController extends Controller
 {
-    public function getIndex()
+    public function getIndex(Book $book)
     {
-        return home_view('index.index');
+        $categorys = config('book.categorys');
+        $lists = $book->lists();
+        $data = [
+            'categorys' => $categorys,
+            'lists' => $lists,
+        ];
+        return home_view('index.index',$data);
     }
 
     public function getQueue()

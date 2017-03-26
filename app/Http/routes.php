@@ -120,10 +120,18 @@ $home = [
     'namespace' => 'Home',
 ];
 Route::group($home , function(){
+
     Route::controllers([
         'article'   => 'ArticleController',
-        '/'         => 'IndexController'
+//        '/'         => 'IndexController',
     ]);
+    Route::controller('books' , 'BooksController', [
+        'getIndex' => 'Books.getIndex',
+        'getLists' => 'Books.getLists',
+        'getBlists'=> 'Books.getBlists',
+        'getContent' => 'Books.getContent',
+    ]);
+    Route::get('/' , 'IndexController@getIndex')->name('getHomeIndex');
 });
 
 //微信路由
