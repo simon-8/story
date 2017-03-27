@@ -23,8 +23,8 @@ class BooksController extends Controller
     {
         $categorys = config('book.categorys');
 
-        $ftLists = $book->lists([],'',6,false);
-        $newLists = $book->lists([],'updated_at desc',50);
+        $ftLists = $book->lists(['catid' => $catid],'',6,false);
+        $newLists = $book->lists(['catid' => $catid],'updated_at desc',50);
         $data = [
             'CAT'       => $categorys[$catid],
             'categorys' => $categorys,

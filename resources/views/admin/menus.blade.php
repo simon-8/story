@@ -25,7 +25,7 @@
         </li>
         @foreach(App\Models\Admin\Menu::lists() as $v)
           <li class="{{ Request::getUri() == $v['url'] ? 'active' : '' }}">
-              <a href="{{ $v['url'] }}" data="{{ Request::getUri() }}" data="{{ $v['url'] }}">
+              <a href="{{ $v['url'] }}" data="{{ $v['url'] }}">
                   <i class="{{ $v['ico'] }}"></i>
                   <span class="nav-label">{{ $v['name'] }} </span>
                   @if(isset($v['child']))

@@ -83,7 +83,13 @@ function upload_base64_thumb($thumb)
     return $thumb;
 }
 
-function save_book_thumb($thumb,$dir = 'books')
+/**
+ * 下载指定远程图片
+ * @param $thumb
+ * @param string $dir
+ * @return string
+ */
+function save_remote_thumb($thumb, $dir = 'books')
 {
     if( empty($thumb) ) return '';
 
@@ -92,23 +98,21 @@ function save_book_thumb($thumb,$dir = 'books')
     if( !is_dir($fileroot) ) mkdir($fileroot ,0777,true);
 
     $filename = time().rand(100000,999999);
-    $fileext = str_replace('data:image/' , '' , strstr($thumb , ';' ,true));
+    $fileext = substr($thumb,strrpos($thumb,'.'));
     in_array($fileext , ['jpg','png','gif','bmp']) or $fileext = 'jpg';//jpeg->jpg
     $filename .= '.' . $fileext;
 
-    if( preg_match('/^(data:\s*image\/(\w+);base64,)/' , $thumb ,$result) )
-    {
-        $result = file_put_contents($fileroot.$filename , base64_decode(str_replace($result[1] , '' , $thumb)));
+    $result = \File::put($fileroot.$filename , file_get_contents($thumb));
 
-        if( $result )
-        {
-            $thumb = $filepath.$filename;
-        }
-        else
-        {
-            $thumb = '';
-        }
+    if( $result )
+    {
+        $thumb = $filepath.$filename;
     }
+    else
+    {
+        $thumb = '';
+    }
+
 
     return $thumb;
 }

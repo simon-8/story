@@ -41,25 +41,33 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
 
         //}
         if( $this->Book['fromurl'] && $this->Book['id'] ){
-            //更新文章详情
-            $rules = [
-                'introduce' => [
-                    '.intro','text'
-                ],
-                'thumb' => [
-                    '.lf img','src'
-                ],
-            ];
-            $html = QueryList::Query($this->Book['fromurl'] , $rules , '' ,'UTF-8','GBK',true);
-            $bookInfo = $html->getData();
-            $introduce = empty($bookInfo[0]['introduce']) ? '' : $bookInfo[0]['introduce'];
-            if(!empty($bookInfo[0]['thumb']) && strpos($bookInfo[0]['thumb'],'nocover.jpg') === false){
+
+            //更新文章详情 / 缩略图
+            if(empty($this->Book['introduce']) || empty($this->Book['thumb'])){
+
+                $rules = [
+                    'introduce' => [
+                        '.intro','text'
+                    ],
+                    'thumb' => [
+                        '.lf img','src'
+                    ],
+                ];
+                $html = QueryList::Query($this->Book['fromurl'] , $rules , '' ,'UTF-8','GBK',true);
+                $bookInfo = $html->getData();
+
+                $updateData = [];
+                if(empty($this->Book['introduce']) && !empty($bookInfo[0]['introduce'])){
+                    $updateData['introduce'] = $bookInfo[0]['introduce'];
+                }
+
+                if(empty($this->Book['thumb']) && !empty($bookInfo[0]['thumb']) && strpos($bookInfo[0]['thumb'],'nocover.jpg') === false){
+                    $thumb = save_remote_thumb($bookInfo[0]['thumb']);
+                    $updateData['thumb'] = $thumb;
+                }
 
             }
 
-            DB::table('books')->where('id',$this->Book['id'])->update([
-                'introduce' => $introduce,
-            ]);
             //获取章节列表
             $rules = config('book.rules.88dushu.detail_list');
             $book = $html->setQuery($rules);
@@ -97,6 +105,12 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
                     $links = array_slice($booksDetailLists, 0 , $this->Count);
                 }
 
+                $zhangjie = array_pop($links);
+                if(is_array($zhangjie) && isset($zhangjie['title'])){
+                    $updateData['zhangjie'] = $zhangjie['title'];
+                }
+                $updateData['updated_at'] = date('Y-m-d H:i:s');
+                DB::table('books')->where('id',$this->Book['id'])->update($updateData);
 
                 foreach($links as $v){
                     //推送到章节采集队列
@@ -105,7 +119,6 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
                     );
                 }
             }
-
         }
         return true;
     }

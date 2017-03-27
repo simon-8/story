@@ -56,7 +56,12 @@ class ArticleDetail extends Job implements SelfHandling, ShouldQueue
         ];
         //事务
         DB::transaction(function () use ($result,$data) {
-            $id = DB::table('books_detail')->insertGetId($data);
+            try{
+                $id = DB::table('books_detail')->insertGetId($data);
+            }catch (\Exception $exception){
+                return true;
+            }
+
             DB::table('books_content')->insert([
                 'id' => $id,
                 'content' => ($result['content'] ? $result['content'] : ''),

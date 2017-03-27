@@ -269,67 +269,79 @@ class BookController extends BaseController
 
         $baseUrl = 'http://www.8dushu.com';
 
-        $catid = $data['catid'];
+        $catids = [];
+        if(empty($data['catid'])){
+            $categorys = config('book.categorys');
+            foreach($categorys as $v){
+                $catids[] = $v['id'];
+            }
+        }else{
+            $catids = $data['catid'];
+        }
 
         $pagesize = 31;
         $data['number'] = intval($data['number']) < 1 ? 10 : intval($data['number']);
-        $totalPage = ceil($data['number'] / $pagesize);//需要采集的总页码
-
+        $totalNumber = count($catids) * $data['number'];
         $rules = config('book.rules.88dushu.lists');//列表页采集规则
 
         $SuccessCount = 0;
-        for($page = 1;$page <= $totalPage;$page++)
-        {
-            $url = $baseUrl . '/sort'.$catid.'/'.$page.'/';
-            $result = QueryList::Query($url,$rules,'','UTF-8','GBK',true)->getData();
 
+        foreach($catids as $catid){
+            $totalPage = ceil($data['number'] / $pagesize);//需要采集的总页码
+            for($page = 1;$page <= $totalPage;$page++)
+            {
+                $url = $baseUrl . '/sort'.$catid.'/'.$page.'/';
+                $result = QueryList::Query($url,$rules,'.booklist>ul>li','UTF-8','GBK',true)->getData();
+                array_shift($result);//方便后期修改 不加入array_slice
+                $result = array_slice($result, 0 , $data['number']);
 
-            foreach($result as &$v){
-                $v = array_map('trim',$v);//移除所有字段空格
+                foreach($result as &$v){
+                    $v = array_map('trim',$v);//移除所有字段空格
 
-                if($SuccessCount >= $data['number']){
-                    break;
-                }
+//                    if($SuccessCount >= $data['number']){
+//                        break;
+//                    }
 
-                if( !empty($v['fromurl']) ){
-                    if(substr($v['fromurl'],0,4) !== 'http') $v['fromurl'] = $baseUrl . $v['fromurl'];
-                }else{
-                    continue;
-                }
-                $v['wordcount'] = preg_replace('/[^0-9]+/','',$v['wordcount']);
-
-                if( !empty($v['title']) ){
-                    //1062 Duplicate entry
-
-                    $item = DB::table('books')->where('fromhash',md5(trim($v['fromurl'])))->first();//根据unique索引检查数据是否存在
-
-                    if($item){
-                        //DB::table('books')->where('id',$item->id)->update([
-                        //    'wordcount' => $v['wordcount'],
-                        //    'zhangjie'  => $v['zhangjie'],
-                        //]);
-                        $v['id'] = $item->id;
+                    if( !empty($v['fromurl']) ){
+                        if(substr($v['fromurl'],0,4) !== 'http') $v['fromurl'] = $baseUrl . $v['fromurl'];
                     }else{
-                        $id = DB::table('books')->insertGetId([
-                            'catid' => $catid,
-                            'title' => $v['title'],
-                            'introduce' => '',
-                            'zhangjie'  => $v['zhangjie'],
-                            'author'=> $v['author'],
-                            'wordcount' => $v['wordcount'],
-                            'follow'    => 0,
-                            'hits'      => 0,
-                            'status'    => 1,
-                            'fromurl'   => $v['fromurl'],
-                            'fromhash'  => md5($v['fromurl']),
-                            'created_at'=> date('Y-m-d H:i:s'),
-                            'updated_at'=> date('Y-m-d H:i:s'),
-                        ]);
-                        $v['id'] = $id;
+                        continue;
                     }
+                    $v['wordcount'] = preg_replace('/[^0-9]+/','',$v['wordcount']);
 
-                    $this->dispatch(new ArtCaiJi($v));//推送到任务队列
-                    $SuccessCount++;
+                    if( !empty($v['title']) ){
+                        //1062 Duplicate entry
+
+                        $item = DB::table('books')->where('fromhash',md5(trim($v['fromurl'])))->first();//根据unique索引检查数据是否存在
+
+                        if($item){
+                            //DB::table('books')->where('id',$item->id)->update([
+                            //    'wordcount' => $v['wordcount'],
+                            //    'zhangjie'  => $v['zhangjie'],
+                            //]);
+                            $v['id'] = $item->id;
+                        }else{
+                            $id = DB::table('books')->insertGetId([
+                                'catid' => $catid,
+                                'title' => $v['title'],
+                                'introduce' => '',
+                                'zhangjie'  => $v['zhangjie'],
+                                'author'=> $v['author'],
+                                'wordcount' => $v['wordcount'],
+                                'follow'    => 0,
+                                'hits'      => 0,
+                                'status'    => 1,
+                                'fromurl'   => $v['fromurl'],
+                                'fromhash'  => md5($v['fromurl']),
+                                'created_at'=> date('Y-m-d H:i:s'),
+                                'updated_at'=> date('Y-m-d H:i:s'),
+                            ]);
+                            $v['id'] = $id;
+                        }
+
+                        $this->dispatch(new ArtCaiJi($v));//推送到任务队列
+                        $SuccessCount++;
+                    }
                 }
             }
         }

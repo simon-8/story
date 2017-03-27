@@ -7,9 +7,11 @@
 </div>
 <table class="table table-bordered table-hover bg-white text-center">
     <tr>
+        <td width="50"><input type="checkbox" id="checkall" class="i-checks "></td>
         <td width="50">编号</td>
         <td width="100">栏目</td>
         <td width="150" align="left">标题</td>
+        <td width="50">图片</td>
         <td>最新</td>
         <td>作者</td>
         <td>字数</td>
@@ -22,9 +24,11 @@
     @if(count($lists) > 0)
         @foreach($lists as $v)
             <tr id="book_{{ $v['id'] }}">
+                <td><input type="checkbox" name="ids" value="{{ $v['id'] }}" class="i-checks"></td>
                 <td>{{ $v['id'] }}</td>
                 <td>{{ $categorys[$v['catid']]['name'] }}</td>
                 <td align="left"><strong>{{ $v['title'] }}</strong></td>
+                <td><i class="fa fa-file-image-o" onclick="preview('{!! $v['thumb'] !!}',210,280)"></i></td>
                 <td>{{ $v['zhangjie'] }}</td>
                 <td>{{ $v['author'] }}</td>
                 <td>{{ $v['wordcount'] }}</td>
@@ -41,13 +45,13 @@
             </tr>
         @endforeach
         <tr>
-            <td colspan="11">
+            <td colspan="13">
                 {!! $lists->render() !!}
             </td>
         </tr>
     @else
         <tr>
-            <td colspan="11">
+            <td colspan="13">
                 未找到数据
             </td>
         </tr>
@@ -232,8 +236,17 @@
     }
 
     getQuery();
-</script>
 
+
+</script>
+<script>
+    $(function(){
+        $('#checkall').click(function(){
+            console.log('1');
+            $(this).attr('checked') ? $('.table input[type=checkbox]').iCheck('check') :  $('.table input[type=checkbox]').iCheck('disable');
+        });
+    })
+</script>
 {{--delete--}}
 @include('admin.modal.delete' , ['formurl' => route('Book.getDelete')])
 
@@ -270,12 +283,20 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">栏目选择</label>
                         <div class="col-sm-9">
-                            <select name="catid" class="form-control">
-                                <option value="0">请选择</option>
-                                @foreach($categorys as $v)
-                                    <option value="{{ $v['id'] }}">{{ $v['name'] }}</option>
-                                @endforeach
-                            </select>
+                            
+                            @foreach($categorys as $v)
+                                <label class="i-checks">
+                                    <input type="checkbox" name="catid[]" value="{{ $v['id'] }}">
+                                    {{ $v['name'] }}
+                                </label>
+                            @endforeach
+                            
+                            {{--<select name="catid" class="form-control">--}}
+                                {{--<option value="0">请选择</option>--}}
+                                {{--@foreach($categorys as $v)--}}
+                                    {{--<option value="{{ $v['id'] }}">{{ $v['name'] }}</option>--}}
+                                {{--@endforeach--}}
+                            {{--</select>--}}
                             <span class="help-block m-b-none"></span>
                         </div>
                     </div>

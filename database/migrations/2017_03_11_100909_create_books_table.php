@@ -19,9 +19,11 @@ class CreateBooksTable extends Migration
             $table->unsignedMediumInteger('catid')->comment('分类ID')->index();
             $table->string('title')->comment('标题');
             $table->string('introduce')->comment('简介');
+            $table->string('thumb')->comment('缩略图');
             $table->string('zhangjie')->comment('章节');
             $table->string('author')->comment('作者');
-            $table->unsignedBigInteger('wordcount')->comment('字数');
+            $table->unsignedBigInteger('wordcount')->comment('字数')->default(0);
+            $table->unsignedTinyInteger('level')->comment('等级')->default(0);
             $table->unsignedInteger('follow')->comment('关注人数');
             $table->unsignedBigInteger('hits')->comment('浏览次数');
             $table->unsignedTinyInteger('status')->comment('状态')->index();

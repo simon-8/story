@@ -138,6 +138,7 @@ Route::group($home , function(){
 //        'getContent' => 'Books.getContent',
 //    ]);
     Route::get('/' , 'IndexController@getIndex')->name('getHomeIndex');
+    Route::get('/test' , 'IndexController@getTest');
 });
 
 //微信路由
