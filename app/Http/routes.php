@@ -123,14 +123,20 @@ Route::group($home , function(){
 
     Route::controllers([
         'article'   => 'ArticleController',
+        //'books'     => 'BooksController',
 //        '/'         => 'IndexController',
     ]);
-    Route::controller('books' , 'BooksController', [
-        'getIndex' => 'Books.getIndex',
-        'getLists' => 'Books.getLists',
-        'getBlists'=> 'Books.getBlists',
-        'getContent' => 'Books.getContent',
-    ]);
+
+    Route::get('books/{catid}' ,'BooksController@getIndex')->where('catid','\d+')->name('BookCat');
+    Route::get('books/{catid}/{id}' ,'BooksController@getLists')->where(['catid','id'],'\d+')->name('BookLists');
+    Route::get('books/{catid}/{id}/{aid}' ,'BooksController@getContent')->where(['catid','id','aid'],'\d+')->name('BookContent');
+    //Route::get('books/{id}' ,'BooksController@getIndex')->where('id','\d+')->name('BookCat');
+//    Route::controller('books' , 'BooksController', [
+//        'getIndex' => 'Books.getIndex',
+//        'getLists' => 'Books.getLists',
+//        'getBlists'=> 'Books.getBlists',
+//        'getContent' => 'Books.getContent',
+//    ]);
     Route::get('/' , 'IndexController@getIndex')->name('getHomeIndex');
 });
 

@@ -4,14 +4,14 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta charset="gbk">
-    <title>超级吞噬系统,超级吞噬系统最新章节,超级吞噬系统无弹窗,88读书网</title>
-    <meta name="keywords" content="超级吞噬系统,超级吞噬系统最新章节,超级吞噬系统无弹窗,88读书网">
-    <meta name="description" content="88读书网为您提供超级吞噬系统最新章节，超级吞噬系统无弹窗。更多超级吞噬系统小说尽在88读书网，好看记得告诉您的朋友哦！">
-    <meta http-equiv="mobile-agent" content="format=html5; url=http://m.8dushu.com/info/63582/">
-    <meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.8dushu.com/info/63582/">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    {{--<meta http-equiv="mobile-agent" content="format=html5; url=http://m.8dushu.com/info/63582/">--}}
+    {{--<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.8dushu.com/info/63582/">--}}
     <meta property="og:type" content="novel">
-    <meta property="og:title" content="超级吞噬系统">
-    <meta property="og:description" content="    穿越之后，叶轩偶得吞噬系统，不仅可以吞噬万物，还可兑换血脉、武学、神兵、丹药、宝物……这简直是强到爆了！“别惹我，信不信我把你的神器宝剑吞了？”
+    <meta property="og:title" content="">
+    <meta property="og:description" content="    ”
     各位书友要是觉得《超级吞噬系统》还不错的话请不要忘记向您QQ群和微博里的朋友推荐哦！
 ">
     <meta property="og:image" content="http://fm.8dushu.com/63/63582/63582s.jpg">
@@ -28,50 +28,9 @@
     <script type="text/javascript" src="/skin/js/jquery.min.js"></script>
 </head>
 <body>
-<div class="top">
-    <div class="main">
-        <div class="lf">
 
-        </div>
-        <div class="rt">
-            <a href="javascript:st();void 0;" id="st" rel="nofollow">繁體中文</a> | <a href="http://m.8dushu.com/"
-                                                                                   target="_blank">手机版</a> | <a
-                    href="/help/jifen.html">积分规则</a> | <a href="/88dushu/zhuomian.php" rel="nofollow">放到桌面</a> | <a
-                    href="javascript:void(0);" onclick="AddFavorite('八八读书网',location.href)" target="_self"
-                    rel="nofollow">收藏本站</a>
-        </div>
-    </div>
-</div>
-<div class="wrapper">
-    <div class="logo">
-        <a href="http://www.8dushu.com/">{?$jieqi_pagetitle?}</a>
-    </div>
-    <div class="seach">
+@include('home.header')
 
-    </div>
-</div>
-<div class="nav">
-    <div class="main">
-        <ul class="nav_l">
-            <li><a href="http://www.8dushu.com/">首页</a></li>
-            <li><a href="/sort1/1/">玄幻魔法</a></li>
-            <li><a href="/sort2/1/">武侠修真</a></li>
-            <li><a href="/sort3/1/">都市言情</a></li>
-            <li><a href="/sort4/1/">历史穿越</a></li>
-            <li><a href="/sort5/1/">恐怖悬疑</a></li>
-            <li><a href="/sort6/1/">游戏竞技</a></li>
-            <li><a href="/sort7/1/">军事科幻</a></li>
-            <li><a href="/sort9/1/">女生频道</a></li>
-            <li><a href="/sort8/1/">综合类型</a></li>
-        </ul>
-        <ul class="nav_r">
-            <li><a href="/topgoodnum/1/">收藏</a></li>
-            <li><a href="/toppostdate/1/">新书</a></li>
-            <li><a href="/top/fullflag/">完本</a></li>
-            <li><a href="/newmessage.php?tosys=1&title=求书：&content=请说明所求书的完整书名，作者名，以及首发网站" rel="nofollow">求书</a></li>
-        </ul>
-    </div>
-</div>
 <div class="yd_ad">
 
 </div>
@@ -4477,29 +4436,8 @@
 <div class="yd_ad">
 
 </div>
-<div id="footer">
-    <p>
-        本站所有小说为转载作品，所有章节均由网友上传，转载至本站只是为了宣传本书让更多读者欣赏。
-    </p>
-    <p>
-        Copyright &copy; 2017 88读书网 All Rights Reserved.
-        <a href="/modules/article/articlemanage.php?id=63582" rel="nofollow">管理</a>
-    </p>
-</div>
-<script type="text/javascript">
-    <!--
-    var preview_page = "index.html";
-    var next_page = "index.html";
-    var index_page = "index.html";
-    var article_id = "63582";
-    var chapter_id = "27782243";
-    function jumpPage() {
-        if (event.keyCode == 37) location = preview_page;
-        if (event.keyCode == 39) location = next_page;
-        if (event.keyCode == 13) location = index_page;
-    }
-    document.onkeydown = jumpPage;
-    -->
-</script>
+
+@include('home.footer')
+
 </body>
 </html>

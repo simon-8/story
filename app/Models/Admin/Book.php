@@ -32,10 +32,15 @@ class Book extends Model
      * @param int $pagesize
      * @return mixed
      */
-    public function lists($condition = [] , $order = 'id DSEC',$pagesize = 10)
+    public function lists($condition = [] , $order = 'id DSEC',$pagesize = 10,$page = true)
     {
         $order = $order ? explode(' ' , $order) : ['id' ,'DESC'];
-        return $this->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->paginate($pagesize);
+
+        if($page){
+            return $this->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->paginate($pagesize);
+        }else{
+            return $this->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->take($pagesize)->get();
+        }
     }
 
     /**

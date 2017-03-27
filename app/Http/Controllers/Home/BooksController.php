@@ -13,35 +13,47 @@ use Illuminate\Http\Request;
 
 class BooksController extends Controller
 {
-    protected $model;
-    public function __construct()
+    /**
+     * 栏目列表
+     * @param Request $request
+     * @param $catid
+     * @return mixed
+     */
+    public function getIndex(Request $request,Book $book, $catid)
     {
-        $this->model = new Book();
-    }
-
-    public function getIndex(Request $request)
-    {
-        //var_dump($request->id);
-        //$lists = $this->model->lists(['catid' => $catid]);
-
         $categorys = config('book.categorys');
 
+        $ftLists = $book->lists([],'',6,false);
+        $newLists = $book->lists([],'updated_at desc',50);
         $data = [
+            'CAT'       => $categorys[$catid],
             'categorys' => $categorys,
-
+            'ftLists'    => $ftLists,
+            'newLists'   => $newLists,
         ];
         return home_view('book.index',$data);
     }
 
-    public function getLists()
+    /**
+     * 章节
+     * @param Request $request
+     * @param $catid
+     * @param $id
+     * @return mixed
+     */
+    public function getLists(Request $request, $catid, $id)
     {
-        return home_view('book.lists');
+        $categorys = config('book.categorys');
+        $data = [
+            'categorys' => $categorys,
+        ];
+        return home_view('book.lists',$data);
     }
 
-    public function getBlists()
-    {
-        return home_view('book.blists');
-    }
+//    public function getBlists()
+//    {
+//        return home_view('book.blists');
+//    }
 
     public function getContent()
     {

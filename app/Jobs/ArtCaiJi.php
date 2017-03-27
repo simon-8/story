@@ -46,10 +46,16 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
                 'introduce' => [
                     '.intro','text'
                 ],
+                'thumb' => [
+                    '.lf img','src'
+                ],
             ];
             $html = QueryList::Query($this->Book['fromurl'] , $rules , '' ,'UTF-8','GBK',true);
             $bookInfo = $html->getData();
             $introduce = empty($bookInfo[0]['introduce']) ? '' : $bookInfo[0]['introduce'];
+            if(!empty($bookInfo[0]['thumb']) && strpos($bookInfo[0]['thumb'],'nocover.jpg') === false){
+
+            }
 
             DB::table('books')->where('id',$this->Book['id'])->update([
                 'introduce' => $introduce,
