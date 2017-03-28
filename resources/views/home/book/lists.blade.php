@@ -76,7 +76,7 @@
 <div class="mulu">
     <ul>
         @foreach($lists as $v)
-            <li><a href="">{{ $v['title'] }}</a></li>
+            <li><a href="{!! route('BookContent',['catid' => $CAT['id'] , 'id' => $book['id'] , 'aid' => $v['id']]) !!}">{{ $v['title'] }}</a></li>
         @endforeach
     </ul>
 </div>

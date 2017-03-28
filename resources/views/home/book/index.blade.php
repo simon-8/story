@@ -44,7 +44,7 @@
         @foreach($newLists as $v)
         <li>
             <span class="sm">
-                <a href=""><b>{{ mb_substr($v['title'],0,15,'utf-8') }}</b></a>
+                <a href="{!! route('BookContent',['catid' => $CAT['id'] , 'id' => $book['id'] ]) !!}"><b>{{ mb_substr($v['title'],0,15,'utf-8') }}</b></a>
             </span>
             <span class="zj">
                 <a href="">{{ mb_substr($v['zhangjie'],0,20,'utf-8') }}</a>

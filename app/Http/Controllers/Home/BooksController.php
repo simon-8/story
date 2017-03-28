@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Admin\Book;
 use App\Models\Admin\BookDetail;
-
+use App\Models\Admin\BookContent;
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
@@ -62,8 +62,11 @@ class BooksController extends Controller
 //        return home_view('book.blists');
 //    }
 
-    public function getContent()
+    public function getContent(Request $request,Book $book,BookContent $bookContent,$catid, $id,$aid)
     {
+        $book = $book->find($id);
+        $content = $bookContent->where('id',$aid)->first()->all();
+        var_dump($content);
         return home_view('book.content');
     }
 }

@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
-    <meta charset="gbk">
+    <meta charset="utf-8">
     <title></title>
     <meta name="keywords" content="">
     <meta name="description" content="">
