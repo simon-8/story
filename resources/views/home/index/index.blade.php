@@ -21,7 +21,7 @@
 <div class="fengtui">
     @foreach($ftLists as $v)
     <dl>
-        <dt><a href="" title="{{ $v['title'] }}"><img src="{!! $v['thumb'] !!}" alt=""></a></dt>
+        <dt><a href="" title="{{ $v['title'] }}"><img src="{!! bookimg($v['thumb']) !!}" alt=""></a></dt>
         <dd><h3><a href="" title="{{ $v['title'] }}">{{  mb_substr($v['title'],0,7) }}</a></h3><span>{{  mb_substr($v['author'],0,5) }}</span><p>    {{  mb_substr($v['introduce'],0,50) }} …</p></dd>
     </dl>
     @endforeach

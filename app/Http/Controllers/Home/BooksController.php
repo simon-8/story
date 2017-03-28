@@ -9,6 +9,8 @@ namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
 
 use App\Models\Admin\Book;
+use App\Models\Admin\BookDetail;
+
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
@@ -41,11 +43,16 @@ class BooksController extends Controller
      * @param $id
      * @return mixed
      */
-    public function getLists(Request $request, $catid, $id)
+    public function getLists(Request $request,Book $book,BookDetail $bookDetail, $catid, $id)
     {
         $categorys = config('book.categorys');
+        $book = $book->find($id);
+        $lists = $bookDetail->lists(['pid' => $id],'',500);
         $data = [
+            'CAT'       => $categorys[$catid],
             'categorys' => $categorys,
+            'book'      => $book,
+            'lists'     => $lists,
         ];
         return home_view('book.lists',$data);
     }

@@ -242,3 +242,12 @@ function imgurl($img = '')
     }
     return $img;
 }
+
+function bookimg($img = '')
+{
+    if(!$img)
+    {
+        return '/skin/default/images/nocover.jpg';
+    }
+    return $img;
+}
