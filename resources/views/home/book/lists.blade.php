@@ -18,8 +18,8 @@
     <meta property="og:novel:category" content="{{ $CAT['name'] }}">
     <meta property="og:novel:author" content="{{ $book['author'] }}">
     <meta property="og:novel:book_name" content="{{ $book['title'] }}">
-    <meta property="og:novel:read_url" content="{!! route('books') !!}">
-    <meta property="og:url" content="http://www.8dushu.com/xiaoshuo/63/63582/">
+    <meta property="og:novel:read_url" content="{!! Request::getUri() !!}">
+    <meta property="og:url" content="{!! Request::getUri() !!}">
     <meta property="og:novel:status" content="连载中">
     <meta property="og:novel:update_time" content="{{ date('m-d',strtotime($book['updated_at'])) }}">
     <meta property="og:novel:latest_chapter_name" content="{{ $book['zhangjie'] }}">

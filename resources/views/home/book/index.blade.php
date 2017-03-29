@@ -21,8 +21,8 @@
 <div class="fengtui">
     @foreach($ftLists as $v)
         <dl>
-            <dt><a href="" title="{{ $v['title'] }}"><img src="{!! bookimg($v['thumb']) !!}" alt=""></a></dt>
-            <dd><h3><a href="" title="{{ $v['title'] }}">{{  mb_substr($v['title'],0,7) }}</a></h3><span>{{  mb_substr($v['author'],0,5) }}</span><p>    {{  mb_substr($v['introduce'],0,50) }} …</p></dd>
+            <dt><a href="{!! route('BookLists',['catid' => $v['catid'] ,'id' => $v['id']]) !!}" title="{{ $v['title'] }}"><img src="{!! bookimg($v['thumb']) !!}" alt=""></a></dt>
+            <dd><h3><a href="{!! route('BookLists',['catid' => $v['catid'] ,'id' => $v['id']]) !!}" title="{{ $v['title'] }}">{{  mb_substr($v['title'],0,7) }}</a></h3><span>{{  mb_substr($v['author'],0,5) }}</span><p>    {{  mb_substr($v['introduce'],0,50) }} …</p></dd>
         </dl>
     @endforeach
 </div>
@@ -44,7 +44,7 @@
         @foreach($newLists as $v)
         <li>
             <span class="sm">
-                <a href="{!! route('BookContent',['catid' => $CAT['id'] , 'id' => $book['id'] ]) !!}"><b>{{ mb_substr($v['title'],0,15,'utf-8') }}</b></a>
+                <a href="{!! route('BookContent',['catid' => $CAT['id'] , 'id' => $v['id'] ]) !!}"><b>{{ mb_substr($v['title'],0,15,'utf-8') }}</b></a>
             </span>
             <span class="zj">
                 <a href="">{{ mb_substr($v['zhangjie'],0,20,'utf-8') }}</a>

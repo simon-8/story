@@ -70,10 +70,22 @@ class BooksController extends Controller
 
 
 
-    public function getContent(Request $request,Book $book,BookContent $bookContent,$catid, $id,$aid)
+    public function getContent(Request $request,Book $book,BookDetail $bookDetail,BookContent $bookContent,$catid, $id,$aid)
     {
+        $categorys = config('book.categorys');
         $book = $book->find($id);
+        $detail = $bookDetail->find($aid);
         $content = $bookContent->where('id',$aid)->first();
-        return home_view('book.content',array_merge($book,['content' => $content->content]));
+        $detail->content = $content->content;
+        $data = [
+            'id'        => $id,
+            'aid'       => $aid,
+            'catid'     => $catid,
+            'CAT'       => $categorys[$catid],
+            'categorys' => $categorys,
+            'book'      => $book,
+            'detail'    => $detail,
+        ];
+        return home_view('book.content',$data);
     }
 }
