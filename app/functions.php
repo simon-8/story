@@ -251,3 +251,22 @@ function bookimg($img = '')
     }
     return $img;
 }
+function bookurl($catid,$id = 0,$aid = 0){
+    if($aid)
+    {
+        return route('BookContent',[
+            'catid' => $catid,
+            'id' => $id,
+            'aid'=> $aid,
+        ]);
+    }
+    if($id){
+        return route('BookLists',[
+            'catid' => $catid,
+            'id' => $id,
+        ]);
+    }
+    return route('BookCat',[
+        'catid' => $catid,
+    ]);
+}

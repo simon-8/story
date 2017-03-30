@@ -18,6 +18,7 @@ class BaseController extends Controller
 {
     public function __construct(Request $request)
     {
+        //通用数据
         if(!\Request::ajax() && \Request::isMethod('get')){
 
             //System Setting
@@ -29,20 +30,20 @@ class BaseController extends Controller
             view()->share('SET',$settings);
 
             //Normal param
-            view()->share('SET',$settings);
+
             $catid = empty($request->catid) ? 0 : intval($request->catid);
-            view()->share('SET',$settings);
+            view()->share('catid',$catid);
             $id = empty($request->id) ? 0 : intval($request->id);
-            view()->share('SET',$settings);
+            view()->share('id',$id);
             $aid = empty($request->aid) ? 0 : intval($request->aid);
+            view()->share('aid',$aid);
 
             //categorys
             $categorys = config('book.categorys');
-            $share['categorys'] = $categorys;
-            $share['CAT'] = $share['catid'] ? $categorys[$share['catid']] : [];
+            view()->share('categorys',$categorys);
+            view()->share('CAT',$catid ? $categorys[$catid] : []);
 
-            view()->share($share);
         }
-        exit();
+
     }
 }

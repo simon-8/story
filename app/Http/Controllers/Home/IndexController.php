@@ -24,6 +24,7 @@ class IndexController extends BaseController
         $i = 1;
         foreach($categorys as $k => $v){
             if($k == 9) break;
+            $tjLists[$i]['catid'] = $v['id'];
             $tjLists[$i]['catname'] = $v['name'];
             $tjLists[$i]['id'] = $k;
             $tjLists[$i]['data'] = $book->lists(['catid' => $k],'',7,false);
@@ -32,12 +33,10 @@ class IndexController extends BaseController
 
         $ftLists = $book->lists([],'',6,false);
         $data = [
-            'categorys'  => $categorys,
             'newLists'   => $newLists,
             'newInserts' => $newInserts,
             'tjLists'    => $tjLists,
             'ftLists'    => $ftLists,
-
         ];
         return home_view('index.index',$data);
     }
