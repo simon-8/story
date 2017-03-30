@@ -6,7 +6,7 @@ use DB;
 use QL\QueryList;
 use App\Models\Admin\Book;
 
-class IndexController extends Controller
+class IndexController extends BaseController
 {
     public function getIndex(Book $book)
     {

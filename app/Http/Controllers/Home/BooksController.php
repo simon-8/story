@@ -13,7 +13,7 @@ use App\Models\Admin\BookDetail;
 use App\Models\Admin\BookContent;
 use Illuminate\Http\Request;
 
-class BooksController extends Controller
+class BooksController extends BaseController
 {
     /**
      * 栏目列表
@@ -78,11 +78,7 @@ class BooksController extends Controller
         $content = $bookContent->where('id',$aid)->first();
         $detail->content = $content->content;
         $data = [
-            'id'        => $id,
-            'aid'       => $aid,
-            'catid'     => $catid,
             'CAT'       => $categorys[$catid],
-            'categorys' => $categorys,
             'book'      => $book,
             'detail'    => $detail,
         ];
