@@ -4,13 +4,17 @@
 
         </div>
         <div class="rt">
-            <a href="javascript:st();void 0;" id="st" rel="nofollow">繁體中文</a> | <a href="" target="_blank">手机版</a> | <a href="">积分规则</a> | <a href="" rel="nofollow">放到桌面</a> | <a href="javascript:void(0);" onclick="AddFavorite('网',location.href)" target="_self" rel="nofollow">收藏本站</a>
+            <a href="javascript:st();void 0;" id="st" rel="nofollow">繁體中文</a> |
+            <a href="" target="_blank">手机版</a> |
+            <a href="">积分规则</a> |
+            <a href="" rel="nofollow">放到桌面</a> |
+            <a href="javascript:void(0);" onclick="AddFavorite('{{ $SET['title'] }}',location.href)" target="_self" rel="nofollow">收藏本站</a>
         </div>
     </div>
 </div>
 <div class="wrapper">
     <div class="logo">
-        <a href="/">LOGO</a>
+        <a href="/">{{ $SET['title'] }}</a>
     </div>
     <div class="seach">
 
