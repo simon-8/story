@@ -9,8 +9,8 @@
     <meta http-equiv="Cache-Control" content="no-transform">
     {{--<meta http-equiv="mobile-agent" content="format=html5; url=http://m.8dushu.com">--}}
     {{--<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.8dushu.com">--}}
-    <link rel="stylesheet" href="/skin/default/css/index.min.css">
-    <script type="text/javascript" src="/skin/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="{!! asset('/skin/default/css/index.min.css') !!}">
+    <script type="text/javascript" src="{!! asset('/skin/js/jquery.min.js') !!}"></script>
 </head>
 <body>
 

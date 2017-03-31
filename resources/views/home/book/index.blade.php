@@ -2,32 +2,41 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>laravel</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
+    <title>{{ $SET['title'] }}</title>
+    <meta name="keywords" content="{{ $SET['keywords'] }}">
+    <meta name="description" content="{{ $SET['description'] }}">
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
-    <link rel="stylesheet" href="/skin/default/css/index.min.css">
-    <script type="text/javascript" src="/skin/js/jquery.min.js"></script>
+    {{--<meta http-equiv="mobile-agent" content="format=html5; url=http://m.8dushu.com">--}}
+    {{--<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.8dushu.com">--}}
+    <link rel="stylesheet" href="{!! asset('/skin/default/css/index.min.css') !!}">
+    <script type="text/javascript" src="{!! asset('/skin/js/jquery.min.js') !!}"></script>
 </head>
 <body>
+
 @include('home.header')
+
 <div class="yd_ad"></div>
-<div class="place">当前位置：<a href="http://www.8dushu.com/">88读书网</a> > <h2>玄幻魔法</h2></div>
+
+<div class="place">
+    当前位置：
+    <a href="/">{{ $SET['title'] }}</a> >
+    <h2>{{ $CAT['name'] }}</h2>
+</div>
 <div class="fengtui">
     @foreach($ftLists as $v)
         <dl>
             <dt>
-                <a href="{!! route('BookLists',['catid' => $v['catid'] ,'id' => $v['id']]) !!}" title="{{ $v['title'] }}">
-                    <img src="{!! bookimg($v['thumb']) !!}" alt="">
+                <a href="{!! bookurl($v['catid'],$v['id']) !!}" title="{{ $v['title'] }}">
+                    <img src="{!! bookimg($v['thumb']) !!}" alt="{{ $v['title'] }}">
                 </a>
             </dt>
             <dd>
                 <h3>
-                    <a href="{!! route('BookLists',['catid' => $v['catid'] ,'id' => $v['id']]) !!}" title="{{ $v['title'] }}">{{  mb_substr($v['title'],0,7) }}</a>
+                    <a href="{!! bookurl($v['catid'],$v['id']) !!}" title="{{ $v['title'] }}">{{ mb_substr($v['title'],0,7) }}</a>
                 </h3>
-                <span>{{  mb_substr($v['author'],0,5) }}</span>
-                <p>    {{  mb_substr($v['introduce'],0,50) }} …</p>
+                <span>{{ mb_substr($v['author'],0,5) }}</span>
+                <p>    {{ mb_substr($v['introduce'],0,50) }} …</p>
             </dd>
         </dl>
     @endforeach
@@ -48,7 +57,7 @@
         @foreach($newLists as $v)
             <li>
             <span class="sm">
-                <a href="{!! route('BookContent',['catid' => $CAT['id'] , 'id' => $v['id'] ]) !!}"><b>{{ mb_substr($v['title'],0,15,'utf-8') }}</b></a>
+                <a href="{!! bookurl($v['catid'],$v['id']) !!}"><b>{{ mb_substr($v['title'],0,15,'utf-8') }}</b></a>
             </span>
                 <span class="zj">
                 <a href="">{{ mb_substr($v['zhangjie'],0,20,'utf-8') }}</a>

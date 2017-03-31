@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Admin\Setting;
+use App\Models\Admin\Links;
 use Validator;
 class SettingController extends BaseController
 {
@@ -106,5 +107,40 @@ class SettingController extends BaseController
     public function getCollect()
     {
         return 'test';
+    }
+
+
+    public function getFriendLinkDelete(Request $request,Links $links)
+    {
+        $result = $links->delete($request->id);
+        if($result)
+        {
+            return redirect()->route('Setting.getFriendLinks')->with('Message' ,'删除成功');
+        }
+        else
+        {
+            return back()->withErrors('删除失败')->withInput();
+        }
+    }
+
+    public function getFriendLinks(Request $request,Links $links)
+    {
+        $lists = $links->lists();
+        $data = [
+            'lists' => $lists,
+        ];
+        return admin_view('setting.friendlinks',$data);
+    }
+
+    public function postFriendLinks(Request $request,Links $links)
+    {
+        $data = $request->all();
+        $data['status'] = 1;
+        if(!empty($data['id'])){
+            $links->update($data);
+        }else{
+            $links->create($data);
+        }
+        return redirect()->route('Setting.getFriendLinks')->with('Message' ,'操作成功');
     }
 }

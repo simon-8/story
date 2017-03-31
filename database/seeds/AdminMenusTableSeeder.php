@@ -206,17 +206,6 @@ class AdminMenusTableSeeder extends Seeder
             ),
             17 => 
             array (
-                'id' => 18,
-                'pid' => 16,
-                'name' => '采集配置',
-                'prefix' => 'Setting',
-                'route' => 'collect',
-                'ico' => '',
-                'listorder' => 0,
-                'items' => 0,
-            ),
-            18 => 
-            array (
                 'id' => 19,
                 'pid' => 0,
                 'name' => '小说管理',
@@ -226,7 +215,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 2,
             ),
-            19 => 
+            18 => 
             array (
                 'id' => 20,
                 'pid' => 19,
@@ -237,13 +226,24 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 0,
             ),
-            20 => 
+            19 => 
             array (
                 'id' => 22,
                 'pid' => 19,
                 'name' => '栏目管理',
                 'prefix' => 'Book',
                 'route' => 'getCategorys',
+                'ico' => '',
+                'listorder' => 0,
+                'items' => 0,
+            ),
+            20 => 
+            array (
+                'id' => 23,
+                'pid' => 16,
+                'name' => '友情链接',
+                'prefix' => 'Setting',
+                'route' => 'getFriendLinks',
                 'ico' => '',
                 'listorder' => 0,
                 'items' => 0,

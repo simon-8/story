@@ -247,10 +247,14 @@ function bookimg($img = '')
 {
     if(!$img)
     {
-        return '/skin/default/images/nocover.jpg';
+        return asset('/skin/default/images/nocover.jpg');
+    }
+    if(substr($img, 0,4) !== 'http'){
+        return asset($img);
     }
     return $img;
 }
+
 function bookurl($catid,$id = 0,$aid = 0){
     if($aid)
     {

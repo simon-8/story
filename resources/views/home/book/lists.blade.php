@@ -22,10 +22,10 @@
     <meta property="og:url" content="{!! Request::getUri() !!}">
     <meta property="og:novel:status" content="连载中">
     <meta property="og:novel:update_time" content="{{ date('m-d',strtotime($book['updated_at'])) }}">
-    <meta property="og:novel:latest_chapter_name" content="{{ $book['zhangjie'] }}">
-    <meta property="og:novel:latest_chapter_url" content="http://www.8dushu.com/xiaoshuo/63/63582/27782243.html"/>
-    <link rel="stylesheet" href="/skin/default/css/index.min.css">
-    <script type="text/javascript" src="/skin/js/jquery.min.js"></script>
+    <meta property="og:novel:latest_chapter_name" content="{{ $lastDetail['title'] }}">
+    <meta property="og:novel:latest_chapter_url" content="{!! bookurl($catid,$id,$lastDetail['id']) !!}"/>
+    <link rel="stylesheet" href="{!! asset('/skin/default/css/index.min.css') !!}">
+    <script type="text/javascript" src="{!! asset('/skin/js/jquery.min.js') !!}"></script>
 </head>
 <body>
 
@@ -35,7 +35,7 @@
 
 </div>
 <div class="place">
-    当前位置：<a href="/">laravel网</a> > <a href="">{{ $CAT['name'] }}</a> > {{ $book['title'] }}
+    当前位置：<a href="/">{{ $SET['title'] }}</a> > <a href="{!! bookurl($catid) !!}">{{ $CAT['name'] }}</a> > {{ $book['title'] }}
 </div>
 <div class="jieshao">
     <div class="lf">
@@ -48,7 +48,7 @@
             <em>状态：连载中 </em>
             <em>更新时间：{{ date('m-d',strtotime($book['updated_at'])) }}</em>
             <em>最新章节：
-                <a href="27782243.html">{{ $book['zhangjie'] }}</a>
+                <a href="">{{ $book['zhangjie'] }}</a>
             </em>
         </div>
         <div class="info">
@@ -76,7 +76,7 @@
 <div class="mulu">
     <ul>
         @foreach($lists as $v)
-            <li><a href="{!! route('BookContent',['catid' => $CAT['id'] , 'id' => $book['id'] , 'aid' => $v['id']]) !!}">{{ $v['title'] }}</a></li>
+            <li><a href="{!! bookurl($catid,$v['pid'],$v['id']) !!}">{{ $v['title'] }}</a></li>
         @endforeach
     </ul>
 </div>

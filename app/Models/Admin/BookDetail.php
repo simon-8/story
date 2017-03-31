@@ -45,8 +45,22 @@ class BookDetail extends Model
         $item = $this->find($data['id']);
         if(!$item) return false;
         $item->title = $data['title'];
-        //$item->content = $data['content'];
         $item->status = $data['status'];
         return $item->save();
+    }
+
+    public function nextPage($pid,$aid)
+    {
+        return $this->select('id')->where('pid' , $pid)->where('id','>',$aid)->orderBy('id','ASC')->first();
+    }
+
+    public function prevPage($pid,$aid)
+    {
+        return $this->select('id')->where('pid' , $pid)->where('id','<',$aid)->orderBy('id','DESC')->first();
+    }
+
+    public function lastDetail($pid)
+    {
+        return $this->select('id','title')->where('pid' , $pid)->orderBy('id','DESC')->first();
     }
 }

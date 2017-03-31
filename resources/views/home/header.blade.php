@@ -21,7 +21,7 @@
         <ul class="nav_l">
             <li><a href="/">首页</a></li>
             @foreach($categorys as $v)
-                <li><a href="{!! url('books',['id' => $v['id']]) !!}">{{ $v['name'] }}</a></li>
+                <li><a href="{!! bookurl($v['id']) !!}">{{ $v['name'] }}</a></li>
             @endforeach
         </ul>
         <ul class="nav_r">

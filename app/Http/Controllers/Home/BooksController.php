@@ -35,7 +35,7 @@ class BooksController extends BaseController
     }
 
     /**
-     * 章节
+     *
      * @param Request $request
      * @param $catid
      * @param $id
@@ -45,23 +45,14 @@ class BooksController extends BaseController
     {
         $book = $book->find($id);
         $lists = $bookDetail->lists(['pid' => $id],'',500);
+        $lastDetail = $bookDetail->lastDetail($id);
         $data = [
             'book'      => $book,
             'lists'     => $lists,
+            'lastDetail' => $lastDetail,
         ];
         return home_view('book.lists',$data);
     }
-
-//    public function getBlists()
-//    {
-//        return home_view('book.blists');
-//    }
-
-
-
-
-
-
 
 
 
@@ -71,9 +62,16 @@ class BooksController extends BaseController
         $detail = $bookDetail->find($aid);
         $content = $bookContent->where('id',$aid)->first();
         $detail->content = $content->content;
+
+        $prevPage = $bookDetail->prevPage($id, $aid);
+        $nextPage = $bookDetail->nextPage($id, $aid);
+
         $data = [
             'book'      => $book,
             'detail'    => $detail,
+            'prevPage'  => $prevPage,
+            'nextPage'  => $nextPage,
+
         ];
         return home_view('book.content',$data);
     }

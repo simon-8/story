@@ -80,6 +80,10 @@ Route::group($admin , function(){
             'postCreate' => 'Setting.postCreate',
             'getDelete'  => 'Setting.getDelete',
             'getCollect' => 'Setting.getCollect',
+            'getFriendLinks' => 'Setting.getFriendLinks',
+            'postFriendLinks' => 'Setting.postFriendLinks',
+            //'getFriendLinkCreate' => 'Setting.getFriendLinkCreate',
+            'getFriendLinkDelete' => 'Setting.getFriendLinkDelete',
         ]);
         //微信配置
         Route::controller('weixin' , 'WeixinController' , [
