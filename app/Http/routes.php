@@ -35,6 +35,7 @@ Route::group($admin , function(){
     Route::group(['middleware' => 'admin'] ,function(){
 
         Route::get('/' , 'IndexController@getIndex')->name('Admin.getIndex');
+        Route::post('/' , 'IndexController@postIndex')->name('Admin.postIndex');
         Route::any('ajax' , 'AjaxController@getIndex')->name('Admin.Ajax');
 
         //管理员管理

@@ -1,6 +1,45 @@
 @extends('layout.admin')
 @section('content')
+    @if(PHP_OS != 'WINNT')
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>资源使用率</h5>
+                </div>
 
+                <div class="ibox-content">
+                    <ul class="stat-list">
+                        <li>
+                            <h2 class="no-margins" id="cpuTotal">1.0Ghz</h2>
+                            <small>CPU使用率</small>
+                            <div class="stat-percent" id="cpuPercentText" >0%</div>
+                            <div class="progress progress-mini">
+                                <div id="cpuPercent" style="width: 0%;" class="progress-bar"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <h2 class="no-margins " id="memTotal">2048MB</h2>
+                            <small>内存使用率</small>
+                            <div class="stat-percent" id="memRealPercentText">0%</div>
+                            <div class="progress progress-mini">
+                                <div id="memRealPercent" style="width: 0%;" class="progress-bar"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <h2 class="no-margins " id="hdTotal">500G</h2>
+                            <small>硬盘使用率</small>
+                            <div class="stat-percent" id="hdPercentText">0%</div>
+                            <div class="progress progress-mini">
+                                <div id="hdPercent" style="width: 0%;" class="progress-bar"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
     <div class="row">
         <div class="col-lg-3">
             <div class="ibox float-e-margins">
@@ -379,6 +418,36 @@
 
 <script>
     $(document).ready(function() {
+
+        @if(PHP_OS != 'WINNT')
+
+        setInterval(function(){
+            $.ajax({
+                url:'?',
+                type:'post',
+                data:{},
+                dataType:'json',
+                success:function(res){
+                    $.UpdateSysInfo(res);
+                }
+            })
+        },3000);
+
+        $.UpdateSysInfo = function(res)
+        {
+            $('#cpuTotal').html((res.cpu.mhz/1000).toFixed(2) + 'Ghz');
+            $('#memTotal').html(res.memTotal);
+            $('#hdTotal').html(res.hdTotal);
+
+            $('#cpuPercent').css('width',res.cpuPercent + '%');
+            $('#cpuPercentText').html(res.cpuPercent + '%');
+            $('#memRealPercent').css('width',res.memRealPercent + '%');
+            $('#memRealPercentText').html(res.memRealPercent + '%');
+            $('#hdPercent').css('width',res.hdPercent + '%');
+            $('#hdPercentText').html(res.hdPercent + '%');
+        }
+        @endif
+
         $(".chart").easyPieChart({
             barColor: "#f8ac59",
             scaleLength: 5,
