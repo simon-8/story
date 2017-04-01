@@ -1,6 +1,6 @@
 @extends('layout.admin')
 @section('content')
-    @if(PHP_OS != 'WINNT')
+    @if(1== 2 && PHP_OS != 'WINNT')
     <div class="row">
         <div class="col-lg-3">
             <div class="ibox">
@@ -419,7 +419,7 @@
 <script>
     $(document).ready(function() {
 
-        @if(PHP_OS != 'WINNT')
+        @if(1== 2 && PHP_OS != 'WINNT')
 
         setInterval(function(){
             $.ajax({
