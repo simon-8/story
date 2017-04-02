@@ -40,7 +40,7 @@
     @if($k == 1 || $k%4 == 1)
         <div class="tuijian">
     @endif
-        <ul class="l">
+        <ul @if($k == 1 || $k%4 == 1) class="l" @endif>
             <li class="t">
                 <h2><a href="{!! bookurl($v['catid'],$v['id']) !!}" title="{{ $v['catname'] }}">{{ $v['catname'] }}</a></h2>
             </li>

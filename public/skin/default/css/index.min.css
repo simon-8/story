@@ -97,7 +97,7 @@ a:hover {
 
 .nav {
     width: 100%;
-    background-color: #208181;
+    background-color: #A21D1D;
     height: 30px;
     padding: 10px 0;
     clear: both
@@ -105,7 +105,7 @@ a:hover {
 
 .nav .nav_l {
     float: left;
-    border-right: 1px solid #085656;
+    border-right: 1px solid #FFF;
     height: 30px;
     width: 740px
 }
@@ -128,7 +128,7 @@ a:hover {
 
 .nav .nav_r {
     float: left;
-    border-left: 1px solid #5cc5c5;
+    border-left: 1px solid #FFF;
     height: 30px;
     width: 208px;
     padding-left: 10px
@@ -197,13 +197,13 @@ a:hover {
 .tuijian {
     width: 958px;
     margin: 0 auto 10px;
-    border: 1px solid #49a9a9;
+    border: 1px solid #9A3838;
     height: 258px;
     clear: both
 }
 
 .tuijian ul {
-    border-left: 1px solid #49a9a9;
+    border-left: 1px solid #9A3838;
     width: 239px;
     float: left;
     background: url(../images/pic.gif) no-repeat 0 40px;
@@ -218,7 +218,7 @@ a:hover {
 .tuijian li.t {
     height: 40px;
     line-height: 40px;
-    background-color: #49a9a9;
+    background-color: #9A3838;
     padding-left: 35px;
     font-weight: bold
 }
@@ -244,11 +244,11 @@ a:hover {
 }
 
 .tuijian li a:hover {
-    color: #49a9a9
+    color: #9A3838
 }
 
 .main h2 {
-    background-color: #49a9a9;
+    background-color: #9A3838;
     font-size: 14px;
     font-weight: bold;
     height: 40px;
@@ -266,7 +266,7 @@ a:hover {
 
 .lastupdate {
     float: left;
-    border: 1px solid #49a9a9;
+    border: 1px solid #9A3838;
     width: 708px;
     color: #999
 }
@@ -317,7 +317,7 @@ a:hover {
 
 .postdate {
     float: right;
-    border: 1px solid #49a9a9;
+    border: 1px solid #9A3838;
     width: 238px;
     color: #999
 }
@@ -366,8 +366,8 @@ a:hover {
 }
 
 #footer {
-    border-top: 2px solid #49a9a9;
-    margin: 0 auto;
+    border-top: 2px solid #9A3838;
+    margin: 10px auto;
     width: 960px;
     text-align: center;
     padding: 10px 0
@@ -392,13 +392,13 @@ a:hover {
 
 .booklist {
     width: 958px;
-    border: 1px solid #49a9a9;
+    border: 1px solid #9A3838;
     margin: 0 auto;
     overflow: hidden
 }
 
 .booklist h1 {
-    background-color: #49a9a9;
+    background-color: #9A3838;
     font-size: 14px;
     font-weight: bold;
     height: 40px;
@@ -485,7 +485,7 @@ a:hover {
 }
 
 .pagelink a:hover {
-    background: #49a9a9;
+    background: #9A3838;
     color: #fff;
     border: 1px solid #208181;
     text-decoration: none
@@ -592,7 +592,7 @@ a:hover {
     font-size: 14px;
     cursor: pointer;
     font-weight: 400;
-    background-color: #49a9a9;
+    background-color: #9A3838;
     border: 1px solid #208181;
     color: #fff
 }
@@ -1813,13 +1813,13 @@ a:hover {
 
 .allbook {
     width: 958px;
-    border: 1px solid #49a9a9;
+    border: 1px solid #9A3838;
     margin: 10px auto;
     overflow: hidden
 }
 
 .allbook h1 {
-    background-color: #49a9a9;
+    background-color: #9A3838;
     font-size: 14px;
     font-weight: bold;
     height: 40px;
