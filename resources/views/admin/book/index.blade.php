@@ -181,41 +181,37 @@
     }
     function getDetailListsUpdate(id)
     {
-        layer.open({
+        layer.prompt({
             title:'一次更新多少章节?',
             shadeClose:true,
-            content:'<input type="number" name="UpdateNumber" value="10"/>',
-            yes:function(i){
-                loading();
-                var n = $('[name=UpdateNumber]').val();
-                layer.close(i);
-                $.get("{!! route('Book.getDetailListsUpdate') !!}",{'id':id,'number':n},function(res){
+        },function(value, index, elem){
+            loading();
+            $.get("{!! route('Book.getDetailListsUpdate') !!}",{'id':id,'number':value},function(res){
+                loading(true);
+                layer.alert('操作成功',function(){
                     getQuery();
-                    loading(true);
+                    layer.closeAll();
                 });
-            }
+            });
         });
     }
 
     function getListsUpdate()
     {
-        layer.open({
+        layer.prompt({
             title:'一次更新多少本书?',
             shadeClose:true,
-            content:'<input type="number" name="UpdateNumber" value="10" class="form-control"/>',
-            yes:function(i){
-                loading();
-                layer.close(i);
-                var n = $('[name=UpdateNumber]').val();
-                $.get("{!! route('Book.getDetailUpdate') !!}",{'number':n},function(res){
-                    loading(true);
-                    layer.alert('操作成功',function(){
-                        getQuery();
-                        layer.closeAll();
-                    });
+        },function(value, index, elem){
+            loading();
+            $.get("{!! route('Book.getDetailUpdate') !!}",{'number':value},function(res){
+                loading(true);
+                layer.alert('操作成功',function(){
+                    getQuery();
+                    layer.closeAll();
                 });
-            }
+            });
         });
+        return false;
     }
 
     var QueryRequest;
