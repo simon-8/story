@@ -13,7 +13,7 @@
 
 // 后台路由
 $admin = [
-    'prefix' => 'admin',
+    'prefix' => 'pc',
     'namespace' => 'Admin',
 ];
 Route::group($admin , function(){
