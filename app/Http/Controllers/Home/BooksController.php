@@ -44,7 +44,7 @@ class BooksController extends BaseController
     public function getLists(Request $request,Book $book,BookDetail $bookDetail, $catid, $id)
     {
         $book = $book->find($id);
-        $lists = $bookDetail->lists(['pid' => $id],'id ASC',500);
+        $lists = $bookDetail->lists(['pid' => $id],'id ASC',30);
         $lastDetail = $bookDetail->lastDetail($id);
         $data = [
             'book'      => $book,
