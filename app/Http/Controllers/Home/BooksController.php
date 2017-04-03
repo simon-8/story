@@ -49,6 +49,7 @@ class BooksController extends BaseController
             'lists'     => $lists,
             'lastDetail' => $lastDetail,
         ];
+        DB::table('books')->where('id',$id)->increment('hits');
         return home_view('book.lists',$data);
     }
 
