@@ -132,9 +132,10 @@ Route::group($home , function(){
 //        '/'         => 'IndexController',
     ]);
 
-    Route::get('books/{catid}' ,'BooksController@getIndex')->where('catid','\d+')->name('BookCat');
-    Route::get('books/{catid}/{id}' ,'BooksController@getLists')->where(['catid','id'],'\d+')->name('BookLists');
-    Route::get('books/{catid}/{id}/{aid}' ,'BooksController@getContent')->where(['catid','id','aid'],'\d+')->name('BookContent');
+    Route::get('xiaoshuo/{catid}.html' ,'BooksController@getIndex')->where('catid','\d+')->name('BookCat');
+    Route::get('xiaoshuo/{catid}/{id}.html' ,'BooksController@getLists')->where(['catid','id'],'\d+')->name('BookLists');
+    Route::get('xiaoshuo/{catid}/{id}/{aid}.html' ,'BooksController@getContent')->where(['catid','id','aid'],'\d+')->name('BookContent');
+    Route::get('xiaoshuo/{catid}/{id}/lastest.html' ,'BooksController@getLastContent')->where(['catid','id'],'\d+')->name('BookLastContent');
     //Route::get('books/{id}' ,'BooksController@getIndex')->where('id','\d+')->name('BookCat');
 //    Route::controller('books' , 'BooksController', [
 //        'getIndex' => 'Books.getIndex',

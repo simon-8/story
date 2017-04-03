@@ -41,8 +41,11 @@
         </dl>
     @endforeach
 </div>
+
 <div class="yd_ad">
+
 </div>
+
 <div class="booklist"><h1>{{ $CAT['name'] }}</h1>
     <ul>
         <li class="t">
@@ -60,7 +63,7 @@
                 <a href="{!! bookurl($v['catid'],$v['id']) !!}"><b>{{ mb_substr($v['title'],0,15,'utf-8') }}</b></a>
             </span>
                 <span class="zj">
-                <a href="">{{ mb_substr($v['zhangjie'],0,20,'utf-8') }}</a>
+                <a href="{!! bookurl($v['catid'],$v['id'],'lastest') !!}">{{ mb_substr($v['zhangjie'],0,20,'utf-8') }}</a>
             </span>
                 <span class="zz">{{ mb_substr($v['author'],0,5) }}</span>
                 <span class="zs">{{ $v['wordcount'] }}字</span>
@@ -72,8 +75,11 @@
     </ul>
     {!! $newLists->render() !!}
 </div>
+
 <div class="yd_ad">
+
 </div>
+
 @include('home.footer')
 </body>
 </html>

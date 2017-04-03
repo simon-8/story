@@ -105,7 +105,7 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
                     $links = array_slice($booksDetailLists, 0 , $this->Count);
                 }
 
-                $zhangjie = array_pop($links);
+                $zhangjie = end($links);
                 if(is_array($zhangjie) && isset($zhangjie['title'])){
                     $updateData['zhangjie'] = $zhangjie['title'];
                 }

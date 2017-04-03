@@ -4,9 +4,9 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta charset="utf-8">
-    <title>{{ $book['title'] }}</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
+    <title>{{ $book['title'] }},{{ $book['title'] }}最新章节,{{ $book['title'] }}无弹窗,{{ $SET['title'] }}</title>
+    <meta name="keywords" content="{{ $book['title'] }},{{ $book['title'] }}最新章节,{{ $book['title'] }}无弹窗,{{ $SET['title'] }}">
+    <meta name="description" content="{{ $SET['title'] }}为您提供{{ $book['title'] }}最新章节，{{ $book['title'] }}无弹窗。更多{{ $book['title'] }}小说尽在{{ $SET['title'] }}，好看记得告诉您的朋友哦！">
     {{--<meta http-equiv="mobile-agent" content="format=html5; url=http://m.8dushu.com/info/63582/">--}}
     {{--<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.8dushu.com/info/63582/">--}}
     <meta property="og:type" content="novel">
@@ -23,7 +23,7 @@
     <meta property="og:novel:status" content="连载中">
     <meta property="og:novel:update_time" content="{{ date('m-d',strtotime($book['updated_at'])) }}">
     <meta property="og:novel:latest_chapter_name" content="{{ $lastDetail['title'] }}">
-    <meta property="og:novel:latest_chapter_url" content="{!! bookurl($catid,$id,$lastDetail['id']) !!}"/>
+    <meta property="og:novel:latest_chapter_url" content="{!! bookurl($catid,$id,'lastest') !!}"/>
     <link rel="stylesheet" href="{!! asset('/skin/default/css/index.min.css') !!}">
     <script type="text/javascript" src="{!! asset('/skin/js/jquery.min.js') !!}"></script>
 </head>
@@ -48,17 +48,17 @@
             <em>状态：连载中 </em>
             <em>更新时间：{{ date('m-d',strtotime($book['updated_at'])) }}</em>
             <em>最新章节：
-                <a href="">{{ $book['zhangjie'] }}</a>
+                <a href="{!! bookurl($catid,$id,'lastest') !!}">{{ $book['zhangjie'] }}</a>
             </em>
         </div>
-        <div class="info">
-            <a href="#footer" rel="nofollow">直达底部</a><a target="_blank" rel="nofollow">错误举报</a>投推荐票：
-        </div>
-        <input type="text" name="uservote_num" id="uservote_num" value="1" maxlength="3"
-               onchange="if(/\D/.test(this.value)){alert('只能输入数字');this.value='';}">
-        <div class="vote">
-            <a id="a_uservote">确定</a>
-        </div>
+        {{--<div class="info">--}}
+            {{--<a href="#footer" rel="nofollow">直达底部</a><a target="_blank" rel="nofollow">错误举报</a>投推荐票：--}}
+        {{--</div>--}}
+        {{--<input type="text" name="uservote_num" id="uservote_num" value="1" maxlength="3"--}}
+               {{--onchange="if(/\D/.test(this.value)){alert('只能输入数字');this.value='';}">--}}
+        {{--<div class="vote">--}}
+            {{--<a id="a_uservote">确定</a>--}}
+        {{--</div>--}}
 
         <div class="intro">
             {{ $book['introduce'] }}

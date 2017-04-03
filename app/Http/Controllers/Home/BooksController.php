@@ -44,7 +44,7 @@ class BooksController extends BaseController
     public function getLists(Request $request,Book $book,BookDetail $bookDetail, $catid, $id)
     {
         $book = $book->find($id);
-        $lists = $bookDetail->lists(['pid' => $id],'',500);
+        $lists = $bookDetail->lists(['pid' => $id],'id ASC',500);
         $lastDetail = $bookDetail->lastDetail($id);
         $data = [
             'book'      => $book,
@@ -55,12 +55,26 @@ class BooksController extends BaseController
     }
 
 
-
-    public function getContent(Request $request,Book $book,BookDetail $bookDetail,BookContent $bookContent,$catid, $id,$aid)
+    /**
+     * 章节详情
+     * @param Request $request
+     * @param Book $book
+     * @param BookDetail $bookDetail
+     * @param BookContent $bookContent
+     * @param $catid
+     * @param $id
+     * @param $aid
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
+     */
+    public function getContent(Request $request, Book $book, BookDetail $bookDetail, BookContent $bookContent, $catid, $id, $aid)
     {
         $book = $book->find($id);
         $detail = $bookDetail->find($aid);
         $content = $bookContent->where('id',$aid)->first();
+        if(!$content){
+            $lastDetail = $bookDetail->lastDetail($id);
+            return redirect(bookurl($catid,$id,$lastDetail->id));
+        }
         $detail->content = $content->content;
 
         $prevPage = $bookDetail->prevPage($id, $aid);
@@ -69,6 +83,35 @@ class BooksController extends BaseController
         $data = [
             'book'      => $book,
             'detail'    => $detail,
+            'prevPage'  => $prevPage,
+            'nextPage'  => $nextPage,
+
+        ];
+        return home_view('book.content',$data);
+    }
+
+    /**
+     * 获取最新章节
+     * @param Request $request
+     * @param Book $book
+     * @param BookDetail $bookDetail
+     * @param BookContent $bookContent
+     * @param $catid
+     * @param $id
+     */
+    public function getLastContent(Request $request, Book $book, BookDetail $bookDetail, BookContent $bookContent, $catid, $id)
+    {
+        $book = $book->find($id);
+        $lastDetail = $bookDetail->lastDetail($id);
+        $content = $bookContent->where('id',$lastDetail->id)->first();
+        $lastDetail->content = $content->content;
+
+        $prevPage = $bookDetail->prevPage($id, $lastDetail->id);
+        $nextPage = $bookDetail->nextPage($id, $lastDetail->id);
+
+        $data = [
+            'book'      => $book,
+            'detail'    => $lastDetail,
             'prevPage'  => $prevPage,
             'nextPage'  => $nextPage,
 

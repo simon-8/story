@@ -11,6 +11,7 @@
     {{--<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.8dushu.com/book/63582-17089407/">--}}
     <link rel="stylesheet" href="{!! asset('/skin/default/css/index.min.css') !!}">
     <script type="text/javascript" src="{!! asset('/skin/js/jquery.min.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/skin/default/js/content.js') !!}"></script>
     <script type="text/javascript">
         //按左右键翻页
         var preview_page = "{!! bookurl($catid,$id,$prevPage['id']) !!}";
@@ -33,10 +34,10 @@
 
         </div>
         <div class="rt">
-            <a href="javascript:st();void 0;" id="st" rel="nofollow">繁體中文</a> |
-            <a href="" target="_blank">手机版</a> |
-            <a href="">积分规则</a> |
-            <a href="" rel="nofollow">放到桌面</a> |
+            {{--<a href="javascript:st();void 0;" id="st" rel="nofollow">繁體中文</a> |--}}
+            <a href="javascript:void(0);" target="_blank">手机版</a> |
+            <a href="javascript:void(0);">积分规则</a> |
+            <a href="javascript:void(0);" rel="nofollow">放到桌面</a> |
             <a href="javascript:void(0);" onclick="AddFavorite('{{ $SET['title'] }}',location.href)" target="_self" rel="nofollow">收藏本站</a>
         </div>
     </div>
@@ -52,16 +53,17 @@
     {{ $detail['title'] }}
 </div>
 <div class="read_b">
-    <div class="shuqian">
-        <a rel="nofollow">加入书架</a>
-        <a rel="nofollow">添加书签</a>
-        <a href="/newmessage.php?tosys=1&title={{ $book['title'] }} -- {{ $detail['title'] }} 章节出错啦!&content=错误章节： {{ $detail['title'] }} ++++ 举报原因如下： " target="_blank" rel="nofollow">错误举报</a>
-        投推荐票：
-    </div>
-    <input type="text" class="input" name="uservote_num" id="uservote_num" value="1" maxlength="3" onchange="if(/\D/.test(this.value)){alert('只能输入数字');this.value='';}">
-    <div class="vote">
-        <a id="a_uservote" href="javascript:;" rel="nofollow">确定</a>
-    </div>
+    {{--<div class="shuqian">--}}
+        {{--<a rel="nofollow">加入书架</a>--}}
+        {{--<a rel="nofollow">添加书签</a>--}}
+        {{--<a href="/newmessage.php?tosys=1&title={{ $book['title'] }} -- {{ $detail['title'] }} 章节出错啦!&content=错误章节： {{ $detail['title'] }} ++++ 举报原因如下： " target="_blank" rel="nofollow">错误举报</a>--}}
+        {{--投推荐票：--}}
+    {{--</div>--}}
+    {{--<input type="text" class="input" name="uservote_num" id="uservote_num" value="1" maxlength="3" onchange="if(/\D/.test(this.value)){alert('只能输入数字');this.value='';}">--}}
+    {{--<div class="vote">--}}
+        {{--<a id="a_uservote" href="javascript:;" rel="nofollow">确定</a>--}}
+    {{--</div>--}}
+    <script>bgs()</script>
 </div>
 
 <div class="novel">
@@ -89,9 +91,9 @@
         <a href="{!! bookurl($catid,$id,$nextPage['id']) !!}" target="_top">下一章→</a>
     </div>
     <div class="readacbtn">
-        <a class="recommend" href="" target="_blank" rel="nofollow">推荐本书</a>
-        <a class="favorite" rel="nofollow">添加书签</a>
-        <a class="bookshelf" href="" target="_blank" rel="nofollow">书架</a>
+        <a class="recommend" href="javascript:void(0);" target="_blank" rel="nofollow">推荐本书</a>
+        <a class="favorite" href="javascript:void(0);" rel="nofollow">添加书签</a>
+        <a class="bookshelf" href="javascript:void(0);" target="_blank" rel="nofollow">书架</a>
     </div>
 </div>
 
@@ -100,6 +102,5 @@
 </div>
 
 @include('home.footer')
-
 </body>
 </html>

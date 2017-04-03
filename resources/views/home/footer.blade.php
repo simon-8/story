@@ -15,3 +15,16 @@
         {{ $SET['powerby'] }}
     </p>
 </div>
+<script>
+    function AddFavorite(c, a) {
+        try {
+            window.external.addFavorite(a, c)
+        } catch(b) {
+            try {
+                window.sidebar.addPanel(c, a, "")
+            } catch(b) {
+                alert("抱歉，您所使用的浏览器无法完成此操作。\n\n加入收藏失败，请使用Ctrl+D进行添加")
+            }
+        }
+    }
+</script>

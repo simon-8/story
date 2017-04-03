@@ -258,11 +258,18 @@ function bookimg($img = '')
 function bookurl($catid,$id = 0,$aid = 0){
     if($aid)
     {
-        return route('BookContent',[
-            'catid' => $catid,
-            'id' => $id,
-            'aid'=> $aid,
-        ]);
+        if(is_numeric($aid)){
+            return route('BookContent',[
+                'catid' => $catid,
+                'id' => $id,
+                'aid'=> $aid,
+            ]);
+        }else{
+            return route('BookLastContent',[
+                'catid' => $catid,
+                'id' => $id,
+            ]);
+        }
     }
     if($id){
         return route('BookLists',[

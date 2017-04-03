@@ -42,10 +42,10 @@
     @endif
         <ul @if($k == 1 || $k%4 == 1) class="l" @endif>
             <li class="t">
-                <h2><a href="{!! bookurl($v['catid'],$v['id']) !!}" title="{{ $v['catname'] }}">{{ $v['catname'] }}</a></h2>
+                <h2><a href="{!! bookurl($v['id']) !!}" title="{{ $v['catname'] }}">{{ $v['catname'] }}</a></h2>
             </li>
             @foreach($v['data'] as $vv)
-            <li><a href="" title="{{ $vv['title'] }}">{{ mb_substr($vv['title'],0,7) }}</a>/{{ mb_substr($vv['author'],0,5) }}</li>
+            <li><a href="{!! bookurl($vv['catid'],$vv['id']) !!}" title="{{ $vv['title'] }}">{{ mb_substr($vv['title'],0,7) }}</a>/{{ mb_substr($vv['author'],0,5) }}</li>
             @endforeach
         </ul>
     @if($k == 4 || $k%4 == 0)
@@ -66,12 +66,12 @@
             </li>
             @foreach($newLists as $v)
             <li>
-                <span class="lx">[{{ $v['catname'] }}]</span>
+                <span class="lx">[<a href="{!! bookurl($v['catid']) !!}">{{ $v['catname'] }}</a>]</span>
                 <span class="sm">
                     <a href="{!! bookurl($v['catid'],$v['id']) !!}" title="{{ $v['title'] }}">{{ mb_substr($v['title'],0,7,'utf-8') }}</a>
                 </span>
                 <span class="zj">
-                    <a href="{!! bookurl($v['catid'],$v['id']) !!}">{{ mb_substr($v['zhangjie'],0,20,'utf-8') }}</a>
+                    <a href="{!! bookurl($v['catid'],$v['id'],'lastest') !!}">{{ mb_substr($v['zhangjie'],0,20,'utf-8') }}</a>
                 </span>
                 <span class="zz">{{ mb_substr($v['author'],0,5) }}</span>
                 <span class="sj">{{ date('m-d',strtotime($v['updated_at'])) }}</span>
@@ -84,7 +84,7 @@
         <ul>
             @foreach($newInserts as $v)
                 <li>
-                    <span class="lx">[{{ $v['catname'] }}]</span>
+                    <span class="lx">[<a href="{!! bookurl($v['catid']) !!}">{{ $v['catname'] }}</a>]</span>
                     <span class="sm">
                         <a href="{!! bookurl($v['catid'],$v['id']) !!}" title="{{ $v['title'] }}">{{ mb_substr($v['title'],0,6,'utf-8') }}</a>
                     </span>
