@@ -26,7 +26,7 @@ class BooksController extends BaseController
         $categorys = config('book.categorys');
 
         $ftLists = $book->lists(['catid' => $catid],'',6,false);
-        $newLists = $book->lists(['catid' => $catid],'updated_at desc',50);
+        $newLists = $book->lists(['catid' => $catid],'updated_at desc',30);
         $data = [
             'ftLists'    => $ftLists,
             'newLists'   => $newLists,
@@ -44,7 +44,7 @@ class BooksController extends BaseController
     public function getLists(Request $request,Book $book,BookDetail $bookDetail, $catid, $id)
     {
         $book = $book->find($id);
-        $lists = $bookDetail->lists(['pid' => $id],'id ASC',30);
+        $lists = $bookDetail->lists(['pid' => $id],'id ASC',500);
         $lastDetail = $bookDetail->lastDetail($id);
         $data = [
             'book'      => $book,
