@@ -32,14 +32,14 @@ class BookController extends BaseController
      */
     public function getIndex()
     {
-        $book = DB::table('books')->select('id')->get();
+/*        $book = DB::table('books')->select('id')->get();
         foreach($book as $v){
             $title = DB::table('books_detail')->select('title')->where('pid',$v->id)->orderBy('id','desc')->first();
             if($title){
                 DB::table('books')->where('id',$v->id)->update(['zhangjie' => $title->title]);
             }
         }
-        exit();
+        exit();*/
         $lists = $this->model->lists();
         $categorys = $this->Categorys();
         $data = [
