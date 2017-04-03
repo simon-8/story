@@ -46,6 +46,9 @@
 
 </div>
 <div class="read_t">
+    <span>
+        <script>share();</script>
+    </span>
     当前位置：
     <a href="/">{{ $SET['title'] }}</a> >
     <a href="{!! bookurl($catid) !!}">{{ $CAT['name'] }}</a> >
