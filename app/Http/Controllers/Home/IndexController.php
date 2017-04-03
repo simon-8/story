@@ -31,7 +31,7 @@ class IndexController extends BaseController
             $i++;
         }
         //封面推荐
-        $ftLists = $book->lists([],'',6,false);
+        $ftLists = $book->lists([],'hits DESC',6,false);
         $data = [
             'newLists'   => $newLists,
             'newInserts' => $newInserts,

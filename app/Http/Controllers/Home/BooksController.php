@@ -12,7 +12,7 @@ use App\Models\Admin\Book;
 use App\Models\Admin\BookDetail;
 use App\Models\Admin\BookContent;
 use Illuminate\Http\Request;
-
+use DB;
 class BooksController extends BaseController
 {
     /**
@@ -23,8 +23,6 @@ class BooksController extends BaseController
      */
     public function getIndex(Request $request,Book $book, $catid)
     {
-        $categorys = config('book.categorys');
-
         $ftLists = $book->lists(['catid' => $catid],'',6,false);
         $newLists = $book->lists(['catid' => $catid],'updated_at desc',30);
         $data = [
@@ -51,6 +49,7 @@ class BooksController extends BaseController
             'lists'     => $lists,
             'lastDetail' => $lastDetail,
         ];
+        DB::table('books')->where('id',$id)->increment('hits');
         return home_view('book.lists',$data);
     }
 
@@ -87,6 +86,7 @@ class BooksController extends BaseController
             'nextPage'  => $nextPage,
 
         ];
+        DB::table('books_detail')->where('id',$aid)->increment('hits');
         return home_view('book.content',$data);
     }
 
