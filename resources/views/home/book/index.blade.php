@@ -73,9 +73,10 @@
             </li>
         @endforeach
     </ul>
+</div>
+<div class="pages" style="text-align:center;">
     {!! $newLists->render() !!}
 </div>
-
 <div class="yd_ad">
 
 </div>
