@@ -116,6 +116,7 @@ class BooksController extends BaseController
             'nextPage'  => $nextPage,
 
         ];
+        DB::table('books_detail')->where('id',$lastDetail->id)->increment('hits');
         return home_view('book.content',$data);
     }
 }
