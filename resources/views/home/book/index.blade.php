@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{{ $SET['title'] }}</title>
+    <title>{{ $CAT['name'] }} - {{ $SET['title'] }}</title>
     <meta name="keywords" content="{{ $SET['keywords'] }}">
     <meta name="description" content="{{ $SET['description'] }}">
     <meta http-equiv="Cache-Control" content="no-siteapp">
