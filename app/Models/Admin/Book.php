@@ -46,6 +46,19 @@ class Book extends Model
     }
 
     /**
+     * 获取列表
+     * @param array $condition
+     * @param string $order
+     * @param int $pagesize
+     * @return mixed
+     */
+    public function ftlists($condition = [] , $order = 'id DSEC',$pagesize = 10)
+    {
+        $order = $order ? explode(' ' , $order) : ['id' ,'DESC'];
+
+        return $this->where('thumb','<>','')->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->take($pagesize)->get();
+    }
+    /**
      * 更新
      * @param $data
      * @return bool
