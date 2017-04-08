@@ -85,6 +85,7 @@ Route::group($admin , function(){
             'postFriendLinks' => 'Setting.postFriendLinks',
             //'getFriendLinkCreate' => 'Setting.getFriendLinkCreate',
             'getFriendLinkDelete' => 'Setting.getFriendLinkDelete',
+            'getImageUpload'    => 'Setting.getImageUpload',
         ]);
         //微信配置
         Route::controller('weixin' , 'WeixinController' , [

@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Admin\Setting;
 use App\Models\Admin\Links;
+use App\Models\Admin\Book;
+use App\Http\Controllers\Admin\UploadController;
+
 use Validator;
 class SettingController extends BaseController
 {
@@ -110,7 +113,13 @@ class SettingController extends BaseController
     }
 
 
-    public function getFriendLinkDelete(Request $request,Links $links)
+    /**
+     * 删除友情链接
+     * @param Request $request
+     * @param Links $links
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getFriendLinkDelete(Request $request, Links $links)
     {
         $result = $links->delete($request->id);
         if($result)
@@ -123,7 +132,13 @@ class SettingController extends BaseController
         }
     }
 
-    public function getFriendLinks(Request $request,Links $links)
+    /**
+     * 友情链接
+     * @param Request $request
+     * @param Links $links
+     * @return mixed
+     */
+    public function getFriendLinks(Request $request, Links $links)
     {
         $lists = $links->lists();
         $data = [
@@ -132,7 +147,13 @@ class SettingController extends BaseController
         return admin_view('setting.friendlinks',$data);
     }
 
-    public function postFriendLinks(Request $request,Links $links)
+    /**
+     * 友情链接
+     * @param Request $request
+     * @param Links $links
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postFriendLinks(Request $request, Links $links)
     {
         $data = $request->all();
         $data['status'] = 1;
@@ -142,5 +163,21 @@ class SettingController extends BaseController
             $links->create($data);
         }
         return redirect()->route('Setting.getFriendLinks')->with('Message' ,'操作成功');
+    }
+
+    public function getImageUpload(Request $request,Book $book,UploadController $upload)
+    {
+        $lists = $book->where('thumb' ,'like' ,'%/uploads/%')->take(50)->get();
+        $count = 0;
+        foreach($lists as $v){
+            $thumb = public_path() . $v->thumb;
+            $file = uploadToQiniu($thumb);
+            $v->thumb = $file;
+            if($v->save()){
+                $count++;
+            }
+        }
+        return back()->with('Message' ,'成功上传 ' . $count . '张图片');
+        //return admin_view('setting.imageupload',$data);
     }
 }

@@ -116,6 +116,42 @@ function save_remote_thumb($thumb, $dir = 'books')
 
     return $thumb;
 }
+
+/**
+ * 生成七牛key
+ * @param $file
+ * @return mixed
+ */
+function makeQiNiuKey($file)
+{
+    //$file = str_replace( array('/' , '\\') , DIRECTORY_SEPARATOR , $file );
+    $rule = array(
+        public_path() . '/uploads/books/',
+        '/uploads/books/',
+    );
+    return str_replace($rule,'',$file);
+
+}
+/**
+ * 上传文件到七牛
+ * @param $file
+ * @param $key
+ * @return string
+ */
+function uploadToQiniu($file, $key = '')
+{
+    $upload = new \App\Http\Controllers\Admin\UploadController();
+    if(empty($key)) $key = makeQiNiuKey($file);
+    //统一分隔符
+    $thumb = str_replace( array('/' , '\\') , DIRECTORY_SEPARATOR , $file );
+    $file = $upload->put($thumb,$key);
+    if(isset($file['key'])){
+        return '/' . $file['key'];
+    }else{
+        return '';
+    }
+}
+
 /**
  * validate.js
  * @return string
@@ -250,6 +286,10 @@ function bookimg($img = '')
         return asset('/skin/default/images/nocover.jpg');
     }
     if(substr($img, 0,4) !== 'http'){
+        //使用七牛链接
+        if(strpos($img , '/uploads/') === false){
+            return config('upload.domain') . $img;
+        }
         return asset($img);
     }
     return $img;

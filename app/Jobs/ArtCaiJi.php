@@ -40,6 +40,7 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
         //if($this->attempts() > 3){
 
         //}
+        \Log::debug(' --- ');
         if( $this->Book['fromurl'] && $this->Book['id'] ){
 
             //更新文章详情 / 缩略图
@@ -63,7 +64,15 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
 
                 if(empty($this->Book['thumb']) && !empty($bookInfo[0]['thumb']) && strpos($bookInfo[0]['thumb'],'nocover.jpg') === false){
                     $thumb = save_remote_thumb($bookInfo[0]['thumb']);
-                    $updateData['thumb'] = $thumb;
+
+                    //上传到七牛
+                    $qiniuThumb = uploadToQiniu(public_path().$thumb);
+                    if($qiniuThumb){
+                        $updateData['thumb'] = $qiniuThumb;
+                        \File::delete(public_path().$thumb);
+                    }else{
+                        $updateData['thumb'] = $thumb;
+                    }
                 }
 
             }

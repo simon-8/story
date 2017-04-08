@@ -12,7 +12,8 @@
         "jaeger/querylist": "^3.1",
         "jaeger/querylist-ext-request": "^1.0",
         "jaeger/querylist-ext-multi": "^1.0",
-        "jaeger/querylist-ext-login": "^1.0"
+        "jaeger/querylist-ext-login": "^1.0",
+        "qiniu/php-sdk": "^7.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
