@@ -175,6 +175,7 @@ class SettingController extends BaseController
             $v->thumb = $file;
             if($v->save()){
                 $count++;
+                \File::delete($thumb);
             }
         }
         return back()->with('Message' ,'成功上传 ' . $count . '张图片');
