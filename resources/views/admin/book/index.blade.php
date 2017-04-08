@@ -28,7 +28,7 @@
                 <td>{{ $v['id'] }}</td>
                 <td>{{ $categorys[$v['catid']]['name'] }}</td>
                 <td align="left"><strong>{{ $v['title'] }}</strong></td>
-                <td><i class="fa fa-file-image-o" onclick="preview('{!! $v['thumb'] !!}',210,280)"></i></td>
+                <td><i class="fa fa-file-image-o" onclick="preview('{!! bookimg($v['thumb']) !!}',210,280)"></i></td>
                 <td>{{ $v['zhangjie'] }}</td>
                 <td>{{ $v['author'] }}</td>
                 <td>{{ $v['wordcount'] }}</td>
