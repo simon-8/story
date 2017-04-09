@@ -5,9 +5,9 @@
 <!--[if gt IE 8]> <html class="no-js" lang="zh_CN"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>404错误_{$SC[title]}</title>
-    <meta name="description" content="{$SC[description]}">
-    <meta name="keywords" content="{$SC[keywords]}">
+    <title>404错误_天下书屋 - 无弹窗小说阅读网</title>
+    <meta name="keywords" content="天下书屋,免费小说,无弹窗,小说分享">
+    <meta name="description" content="天下书屋网免费为您提供小说在线阅读服务，没有弹窗广告。为大家分享优质小说！">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <!-- CSS: implied media=all -->
     <link rel="stylesheet" href="{!! asset('/skin/default/css/404.css') !!}">
@@ -69,7 +69,7 @@
         </div>
         <div id="footer">
             {{--<a href="http://tongji.baidu.com/web/7929482/overview/sole?siteId=6008186" title="百度统计" target="_blank">百度统计</a>&nbsp;|&nbsp;--}}
-            <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261657948'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1261657948%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp;|&nbsp;<a href="http://www.txshu.com/" title="{$SC[title]}">www.txshu.com</a> <span style="float:right">Copyright © 2017 天下书屋网 All Rights Reserved.</span>
+            <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261657948'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1261657948%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp;|&nbsp;<a href="http://www.txshu.com/" title="天下书屋">www.txshu.com</a> <span style="float:right">Copyright © 2017 天下书屋网 All Rights Reserved.</span>
         </div>
     </div>
 </div>
