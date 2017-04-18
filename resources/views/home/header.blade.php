@@ -29,10 +29,10 @@
             @endforeach
         </ul>
         <ul class="nav_r">
-            <li><a href="">收藏</a></li>
-            <li><a href="">新书</a></li>
-            <li><a href="">完本</a></li>
-            <li><a href="" rel="nofollow">求书</a></li>
+            <li><a href="javascript:void(0);">收藏</a></li>
+            <li><a href="javascript:void(0);">新书</a></li>
+            <li><a href="javascript:void(0);">完本</a></li>
+            <li><a href="javascript:void(0);" rel="nofollow">求书</a></li>
         </ul>
     </div>
 </div>

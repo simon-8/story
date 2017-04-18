@@ -19,9 +19,9 @@ $admin = [
 Route::group($admin , function(){
 
     //debug
-    Route::get('form' , function(){
-       return view('admin.form');
-    });
+    // Route::get('form' , function(){
+    //    return view('admin.form');
+    // });
     //debug
 
     Route::get('login' , 'AuthController@getLogin')->name('getAdminLogin');

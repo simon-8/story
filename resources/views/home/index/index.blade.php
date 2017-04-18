@@ -80,7 +80,7 @@
         </ul>
     </div>
     <div class="postdate">
-        <h2><a href="">新书入库</a></h2>
+        <h2><a href="javascript:void(0);">新书入库</a></h2>
         <ul>
             @foreach($newInserts as $v)
                 <li>
