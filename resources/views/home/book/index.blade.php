@@ -43,7 +43,10 @@
 </div>
 
 <div class="yd_ad">
-
+    <script type="text/javascript">
+        var cpro_id = "u2964255";
+    </script>
+    <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
 </div>
 
 <div class="booklist"><h1>{{ $CAT['name'] }}</h1>
