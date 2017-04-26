@@ -11,6 +11,7 @@
     {{--<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.8dushu.com">--}}
     <link rel="stylesheet" href="{!! asset('/skin/default/css/index.min.css') !!}">
     <script type="text/javascript" src="{!! asset('/skin/js/jquery.min.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/skin/js/jquery.lazyload.min.js') !!}"></script>
 </head>
 <body>
 

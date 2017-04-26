@@ -11,6 +11,8 @@ class IndexController extends BaseController
         $categorys = config('book.categorys');
 
         //最近更新
+        \Cache::forget('newLists');
+        \Cache::forget('newInsert');
         $newLists = \Cache::remember('newLists' , 60 , function() use($book,$categorys) {
             $newLists = $book->lists([],'updated_at desc',50,false);
             if(count($newLists)){
@@ -19,7 +21,7 @@ class IndexController extends BaseController
             return $newLists;
         });
         //最新入库
-        $newInserts = \Cache::remember('newLists' , 60 , function() use($book,$categorys) {
+        $newInserts = \Cache::remember('newInsert' , 60 , function() use($book,$categorys) {
             $newInserts = $book->lists([],'id desc',50,false);
             if(count($newInserts)){
                 $newInserts = $this->setCatname($newInserts->toArray() ,$categorys);
