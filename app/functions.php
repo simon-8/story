@@ -288,7 +288,8 @@ function bookimg($img = '')
     if(substr($img, 0,4) !== 'http'){
         //使用七牛链接
         if(strpos($img , '/uploads/') === false){
-            return config('upload.domain') . $img;
+            $image = config('upload.domain') . $img;
+            return asset('skin/default/images/lazy.gif') . '" class="lazy" data-original="'.$image;
         }
         return asset($img);
     }

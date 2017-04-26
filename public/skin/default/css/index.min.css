@@ -1953,3 +1953,7 @@ a:hover {
     background-color: #fff;
     border-color: #ddd
 }
+
+img.lazy {
+    background: url(../images/loading.gif) no-repeat center;
+}

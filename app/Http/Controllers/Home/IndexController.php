@@ -11,19 +11,18 @@ class IndexController extends BaseController
         $categorys = config('book.categorys');
 
         //最近更新
-        $newLists = \Cache::remember('newLists' , 60 , function() use($book) {
+        $newLists = \Cache::remember('newLists' , 60 , function() use($book,$categorys) {
             $newLists = $book->lists([],'updated_at desc',50,false);
             if(count($newLists)){
-                $newLists = $this->setCatname($newLists->toArray());
+                $newLists = $this->setCatname($newLists->toArray() ,$categorys);
             }
             return $newLists;
         });
-
         //最新入库
-        $newInserts = \Cache::remember('newLists' , 60 , function() use($book) {
+        $newInserts = \Cache::remember('newLists' , 60 , function() use($book,$categorys) {
             $newInserts = $book->lists([],'id desc',50,false);
             if(count($newInserts)){
-                $newInserts = $this->setCatname($newInserts->toArray());
+                $newInserts = $this->setCatname($newInserts->toArray() ,$categorys);
             }
             return $newInserts;
         });
@@ -71,11 +70,11 @@ class IndexController extends BaseController
     /**
      *
      * @param $data
+     * @param $categorys
      * @return array
      */
-    protected function setCatname($data)
+    protected function setCatname($data , $categorys)
     {
-        global $categorys;
         $new_data = [];
         foreach($data as $v){
             $v['catname'] = $categorys[$v['catid']]['name'];
