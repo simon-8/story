@@ -1,10 +1,8 @@
 <?php
 namespace App\Http\Controllers\Home;
-use App\Http\Controllers\Controller;
 
-use DB;
-use QL\QueryList;
 use App\Models\Admin\Book;
+use App\Models\Admin\Links;
 
 class IndexController extends BaseController
 {
@@ -14,29 +12,46 @@ class IndexController extends BaseController
 
         //最近更新
         $newLists = $book->lists([],'updated_at desc',50,false);
-        if(count($newLists)) $newLists = $this->setCatname($newLists, $categorys);
+        if(count($newLists)){
+            $newLists = $this->setCatname($newLists->toArray());
+        }
 
         //最新入库
         $newInserts = $book->lists([],'id desc',50,false);
-        if(count($newInserts)) $newInserts = $this->setCatname($newInserts, $categorys);
+        if(count($newInserts)){
+            $newInserts = $this->setCatname($newInserts->toArray());
+        }
 
         //各分类推荐
-        $tjLists = [];
-        $i = 1;
-        foreach($categorys as $k => $v){
-            if($k == 9) break;
-            $tjLists[$i]['catname'] = $v['name'];
-            $tjLists[$i]['id'] = $k;
-            $tjLists[$i]['data'] = $book->lists(['catid' => $k],'',7,false);
-            $i++;
-        }
+        $tjLists = \Cache::remember('tjLists' , 600 ,function() use ($categorys,$book) {
+            $tjLists = [];
+            $i = 1;
+            foreach($categorys as $k => $v){
+                if($k == 9) break;
+                $tjLists[$i]['catname'] = $v['name'];
+                $tjLists[$i]['id'] = $k;
+                $tjLists[$i]['data'] = $book->lists(['catid' => $k],'',7,false)->toArray();
+                $i++;
+            }
+        });
+
         //封面推荐
-        $ftLists = $book->ftlists([],'hits DESC',6,false);
+        $ftLists = \Cache::remember('ftLists' , 600 ,function() use ($book) {
+            return $book->ftlists([],'hits DESC',6)->toArray();
+        });
+
+        //firendLinks
+        $firendLinks = \Cache::remember('firendLinks', 600, function(){
+            $links = new Links();
+            return $links->lists();
+        });
+
         $data = [
             'newLists'   => $newLists,
             'newInserts' => $newInserts,
             'tjLists'    => $tjLists,
             'ftLists'    => $ftLists,
+            'firendLinks'=> $firendLinks,
         ];
         return home_view('index.index',$data);
     }
@@ -49,11 +64,11 @@ class IndexController extends BaseController
     /**
      *
      * @param $data
-     * @param $categorys
      * @return array
      */
-    protected function setCatname($data, $categorys)
+    protected function setCatname($data)
     {
+        global $categorys;
         $new_data = [];
         foreach($data as $v){
             $v['catname'] = $categorys[$v['catid']]['name'];

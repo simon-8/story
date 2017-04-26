@@ -95,6 +95,14 @@
     </div>
 </div>
 
+@if(count($firendLinks))
+    <div class="link">
+        友情链接：
+        @foreach($firendLinks as $v)
+            <a href="{!! $v['linkurl'] !!}" target="_blank">{{ $v['title'] }}</a>
+        @endforeach
+    </div>
+@endif
 @include('home.footer')
 
 </body>

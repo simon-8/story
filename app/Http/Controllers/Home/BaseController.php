@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 
 
 use App\Models\Admin\Setting;
-use App\Models\Admin\Links;
 
 
 class BaseController extends Controller
@@ -46,14 +45,6 @@ class BaseController extends Controller
             $categorys = config('book.categorys');
             view()->share('categorys',$categorys);
             view()->share('CAT',$catid ? $categorys[$catid] : []);
-
-            //firendLinks
-            $firendLinks = \Cache::remember('firendLinks', 600, function(){
-                $links = new Links();
-                return $links->lists();
-            });
-
-            view()->share('firendLinks',$firendLinks);
         }
     }
 }

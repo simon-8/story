@@ -173,7 +173,45 @@
 
     </div>
     <div class="yd_ad2">
-
+        <span>
+            <!-- 内容页中部左1 开始 -->
+            <script>
+                var _kexchange = _kexchange || [];
+                _dmid='JBIZHWDFBMTBES1C5UIG';
+                _kexchange.push(['_setAccount', _dmid]);
+                //_kexchange.push(['_setWLogo', 'Y']); //希望显示w标 请去掉最前边的"//"
+                document.write('<script type="text/javascript" charset="utf-8" src="https://m.kejet.net/ms/jy/exchange2.js?a='+_dmid + '"></scr'+'ipt>');
+                _kenid = '11NYG6JYHIWFJ7SOYVXO_'+Math.random();
+                _kexchange.push(['_addSlot',_kenid,'300','250','2','9']);
+            </script>
+            <!-- 内容页中部左1 结束 -->
+        </span>
+        <span>
+            <!-- 内容页中部左2 开始 -->
+            <script>
+                var _kexchange = _kexchange || [];
+                _dmid='JBIZHWDFBMTBES1C5UIG';
+                _kexchange.push(['_setAccount', _dmid]);
+                //_kexchange.push(['_setWLogo', 'Y']); //希望显示w标 请去掉最前边的"//"
+                document.write('<script type="text/javascript" charset="utf-8" src="https://m.kejet.net/ms/jy/exchange2.js?a='+_dmid + '"></scr'+'ipt>');
+                _kenid = 'CGKRIKHLO4XYBURZKX4D_'+Math.random();
+                _kexchange.push(['_addSlot',_kenid,'300','250','2','9']);
+            </script>
+            <!-- 内容页中部左2 结束 -->
+        </span>
+        <span>
+            <!-- 内容页中部右1 开始 -->
+            <script>
+                var _kexchange = _kexchange || [];
+                _dmid='JBIZHWDFBMTBES1C5UIG';
+                _kexchange.push(['_setAccount', _dmid]);
+                //_kexchange.push(['_setWLogo', 'Y']); //希望显示w标 请去掉最前边的"//"
+                document.write('<script type="text/javascript" charset="utf-8" src="https://m.kejet.net/ms/jy/exchange2.js?a='+_dmid + '"></scr'+'ipt>');
+                _kenid = 'M7DKLCDFG6YZXGD0H9YW_'+Math.random();
+                _kexchange.push(['_addSlot',_kenid,'300','250','2','9']);
+            </script>
+            <!-- 内容页中部右1 结束 -->
+        </span>
     </div>
     <div class="yd_text2">
         {!! $detail['content'] !!}

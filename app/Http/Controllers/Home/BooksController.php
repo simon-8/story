@@ -23,8 +23,13 @@ class BooksController extends BaseController
      */
     public function getIndex(Request $request,Book $book, $catid)
     {
-        $ftLists = $book->lists(['catid' => $catid],'',6,false);
+        //封面推荐
+        $ftLists = \Cache::remember('catid.' . $catid . '.ftLists' , 600 ,function() use ($book,$catid) {
+            return $book->lists(['catid' => $catid],'',6,false)->toArray();
+        });
+
         $newLists = $book->lists(['catid' => $catid],'updated_at desc',30);
+
         $data = [
             'ftLists'    => $ftLists,
             'newLists'   => $newLists,
