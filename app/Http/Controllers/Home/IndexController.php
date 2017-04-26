@@ -11,16 +11,22 @@ class IndexController extends BaseController
         $categorys = config('book.categorys');
 
         //最近更新
-        $newLists = $book->lists([],'updated_at desc',50,false);
-        if(count($newLists)){
-            $newLists = $this->setCatname($newLists->toArray());
-        }
+        $newLists = \Cache::remember('newLists' , 60 , function() use($book) {
+            $newLists = $book->lists([],'updated_at desc',50,false);
+            if(count($newLists)){
+                $newLists = $this->setCatname($newLists->toArray());
+            }
+            return $newLists;
+        });
 
         //最新入库
-        $newInserts = $book->lists([],'id desc',50,false);
-        if(count($newInserts)){
-            $newInserts = $this->setCatname($newInserts->toArray());
-        }
+        $newInserts = \Cache::remember('newLists' , 60 , function() use($book) {
+            $newInserts = $book->lists([],'id desc',50,false);
+            if(count($newInserts)){
+                $newInserts = $this->setCatname($newInserts->toArray());
+            }
+            return $newInserts;
+        });
 
         //各分类推荐
         $tjLists = \Cache::remember('tjLists' , 600 ,function() use ($categorys,$book) {
@@ -33,6 +39,7 @@ class IndexController extends BaseController
                 $tjLists[$i]['data'] = $book->lists(['catid' => $k],'',7,false)->toArray();
                 $i++;
             }
+            return $tjLists;
         });
 
         //封面推荐
