@@ -22,11 +22,15 @@ class BaseController extends Controller
         if(!\Request::ajax() && \Request::isMethod('get')){
 
             //System Setting
-            $setting = new Setting();
-            $settings = [];
-            foreach($setting->lists() as $v){
-                $settings[$v['item']] = $v['value'];
-            }
+            $settings = \Cache::remember('settings', 600, function(){
+                $setting = new Setting();
+                $settings = [];
+                foreach($setting->lists() as $v){
+                    $settings[$v['item']] = $v['value'];
+                }
+                return $settings;
+            });
+
             view()->share('SET',$settings);
 
             //Normal param
@@ -44,9 +48,12 @@ class BaseController extends Controller
             view()->share('CAT',$catid ? $categorys[$catid] : []);
 
             //firendLinks
-            $links = new Links();
-            view()->share('firendLinks',$links->lists());
-        }
+            $firendLinks = \Cache::remember('firendLinks', 600, function(){
+                $links = new Links();
+                return $links->lists();
+            });
 
+            view()->share('firendLinks',$firendLinks);
+        }
     }
 }

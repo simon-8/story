@@ -18,6 +18,6 @@ class Links extends Model
     public function lists($condition = [] , $order = 'listorder DSEC',$pagesize = 20)
     {
         $order = $order ? explode(' ' , $order) : ['listorder' ,'DESC'];
-        return $this->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->paginate($pagesize);
+        return $this->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->take($pagesize)->get()->toArray();
     }
 }

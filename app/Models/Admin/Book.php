@@ -41,7 +41,7 @@ class Book extends Model
         if($page){
             return $this->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->paginate($pagesize);
         }else{
-            return $this->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->take($pagesize)->get();
+            return $this->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->take($pagesize)->get()->toArray();
         }
     }
 
