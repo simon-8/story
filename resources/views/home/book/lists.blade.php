@@ -10,7 +10,7 @@
     {{--<meta http-equiv="mobile-agent" content="format=html5; url=http://m.8dushu.com/info/63582/">--}}
     {{--<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.8dushu.com/info/63582/">--}}
     <meta property="og:type" content="novel">
-    <meta property="og:title" content="">
+    <meta property="og:title" content="{{ $book['title'] }}">
     <meta property="og:description" content="    ”
     各位书友要是觉得《{{ $book['title'] }}》还不错的话请不要忘记向您QQ群和微博里的朋友推荐哦！
 ">
@@ -38,7 +38,17 @@
 @include('home.header')
 
 <div class="yd_ad">
-
+    <script type="text/javascript">
+        document.write('<a style="display:none!important" id="tanx-a-mm_122370683_24304788_81388931"></a>');
+        tanx_s = document.createElement("script");
+        tanx_s.type = "text/javascript";
+        tanx_s.charset = "gbk";
+        tanx_s.id = "tanx-s-mm_122370683_24304788_81388931";
+        tanx_s.async = true;
+        tanx_s.src = "http://p.tanx.com/ex?i=mm_122370683_24304788_81388931";
+        tanx_h = document.getElementsByTagName("head")[0];
+        if(tanx_h)tanx_h.insertBefore(tanx_s,tanx_h.firstChild);
+    </script>
 </div>
 <div class="place">
     当前位置：<a href="/">{{ $SET['title'] }}</a> > <a href="{!! bookurl($catid) !!}">{{ $CAT['name'] }}</a> > {{ $book['title'] }}
