@@ -147,6 +147,7 @@ class BookController extends BaseController
         $lists = $book->lists([],'updated_at asc',$number);
         foreach($lists as $v)
         {
+            \Log::debug(' --- Book DATA ---' . var_export($v , true));
             $this->dushu88Detail(['id' => $v->id ,'fromurl' => $v->fromurl],10);
         }
         return 1;
