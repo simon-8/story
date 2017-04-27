@@ -181,17 +181,17 @@
             <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
         </span>
         <span>
-            <!-- 内容页中部左2 开始 -->
-            <script>
-                var _kexchange = _kexchange || [];
-                _dmid='JBIZHWDFBMTBES1C5UIG';
-                _kexchange.push(['_setAccount', _dmid]);
-                //_kexchange.push(['_setWLogo', 'Y']); //希望显示w标 请去掉最前边的"//"
-                document.write('<script type="text/javascript" charset="utf-8" src="https://m.kejet.net/ms/jy/exchange2.js?a='+_dmid + '"></scr'+'ipt>');
-                _kenid = 'CGKRIKHLO4XYBURZKX4D_'+Math.random();
-                _kexchange.push(['_addSlot',_kenid,'300','250','2','9']);
+            <script type="text/javascript">
+                    document.write('<a style="display:none!important" id="tanx-a-mm_122370683_24304788_81714556"></a>');
+                    tanx_s = document.createElement("script");
+                    tanx_s.type = "text/javascript";
+                    tanx_s.charset = "gbk";
+                    tanx_s.id = "tanx-s-mm_122370683_24304788_81714556";
+                    tanx_s.async = true;
+                    tanx_s.src = "http://p.tanx.com/ex?i=mm_122370683_24304788_81714556";
+                    tanx_h = document.getElementsByTagName("head")[0];
+                    if(tanx_h)tanx_h.insertBefore(tanx_s,tanx_h.firstChild);
             </script>
-            <!-- 内容页中部左2 结束 -->
         </span>
         <span>
             <script type="text/javascript">
