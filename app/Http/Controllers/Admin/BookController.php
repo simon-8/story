@@ -144,11 +144,10 @@ class BookController extends BaseController
     public function getDetailUpdate(Request $request, Book $book)
     {
         $number = intval($request->number) < 1 ? 10 : intval($request->number);
-        $lists = $book->lists([],'updated_at asc',$number);
+        $lists = $book->lists([],'updated_at asc',$number,false)->toArray();
         foreach($lists as $v)
         {
-            \Log::debug(' --- Book DATA ---' . var_export($v , true));
-            $this->dushu88Detail(['id' => $v->id ,'fromurl' => $v->fromurl],10);
+            $this->dushu88Detail(['id' => $v['id'] ,'fromurl' => $v['fromurl']],50);
         }
         return 1;
     }
@@ -366,7 +365,11 @@ class BookController extends BaseController
      */
     public function getQueueNumber()
     {
-        return DB::table('jobs')->count();
+        if(config('queue.default') == 'database'){
+            return DB::table('jobs')->count();
+        }else{
+            return 0;
+        }
     }
 
 }
