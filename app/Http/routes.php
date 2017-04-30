@@ -103,7 +103,7 @@ Route::group($admin , function(){
             'postCreate'            => 'Book.postCreate',
             'getCreateQueue'        => 'Book.getCreateQueue',
             'getQueueNumber'        => 'Book.getQueueNumber',
-            'getDetailUpdate'       => 'Book.getDetailUpdate',
+            'postDetailUpdate'       => 'Book.postDetailUpdate',
 //            'getUpdate'             => 'Book.getUpdate',
             'postUpdate'            => 'Book.postUpdate',
             'getDelete'             => 'Book.getDelete',

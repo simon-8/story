@@ -279,6 +279,10 @@ function imgurl($img = '')
     return $img;
 }
 
+/**
+ * @param string $img
+ * @return string
+ */
 function bookimg($img = '')
 {
     if(!$img)
@@ -296,7 +300,13 @@ function bookimg($img = '')
     return $img;
 }
 
-function bookurl($catid,$id = 0,$aid = 0){
+/**
+ * @param $catid
+ * @param int $id
+ * @param int $aid
+ * @return string
+ */
+function bookurl($catid, $id = 0, $aid = 0){
     if($aid)
     {
         if(is_numeric($aid)){
@@ -321,4 +331,15 @@ function bookurl($catid,$id = 0,$aid = 0){
     return route('BookCat',[
         'catid' => $catid,
     ]);
+}
+
+/**
+ * @param $message
+ */
+function logwrite($message){
+    if(is_array($message) || is_object($message)){
+        \Log::debug(__FILE__ . ':' . __LINE__ ."\n". var_export($message , true));
+    }else{
+        \Log::debug(__FILE__ . ':' . __LINE__ ."\n". $message);
+    }
 }

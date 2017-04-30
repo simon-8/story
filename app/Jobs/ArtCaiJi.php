@@ -38,14 +38,14 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
     public function handle()
     {
         if( empty($this->Book['fromurl']) || empty($this->Book['id']) ){
-            \Log::debug(' --- 采集失败，Book DATA ---' . var_export($this->Book , true));
+            logwrite(' --- 采集失败，Book DATA ---' . var_export($this->Book , true));
             return true;
         }
 
         try{
+            logwrite($this->Book);
             //更新文章详情 / 缩略图
             if(empty($this->Book['introduce']) || empty($this->Book['thumb'])){
-
                 $rules = [
                     'introduce' => [
                         '.intro','text'
@@ -65,8 +65,12 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
                 if(empty($this->Book['thumb']) && !empty($bookInfo[0]['thumb']) && strpos($bookInfo[0]['thumb'],'nocover.jpg') === false){
                     $thumb = save_remote_thumb($bookInfo[0]['thumb']);
 
-                    //上传到七牛
-                    $qiniuThumb = uploadToQiniu(public_path().$thumb);
+                    if(env('APP_DEBUG') == false){
+                        //上传到七牛
+                        $qiniuThumb = uploadToQiniu(public_path().$thumb);
+                    }else{
+                        $qiniuThumb = false;
+                    }
                     if($qiniuThumb){
                         $updateData['thumb'] = $qiniuThumb;
                         \File::delete(public_path().$thumb);
@@ -74,12 +78,16 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
                         $updateData['thumb'] = $thumb;
                     }
                 }
-
             }
 
             //获取章节列表
             $rules = config('book.rules.88dushu.detail_list');
-            $book = $html->setQuery($rules);
+            if(isset($html)){
+                $book = $html->setQuery($rules);
+            }else{
+                $book = QueryList::Query($this->Book['fromurl'] , $rules , '' ,'UTF-8','GBK',true);
+            }
+
             $booksDetailLists = $book->getData();
 
             if(count($booksDetailLists)){
@@ -103,7 +111,7 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
                     $offset = 0;
                     foreach($booksDetailLists as $k => $v)
                     {
-                        if($v['title'] == $lastArticle->title){
+                        if($v['title'] == $lastArticle['title']){
                             $offset = $k;
                             break;
                         }
@@ -129,7 +137,7 @@ class ArtCaiJi extends Job implements SelfHandling, ShouldQueue
                 }
             }
         }catch(\Exception $exception){
-            \Log::debug(' --- 采集失败 DATA ---' . $exception->getMessage());
+            logwrite(' --- 采集失败 DATA ---' . $exception->getMessage());
         }
         return true;
     }

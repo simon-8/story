@@ -136,20 +136,74 @@ class BookController extends BaseController
     }
 
     /**
-     * 更新指定数量小说小说
+     * 更新指定数量小说
      * @param Request $request
      * @param Book $book
      * @return int
      */
-    public function getDetailUpdate(Request $request, Book $book)
+    public function postDetailUpdate(Request $request, Book $book)
     {
-        $number = intval($request->number) < 1 ? 10 : intval($request->number);
-        $lists = $book->lists([],'updated_at asc',$number,false)->toArray();
+        $type = $request->updateType;
+        $number = intval($request->number) < 1 ? 10 : abs(intval($request->number));
+        $zhangjieNumber = intval($request->zhangjieNumber) < 1 ? 50 : abs(intval($request->zhangjieNumber));
+
+        $lists = [];
+        if($type == 1){//指定栏目
+
+            $catids = $request->catid;
+            $lists = DB::table('books')
+                        ->whereIn('catid',$catids)
+                        ->orderBy('updated_at','asc')
+                        ->take($number)
+                        ->get();
+
+        }else if($type == 2){//指定范围
+
+            $startId = (int) $request->startId;
+            $endId = $request->has('endId') ? $request->endId : $startId+100;
+
+            $lists = DB::table('books')
+                ->whereBetween('id',[$startId , $endId])
+                ->orderBy('updated_at','asc')
+                ->take($number)
+                ->get();
+
+        }else if($type == 3){//指定文章
+
+            $targetId = $request->targetId;
+            $lists = DB::table('books')->where('id',$targetId)->get();
+
+        }else if($type == 4){//修复空白数据
+
+            $ids = DB::table('books_content')->where('content','')->take($zhangjieNumber)->lists('id');
+            $lists = DB::table('books_detail')->whereIn('id' , $ids)->get();
+            $rules = [
+                'content' => [
+                    '.yd_text2','html'
+                ]
+            ];
+            $contentTotal = 0;
+
+            foreach($lists as $v){
+                $html = QueryList::Query($v['fromurl'] , $rules , '' ,'UTF-8','GBK',true)->getData();
+                $result = array_shift($html);
+                if(!empty($result['content'])){
+                    DB::table('books_content')->where('id',$v['id'])->update([
+                        'content' => $result['content']
+                    ]);
+                    $contentTotal++;
+                }
+            }
+            $zhangjieCount = count($lists);
+            $successPercent = sprintf('%.2f',$contentTotal/$zhangjieCount)*100;
+            return redirect()->route('Book.getIndex')->with('Message','成功恢复 ' . $contentTotal . ' 章节，成功率 ' . $successPercent . ' %');
+        }
+
         foreach($lists as $v)
         {
-            $this->dushu88Detail(['id' => $v['id'] ,'fromurl' => $v['fromurl']],50);
+            $this->dushu88Detail($v,$zhangjieNumber);
         }
-        return 1;
+        return redirect()->route('Book.getIndex')->with('Message','操作成功');
     }
 
     /**
@@ -163,7 +217,7 @@ class BookController extends BaseController
         $id = $request->id;
         $number = intval($request->number) < 1 ? 10 : intval($request->number);
         $data = $book->find($id);
-        $this->dushu88Detail(['id' => $data->id ,'fromurl' => $data->fromurl],$number);
+        $this->dushu88Detail($data->toArray(),$number);
         return 1;
     }
 
@@ -274,7 +328,6 @@ class BookController extends BaseController
      * */
     protected function dushu88($data)
     {
-
         $baseUrl = 'http://www.8dushu.com';
 
         $catids = [];
@@ -289,33 +342,43 @@ class BookController extends BaseController
 
         $pagesize = 31;
         $data['number'] = intval($data['number']) < 1 ? 10 : intval($data['number']);
-        $totalNumber = count($catids) * $data['number'];
+        $data['zhangjieNumber'] = intval($data['zhangjieNumber']) < 1 ? 10 : intval($data['zhangjieNumber']);
+        //$totalNumber = count($catids) * $data['number'];
         $rules = config('book.rules.88dushu.lists');//列表页采集规则
 
         $SuccessCount = 0;
 
         foreach($catids as $catid){
+
             $totalPage = ceil($data['number'] / $pagesize);//需要采集的总页码
+            $catCount = 0;
             for($page = 1;$page <= $totalPage;$page++)
             {
                 $url = $baseUrl . '/sort'.$catid.'/'.$page.'/';
                 $result = QueryList::Query($url,$rules,'.booklist>ul>li','UTF-8','GBK',true)->getData();
-                array_shift($result);//方便后期修改 不加入array_slice
-                $result = array_slice($result, 0 , $data['number']);
+                array_shift($result);//移除第一行
+
+                if($page == $totalPage){
+                    $result = array_slice($result, 0 , $data['number'] - $catCount);//最后一页截取指定剩余数量
+                }
 
                 foreach($result as &$v){
                     $v = array_map('trim',$v);//移除所有字段空格
 
-//                    if($SuccessCount >= $data['number']){
-//                        break;
-//                    }
+                    if($catCount >= $data['number']){//当前分类已采集完毕
+                        break;
+                    }
+
+                    //已采集总数         应采集总数
+                    //if($SuccessCount >= $totalNumber){
+                    //    break 2;
+                    //}
 
                     if( !empty($v['fromurl']) ){
                         if(substr($v['fromurl'],0,4) !== 'http') $v['fromurl'] = $baseUrl . $v['fromurl'];
                     }else{
                         continue;
                     }
-                    $v['wordcount'] = preg_replace('/[^0-9]+/','',$v['wordcount']);
 
                     if( !empty($v['title']) ){
                         //1062 Duplicate entry
@@ -323,13 +386,10 @@ class BookController extends BaseController
                         $item = DB::table('books')->where('fromhash',md5(trim($v['fromurl'])))->first();//根据unique索引检查数据是否存在
 
                         if($item){
-                            //DB::table('books')->where('id',$item->id)->update([
-                            //    'wordcount' => $v['wordcount'],
-                            //    'zhangjie'  => $v['zhangjie'],
-                            //]);
-                            $v['id'] = $item->id;
+                            $v = $item;//推送到任务队列
                         }else{
-                            $id = DB::table('books')->insertGetId([
+                            $v['wordcount'] = preg_replace('/[^0-9]+/','',$v['wordcount']);
+                            $v = [
                                 'catid' => $catid,
                                 'title' => $v['title'],
                                 'introduce' => '',
@@ -343,11 +403,12 @@ class BookController extends BaseController
                                 'fromhash'  => md5($v['fromurl']),
                                 'created_at'=> date('Y-m-d H:i:s'),
                                 'updated_at'=> date('Y-m-d H:i:s'),
-                            ]);
+                            ];
+                            $id = DB::table('books')->insertGetId($v);
                             $v['id'] = $id;
                         }
-
-                        $this->dispatch(new ArtCaiJi($v));//推送到任务队列
+                        $this->dispatch(new ArtCaiJi($v,$data['zhangjieNumber']));//推送到任务队列
+                        $catCount++;
                         $SuccessCount++;
                     }
                 }

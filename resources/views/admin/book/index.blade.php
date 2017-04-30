@@ -58,7 +58,8 @@
     @endif
 </table>
 <button class="btn btn-success" data-toggle="modal" data-target="#createModal">添加采集队列</button>
-<button class="btn btn-success" onclick="getListsUpdate();">添加更新队列</button>
+{{--<button class="btn btn-success" onclick="getListsUpdate();">添加更新队列</button>--}}
+<button class="btn btn-success" data-toggle="modal" data-target="#updateQueueModal">添加更新队列</button>
 <script>
 
     var dlistsModal = '#DetailListsModal';
@@ -196,22 +197,36 @@
         });
     }
 
-    function getListsUpdate()
+    {{--function getListsUpdate()--}}
+    {{--{--}}
+        {{--layer.prompt({--}}
+            {{--title:'一次更新多少本书?',--}}
+            {{--shadeClose:true,--}}
+        {{--},function(value, index, elem){--}}
+            {{--loading();--}}
+            {{--$.get("{!! route('Book.postDetailUpdate') !!}",{'number':value},function(res){--}}
+                {{--loading(true);--}}
+                {{--layer.alert('操作成功',function(){--}}
+                    {{--getQuery();--}}
+                    {{--layer.closeAll();--}}
+                {{--});--}}
+            {{--});--}}
+        {{--});--}}
+        {{--return false;--}}
+    {{--}--}}
+
+    function changeUpdateQueueFormType(val)
     {
-        layer.prompt({
-            title:'一次更新多少本书?',
-            shadeClose:true,
-        },function(value, index, elem){
-            loading();
-            $.get("{!! route('Book.getDetailUpdate') !!}",{'number':value},function(res){
-                loading(true);
-                layer.alert('操作成功',function(){
-                    getQuery();
-                    layer.closeAll();
-                });
-            });
-        });
-        return false;
+        if(val < 4){
+            $('#updateType_' + val).removeClass('hidden').siblings('.updateType').addClass('hidden');
+            if(val == 1){
+                $('.xiaoshuoNumber').removeClass('hidden');
+            }else{
+                $('.xiaoshuoNumber').addClass('hidden');
+            }
+        }else{
+            $('.updateType,.xiaoshuoNumber').addClass('hidden');
+        }
     }
 
     var QueryRequest;
@@ -257,16 +272,6 @@
                     <h4 class="modal-title">创建采集队列</h4>
                 </div>
                 <div class="modal-body">
-                    {{--<div class="form-group">--}}
-                        {{--<label class="col-sm-2 control-label">采集类型</label>--}}
-                        {{--<div class="col-sm-10">--}}
-                            {{--<select name="type" class="form-control">--}}
-                                {{--<option value="0">指定栏目</option>--}}
-                                {{--<option value="1">指定文章</option>--}}
-                            {{--</select>--}}
-                            {{--<span class="help-block m-b-none"></span>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
                     <div class="form-group">
                         <label class="col-sm-3 control-label">源选择</label>
                         <div class="col-sm-9">
@@ -279,20 +284,12 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">栏目选择</label>
                         <div class="col-sm-9">
-                            
                             @foreach($categorys as $v)
                                 <label class="i-checks">
                                     <input type="checkbox" name="catid[]" value="{{ $v['id'] }}">
                                     {{ $v['name'] }}
                                 </label>
                             @endforeach
-                            
-                            {{--<select name="catid" class="form-control">--}}
-                                {{--<option value="0">请选择</option>--}}
-                                {{--@foreach($categorys as $v)--}}
-                                    {{--<option value="{{ $v['id'] }}">{{ $v['name'] }}</option>--}}
-                                {{--@endforeach--}}
-                            {{--</select>--}}
                             <span class="help-block m-b-none"></span>
                         </div>
                     </div>
@@ -304,19 +301,92 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-3 control-label">每篇章节数量</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" name="zhangjieNumber" value="{{ old('zhangjieNumber') }}" placeholder="89757">
+                            <span class="help-block m-b-none"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{--更新队列--}}
+<div class="modal" id="updateQueueModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInX">
+            <form action="{{ route('Book.postDetailUpdate') }}" method="post" class="form-horizontal">
+                {!! csrf_field() !!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">创建更新队列</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">更新方式</label>
+                        <div class="col-sm-9">
+                            <select name="updateType" class="form-control" onchange="changeUpdateQueueFormType(this.value);">
+                                <option value="1">指定栏目</option>
+                                <option value="2">指定范围</option>
+                                <option value="3">指定文章</option>
+                                <option value="4">修复空白数据</option>
+                            </select>
+                            <span class="help-block m-b-none"></span>
+                        </div>
+                    </div>
+                    {{--指定栏目--}}
+                    <div class="form-group updateType" id="updateType_1">
+                        <label class="col-sm-3 control-label">栏目选择</label>
+                        <div class="col-sm-9">
+                            @foreach($categorys as $v)
+                                <label class="i-checks">
+                                    <input type="checkbox" name="catid[]" value="{{ $v['id'] }}">
+                                    {{ $v['name'] }}
+                                </label>
+                            @endforeach
+                            <span class="help-block m-b-none"></span>
+                        </div>
+                    </div>
+                    {{--指定范围--}}
+                    <div class="form-group updateType hidden" id="updateType_2">
+                        <label class="col-sm-3 control-label">ID范围</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" name="startId" value="{{ old('startId') }}" placeholder="100">
+                            <span class="help-block m-b-none">起始ID</span>
+                            <input type="number" class="form-control" name="endId" value="{{ old('endId') }}" placeholder="100">
+                            <span class="help-block m-b-none">结束ID</span>
+                        </div>
+                    </div>
+                    {{--指定文章--}}
+                    <div class="form-group updateType hidden" id="updateType_3">
                         <label class="col-sm-3 control-label">指定文章ID</label>
                         <div class="col-sm-9">
                             <input type="number" class="form-control" name="targetId" value="{{ old('targetId') }}" placeholder="89757">
                             <span class="help-block m-b-none"></span>
                         </div>
                     </div>
-                    {{--<div class="form-group">--}}
-                        {{--<label class="col-sm-2 control-label">列表页链接</label>--}}
-                        {{--<div class="col-sm-10">--}}
-                            {{--<input type="text" class="form-control" name="linkurl" value="{{ old('linkurl') }}" placeholder="getIndex">--}}
-                            {{--<span class="help-block m-b-none">弱</span>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
+
+                    <div class="form-group xiaoshuoNumber">
+                        <label class="col-sm-3 control-label">小说数量</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" name="number" value="{{ old('number') }}" placeholder="100">
+                            <span class="help-block m-b-none">需要更新的小说本数</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">章节数量</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" name="zhangjieNumber" value="{{ old('zhangjieNumber') }}" placeholder="100">
+                            <span class="help-block m-b-none">每本小说需要更新的章节数</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
