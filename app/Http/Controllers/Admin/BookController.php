@@ -175,7 +175,7 @@ class BookController extends BaseController
 
         }else if($type == 4){//修复空白数据
 
-            $ids = DB::table('books_content')->where('content','')->take($zhangjieNumber)->lists('id');
+            $ids = DB::table('books_content')->where('content','')->orderBy('id','asc')->take($zhangjieNumber)->lists('id');
             $lists = DB::table('books_detail')->whereIn('id' , $ids)->get();
             $rules = [
                 'content' => [
