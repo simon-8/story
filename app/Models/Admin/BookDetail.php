@@ -51,16 +51,16 @@ class BookDetail extends Model
 
     public function nextPage($pid,$aid)
     {
-        return $this->select('id')->where('pid' , $pid)->where('id','>',$aid)->orderBy('id','ASC')->first();
+        return $this->select('id')->where('pid' , $pid)->where('id','>',$aid)->where('status' ,1)->orderBy('id','ASC')->first();
     }
 
     public function prevPage($pid,$aid)
     {
-        return $this->select('id')->where('pid' , $pid)->where('id','<',$aid)->orderBy('id','DESC')->first();
+        return $this->select('id')->where('pid' , $pid)->where('id','<',$aid)->where('status' ,1)->orderBy('id','DESC')->first();
     }
 
     public function lastDetail($pid)
     {
-        return $this->select('id','title')->where('pid' , $pid)->orderBy('id','DESC')->first();
+        return $this->select('id','title')->where('pid' , $pid)->where('status' ,1)->orderBy('id','DESC')->first();
     }
 }
