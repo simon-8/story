@@ -170,7 +170,7 @@
         <a href="{!! bookurl($catid,$id,$nextPage['id']) !!}" target="_top">下一章 →</a>
     </div>
     <div class="aside">
-
+        因最近服务器数据更新，部分书籍最新章节异常，正紧急修复中，对您造成的不便，请谅解。
     </div>
     <div class="yd_ad2">
         <span>
