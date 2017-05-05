@@ -181,7 +181,8 @@
             <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
         </span>
         <span>
-            <script src="http://js.centenr.net/page/s.php?s=467556&w=300&h=250"></script>
+            <div style="width:300px;height:250px;">&nbsp;</div>
+            {{--<script src="http://js.centenr.net/page/s.php?s=467556&w=300&h=250"></script>--}}
         </span>
         <span>
             <script type="text/javascript">
