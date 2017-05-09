@@ -19,16 +19,12 @@
 
 <div class="yd_ad">
     <script type="text/javascript">
-        document.write('<a style="display:none!important" id="tanx-a-mm_122370683_24304788_81388931"></a>');
-        tanx_s = document.createElement("script");
-        tanx_s.type = "text/javascript";
-        tanx_s.charset = "gbk";
-        tanx_s.id = "tanx-s-mm_122370683_24304788_81388931";
-        tanx_s.async = true;
-        tanx_s.src = "http://p.tanx.com/ex?i=mm_122370683_24304788_81388931";
-        tanx_h = document.getElementsByTagName("head")[0];
-        if(tanx_h)tanx_h.insertBefore(tanx_s,tanx_h.firstChild);
+        var sogou_ad_id=828243;
+        var sogou_ad_height=90;
+        var sogou_ad_width=960;
     </script>
+    <script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+
 </div>
 
 <div class="place">
