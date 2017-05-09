@@ -181,8 +181,12 @@
             <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
         </span>
         <span>
-            <div style="width:300px;height:250px;">&nbsp;</div>
-            {{--<script src="http://js.centenr.net/page/s.php?s=467556&w=300&h=250"></script>--}}
+            <script type="text/javascript">
+                var sogou_ad_id=828226;
+                var sogou_ad_height=250;
+                var sogou_ad_width=300;
+            </script>
+            <script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
         </span>
         <span>
             <script type="text/javascript">
