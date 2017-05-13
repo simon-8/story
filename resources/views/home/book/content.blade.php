@@ -170,11 +170,11 @@
     </div>
     <div class="yd_ad2">
         <span>
-            <script type="text/javascript">
-                /*内容页中部左1*/
-                var cpro_id = "u2966008";
-            </script>
-            <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
+            {{--<script type="text/javascript">--}}
+                {{--/*内容页中部左1*/--}}
+                {{--var cpro_id = "u2966008";--}}
+            {{--</script>--}}
+            {{--<script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>--}}
         </span>
         <span>
             <script type="text/javascript">
@@ -185,10 +185,10 @@
             <script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
         </span>
         <span>
-            <script type="text/javascript">
-                var cpro_id = "u2966016";
-            </script>
-            <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
+            {{--<script type="text/javascript">--}}
+                {{--var cpro_id = "u2966016";--}}
+            {{--</script>--}}
+            {{--<script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>--}}
         </span>
     </div>
     <div class="yd_text2">
@@ -214,12 +214,12 @@
     </div>
 </div>
 
-<div class="yd_ad">
-    <script type="text/javascript">
-        var cpro_id = "u2964255";
-    </script>
-    <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
-</div>
+{{--<div class="yd_ad">--}}
+    {{--<script type="text/javascript">--}}
+        {{--var cpro_id = "u2964255";--}}
+    {{--</script>--}}
+    {{--<script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>--}}
+{{--</div>--}}
 
 @include('home.footer')
 </body>
