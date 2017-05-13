@@ -107,7 +107,6 @@
 
 {{--<div class="yd_ad">--}}
     {{--<script type="text/javascript">--}}
-        {{--/*天下书屋中部*/--}}
         {{--var cpro_id = "u2964255";--}}
     {{--</script>--}}
     {{--<script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>--}}

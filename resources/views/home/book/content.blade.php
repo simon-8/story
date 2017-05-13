@@ -171,7 +171,6 @@
     <div class="yd_ad2">
         <span>
             {{--<script type="text/javascript">--}}
-                {{--/*内容页中部左1*/--}}
                 {{--var cpro_id = "u2966008";--}}
             {{--</script>--}}
             {{--<script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>--}}
