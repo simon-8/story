@@ -14,8 +14,7 @@ use Illuminate\Http\Request;
 use QL\QueryList;
 
 use DB;
-use App\Jobs\ArtCaiJi;
-use App\Jobs\ArticleDetail;
+
 class BookController extends BaseController
 {
     protected $model;
@@ -416,6 +415,111 @@ class BookController extends BaseController
         }
 
         /*\File::put( public_path().'/caiji/data.php' , '<?php return ' . var_export($data,true) .';?>' );*/
+
+        return redirect()->route('Book.getIndex')->with('Message','操作成功');
+    }
+
+
+    /**
+     * 1.读取待采集栏目页面所有指定链接
+     * 2.对链接进行补全，得到完整链接
+     * 3.将该链接放入数据库中查询,判断是否存在记录
+     * 75小说源
+     * @param $data
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function wx999($data)
+    {
+        $config = config('books.' . __FUNCTION__);
+
+        $baseUrl = $config['baseUrl'];
+        $customCategorys = $config['categorys'];//分类对应
+        $listsRules = $config['lists'];//列表页配置
+        $detailListRules = $config['detail_list'];//章节页配置
+        $contentRules = $config['content'];//内容页配置
+        $pagesize = $listsRules['pagesize'];//列表页文章数量
+        $rules = $listsRules['rules'];//列表页采集规则
+        $pageurl = $listsRules['pageurl'];
+        $charset = $config['charset'];
+        $catids = [];
+        if(empty($data['catid'])){
+            $categorys = config('book.categorys');
+            foreach($categorys as $v){
+                $catids[] = $v['id'];
+            }
+        }else{
+            $catids = $data['catid'];
+        }
+
+
+        $data['number'] = intval($data['number']) < 1 ? 10 : intval($data['number']);
+        $data['zhangjieNumber'] = intval($data['zhangjieNumber']) < 1 ? 10 : intval($data['zhangjieNumber']);
+        //$totalNumber = count($catids) * $data['number'];
+
+        $SuccessCount = 0;
+
+        foreach($catids as $catid){
+            $customCatid = $customCategorys[$catid];
+            $totalPage = ceil($data['number'] / $pagesize);//需要采集的总页码
+            $catCount = 0;
+            for($page = 1;$page <= $totalPage;$page++) {
+                $url = $baseUrl . str_replace(['{catid}', '{page}'], [$customCatid, $page], $pageurl);
+                $html = request_spider($url);
+                $response = QueryList::Query($html, $rules, $listsRules['range'], 'UTF-8', $charset, true)->getData();
+                //过滤无效数据
+                $result = array_filter($response, function ($v) {
+                    if (empty($v['title']) || empty($v['fromurl'])) {
+                        return false;
+                    }
+                    return true;
+                });
+
+                if ($page == $totalPage) {
+                    $result = array_slice($result, 0, $data['number'] - $catCount);//最后一页截取指定剩余数量
+                }
+
+                foreach ($result as &$v) {
+                    $v = array_map('trim', $v);//移除所有字段空格
+
+                    if ($catCount >= $data['number']) {//当前分类已采集完毕
+                        break;
+                    }
+
+                    if (substr($v['fromurl'], 0, 4) !== 'http') {
+                        $v['fromurl'] = $baseUrl . substr($v['fromurl'], 1);
+                    }
+
+                    //1062 Duplicate entry
+                    $item = DB::table('books')->where('fromhash', md5(trim($v['fromurl'])))->first();//根据unique索引检查数据是否存在
+
+                    if ($item) {
+                        $v = $item;//推送到任务队列
+                    } else {
+                        $v = [
+                            'catid' => $catid,
+                            'title' => $v['title'],
+                            'introduce' => '',
+                            'zhangjie' => $v['zhangjie'],
+                            'author' => $v['author'],
+                            'wordcount' => 0,
+                            'follow' => 0,
+                            'hits' => 0,
+                            'status' => 1,
+                            'fromurl' => $v['fromurl'],
+                            'fromhash' => md5($v['fromurl']),
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s'),
+                        ];
+                        $id = DB::table('books')->insertGetId($v);
+                        $v['id'] = $id;
+                    }
+                    $v['catid'] = $customCatid;
+                    $this->dispatch(new \App\Jobs\Books\Wx999Chapter($v, $data['zhangjieNumber']));//推送到任务队列
+                    $catCount++;
+                    $SuccessCount++;
+                }
+            }
+        }
 
         return redirect()->route('Book.getIndex')->with('Message','操作成功');
     }

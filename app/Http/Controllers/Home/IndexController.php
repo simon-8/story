@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Home;
 use App\Models\Admin\Book;
 use App\Models\Admin\Links;
 
+use QL\QueryList;
+use DB;
+use App\Jobs\Books\Wx999Content;
 class IndexController extends BaseController
 {
     public function getIndex(Book $book)
@@ -64,7 +67,19 @@ class IndexController extends BaseController
 
     public function getTest(Book $book)
     {
-
+        header('content-type:text/html;charset=utf-8');
+        $rules = [
+            'content' => [
+                //过滤div和p标签
+                '#box','text','-p -div -script'
+            ]
+        ];
+        $url = 'http://www.999wx.com//article/7/41200/14950661.shtml';
+        $html = request_spider($url);
+        //echo $html;
+        $result = QueryList::Query($html , $rules , '' ,'UTF-8','GBK',true)->getData();
+        echo "<pre>";
+        print_r($result);
     }
 
     /**

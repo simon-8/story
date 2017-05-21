@@ -276,6 +276,8 @@
                         <label class="col-sm-3 control-label">源选择</label>
                         <div class="col-sm-9">
                             <select name="source" class="form-control">
+                                {{--@foreach(config('book') as $v)--}}
+                                <option value="wx999">999文学</option>
                                 <option value="dushu88">88读书网</option>
                             </select>
                             <span class="help-block m-b-none"></span>

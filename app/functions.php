@@ -334,6 +334,7 @@ function bookurl($catid, $id = 0, $aid = 0){
 }
 
 /**
+ * 日志记录
  * @param $message
  */
 function logwrite($message){
@@ -341,5 +342,45 @@ function logwrite($message){
         \Log::debug(__FILE__ . ':' . __LINE__ ."\n". var_export($message , true));
     }else{
         \Log::debug(__FILE__ . ':' . __LINE__ ."\n". $message);
+    }
+}
+
+/**
+ * 模拟蜘蛛访问获取页面HTML
+ * @param $url
+ * @param string $spider
+ * @return mixed
+ * @throws Exception
+ */
+function request_spider($url, $spider = 'baidu')
+{
+    switch ($spider){
+        case 'baidu':
+            $ip =  '220.181.108.'.rand(1,255);
+            $userAgent = 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)';
+            break;
+        default:
+            $ip =  '220.181.108.'.rand(1,255);
+            $userAgent = 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)';
+            break;
+    }
+
+    $ch = curl_init($url);
+    curl_setopt($ch , CURLOPT_RETURNTRANSFER , true);
+    curl_setopt($ch , CURLOPT_HEADER , 0);
+    curl_setopt($ch , CURLOPT_TIMEOUT , 5);
+    curl_setopt($ch , CURLOPT_HTTPHEADER , [
+        'X-FORWARDED-FOR:'.$ip.'',
+        'CLIENT-IP:'.$ip.''
+    ]);
+    curl_setopt($ch , CURLOPT_USERAGENT , $userAgent);
+    curl_setopt($ch , CURLOPT_CONNECTTIMEOUT , 5);
+    $content = curl_exec($ch);
+    $error_message = curl_error($ch);
+    curl_close($ch);
+    if( empty($error_message) ){
+        return $content;
+    }else{
+        throw new Exception($error_message);
     }
 }
