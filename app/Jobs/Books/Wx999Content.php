@@ -40,7 +40,7 @@ class Wx999Content extends Job implements SelfHandling, ShouldQueue
         preg_match_all('/<div id="tipinfo">(.*?)<div id="Adsgg2">/isU', $html, $match);
         $content = str_replace(array('<div id="Adsgg2">') , '' , $match[0][0]);
         $content = preg_replace('/<script.*?<\/script>/is', '', $content);
-        $content = iconv('gb2312' ,'utf-8',strip_tags($content));
+        $content = iconv('gb2312' ,'utf-8//IGNORE',strip_tags($content));
 
         $data = [
             'pid'    => $this->Info['pid'],
