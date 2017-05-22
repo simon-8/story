@@ -35,11 +35,13 @@ class Wx999Content extends Job implements SelfHandling, ShouldQueue
      */
     public function handle()
     {
-        $rules = config('books.wx999.content.rules');
         $html = request_spider($this->Info['fromurl']);
-        $html = QueryList::Query($html , $rules , '' ,'UTF-8','GBK',true)->getData();
-        $result = array_shift($html);
-//        try{
+        $match = array();
+        preg_match_all('/<div id="tipinfo">(.*?)<div id="Adsgg2">/isU', $html, $match);
+        $content = str_replace(array('<div id="Adsgg2">') , '' , $match[0][0]);
+        $content = preg_replace('/<script.*?<\/script>/is', '', $content);
+        $content = iconv('gb2312' ,'utf-8',strip_tags($content));
+
         $data = [
             'pid'    => $this->Info['pid'],
             'title'  => $this->Info['title'],
@@ -51,7 +53,7 @@ class Wx999Content extends Job implements SelfHandling, ShouldQueue
             'updated_at'=> date('Y-m-d H:i:s'),
         ];
         //事务
-        DB::transaction(function () use ($result,$data) {
+        DB::transaction(function () use ($content,$data) {
             try{
                 $id = DB::table('books_detail')->insertGetId($data);
             }catch (\Exception $exception){
@@ -60,16 +62,11 @@ class Wx999Content extends Job implements SelfHandling, ShouldQueue
 
             DB::table('books_content')->insert([
                 'id' => $id,
-                'content' => ($result['content'] ? $result['content'] : ''),
+                'content' => ($content ? $content : ''),
             ]);
         });
 
-//        }catch(\Exception $exception){
-//            //忽略因为重复索引导致的插入失败
-//            if(strpos($exception->getMessage() , '1062 Duplicate entry') !== false){
-//                return true;
-//            }
-//        }
+
         return true;
     }
 }

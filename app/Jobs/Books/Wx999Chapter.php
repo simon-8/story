@@ -129,7 +129,7 @@ class Wx999Chapter extends Job implements SelfHandling, ShouldQueue
                     $links = array_slice($booksDetailLists, $offset+1);
                 }else{
                     //$links = array_slice($booksDetailLists, 0 , $this->Count);
-                    $links = array_slice($booksDetailLists, 0);
+                    $links = $booksDetailLists;
                 }
 
                 $zhangjie = end($links);
