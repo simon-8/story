@@ -43,7 +43,7 @@ class Wx999Chapter extends Job implements SelfHandling, ShouldQueue
         }
         $config = config('books.wx999');
         try{
-            logwrite($this->Book);
+            //logwrite($this->Book);
             //更新文章详情 / 缩略图
             if(empty($this->Book['introduce']) || empty($this->Book['thumb']) || empty($this->Book['linkurl'])){
                 $rules = [
