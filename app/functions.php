@@ -339,9 +339,9 @@ function bookurl($catid, $id = 0, $aid = 0){
  */
 function logwrite($message){
     if(is_array($message) || is_object($message)){
-        \Log::debug(__FILE__ . ':' . __LINE__ ."\n". var_export($message , true));
+        \Log::debug("\n". var_export($message , true));
     }else{
-        \Log::debug(__FILE__ . ':' . __LINE__ ."\n". $message);
+        \Log::debug("\n". $message);
     }
 }
 
@@ -368,13 +368,13 @@ function request_spider($url, $spider = 'baidu')
     $ch = curl_init($url);
     curl_setopt($ch , CURLOPT_RETURNTRANSFER , true);
     curl_setopt($ch , CURLOPT_HEADER , 0);
-    curl_setopt($ch , CURLOPT_TIMEOUT , 5);
+    curl_setopt($ch , CURLOPT_TIMEOUT , 20);
     curl_setopt($ch , CURLOPT_HTTPHEADER , [
         'X-FORWARDED-FOR:'.$ip.'',
         'CLIENT-IP:'.$ip.''
     ]);
     curl_setopt($ch , CURLOPT_USERAGENT , $userAgent);
-    curl_setopt($ch , CURLOPT_CONNECTTIMEOUT , 5);
+    curl_setopt($ch , CURLOPT_CONNECTTIMEOUT , 20);
     $content = curl_exec($ch);
     $error_message = curl_error($ch);
     curl_close($ch);

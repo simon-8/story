@@ -16,9 +16,10 @@ class CreateBooksDetailTable extends Migration
     {
         Schema::create( 'books_detail' , function(Blueprint $table){
             $table->increments('id');
-            $table->unsignedInteger('pid')->comment('小说ID');
+            $table->unsignedInteger('pid')->comment('ID');
+            $table->unsignedInteger('chapterid')->comment('序号');
             $table->string('title')->comment('标题');
-            //$table->Text('content')->comment('小说内容');
+            //$table->Text('content')->comment('内容');
             $table->unsignedBigInteger('hits')->comment('浏览次数');
             $table->unsignedTinyInteger('status')->comment('状态');
             $table->string('fromurl')->comment('来源链接');

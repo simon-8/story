@@ -13,7 +13,7 @@ return [
         8 => 76,
         9 => 18,
     ],
-    //小说列表页
+    //列表页
     'lists' => [
         //区域选择器
         'range' => '.mainarea .con ul',
@@ -38,9 +38,9 @@ return [
                 'li a.f14+a','text'
             ]
         ],
-        //列表页小说数量
+        //列表页数量
         'pagesize' => 50,
-        'pageurl' => 'Book/ShowBookList.aspx?tclassid={catid}&page={page}',
+        'pageurl' => 'Book/ShowBookList.aspx?tclassid=%d&page=%d',
     ],
     //章节列表页
     'detail_list' => [
@@ -55,7 +55,7 @@ return [
                 'a' ,'href'
             ],
         ],
-        'pageurl' => 'article/{catid}/{id}/Default.shtml',
+        'pageurl' => 'article/%d/%d/Default.shtml',
     ],
     //详情页
     'content' => [

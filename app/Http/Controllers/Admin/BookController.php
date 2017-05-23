@@ -198,11 +198,19 @@ class BookController extends BaseController
             return redirect()->route('Book.getIndex')->with('Message','成功恢复 ' . $contentTotal . ' 章节，成功率 ' . $successPercent . ' %');
         }
 
+        $sourceLists = array_keys($book::sourceLists(1));
+        $successCount = 0;
         foreach($lists as $v)
         {
-            $this->dushu88Detail($v,$zhangjieNumber);
+            if(in_array($v['source'] , $sourceLists))
+            {
+                $successCount++;
+                $ClassName = '\App\Jobs\Books\\'.ucfirst($v['source']) . 'Chapter';
+                $this->dispatch(new $ClassName($v,$zhangjieNumber));
+            }
+
         }
-        return redirect()->route('Book.getIndex')->with('Message','操作成功');
+        return redirect()->route('Book.getIndex')->with('Message','操作成功，共更新 ' . $successCount . '本');
     }
 
     /**
@@ -432,16 +440,16 @@ class BookController extends BaseController
     {
         $config = config('books.' . __FUNCTION__);
 
-        $baseUrl = $config['baseUrl'];
+        $baseUrl         = $config['baseUrl'];
         $customCategorys = $config['categorys'];//分类对应
-        $listsRules = $config['lists'];//列表页配置
+        $listsRules      = $config['lists'];//列表页配置
         $detailListRules = $config['detail_list'];//章节页配置
-        $contentRules = $config['content'];//内容页配置
-        $pagesize = $listsRules['pagesize'];//列表页文章数量
-        $rules = $listsRules['rules'];//列表页采集规则
-        $pageurl = $listsRules['pageurl'];
-        $charset = $config['charset'];
-        $catids = [];
+        //$contentRules = $config['content'];//内容页配置
+        $pagesize        = $listsRules['pagesize'];//列表页文章数量
+        $rules           = $listsRules['rules'];//列表页采集规则
+        $pageurl         = $listsRules['pageurl'];//列表页地址
+        $charset         = $config['charset'];//编码
+        $catids          = [];
         if(empty($data['catid'])){
             $categorys = config('book.categorys');
             foreach($categorys as $v){
@@ -459,19 +467,19 @@ class BookController extends BaseController
         $SuccessCount = 0;
 
         foreach($catids as $catid){
-            $customCatid = $customCategorys[$catid];
+            $customCatid = $customCategorys[$catid];//对应分类ID
             $totalPage = ceil($data['number'] / $pagesize);//需要采集的总页码
             $catCount = 0;
             for($page = 1;$page <= $totalPage;$page++) {
-                $url = $baseUrl . str_replace(['{catid}', '{page}'], [$customCatid, $page], $pageurl);
+
+                $url = $baseUrl . sprintf($pageurl, $customCatid, $page);
+
                 $html = request_spider($url);
                 $response = QueryList::Query($html, $rules, $listsRules['range'], 'UTF-8', $charset, true)->getData();
+
                 //过滤无效数据
                 $result = array_filter($response, function ($v) {
-                    if (empty($v['title']) || empty($v['fromurl'])) {
-                        return false;
-                    }
-                    return true;
+                    if (!empty($v['title']) && !empty($v['fromurl'])) return true;
                 });
 
                 if ($page == $totalPage) {
@@ -485,9 +493,12 @@ class BookController extends BaseController
                         break;
                     }
 
+                    //组成列表页链接
                     if (substr($v['fromurl'], 0, 4) !== 'http') {
                         $v['fromurl'] = $baseUrl . substr($v['fromurl'], 1);
                     }
+                    $targetId = str_replace([$baseUrl . 'Book/' , '.aspx'] , '' , $v['fromurl']);
+                    $v['fromurl'] = $baseUrl . sprintf($detailListRules['pageurl'] , $customCatid , $targetId);
 
                     //1062 Duplicate entry
                     $item = DB::table('books')->where('fromhash', md5(trim($v['fromurl'])))->first();//根据unique索引检查数据是否存在

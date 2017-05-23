@@ -27,6 +27,7 @@ class CreateBooksTable extends Migration
             $table->unsignedInteger('follow')->comment('关注人数');
             $table->unsignedBigInteger('hits')->comment('浏览次数');
             $table->unsignedTinyInteger('status')->comment('状态')->index();
+            $table->string('source')->comment('来源');
             $table->string('fromurl')->comment('来源网址');
             $table->string('fromhash')->comment('来源网址hash,用来判断是否插入过')->unique();
             $table->timestamps();

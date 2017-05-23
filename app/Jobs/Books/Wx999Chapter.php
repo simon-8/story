@@ -43,9 +43,9 @@ class Wx999Chapter extends Job implements SelfHandling, ShouldQueue
         }
         $config = config('books.wx999');
         try{
-            //logwrite($this->Book);
+
             //更新文章详情 / 缩略图
-            if(empty($this->Book['introduce']) || empty($this->Book['thumb']) || empty($this->Book['linkurl'])){
+            if( empty($this->Book['introduce']) || empty($this->Book['thumb']) ){
                 $rules = [
                     'introduce' => [
                         '.sc+p' , 'text'
@@ -55,12 +55,11 @@ class Wx999Chapter extends Job implements SelfHandling, ShouldQueue
                     ],
                     'thumb' => [
                         '.wleft img' , 'src'
-                    ],
-                    'linkurl' => [
-                        '#bt_1 a' , 'href'
-                    ],
+                    ]
                 ];
-                $html = request_spider($this->Book['fromurl']);
+
+                $indexUrl = $this->getIndexUrl($config['baseUrl'] , $this->Book['fromurl']);
+                $html = request_spider($indexUrl);
                 $bookInfo = QueryList::Query($html , $rules , '' ,'UTF-8','GBK',true)->getData();
 
                 $updateData = [];
@@ -78,10 +77,6 @@ class Wx999Chapter extends Job implements SelfHandling, ShouldQueue
                     if(env('APP_DEBUG') == false){
                         //上传到七牛
                         $qiniuThumb = uploadToQiniu(public_path().$thumb);
-                    }else{
-                        $qiniuThumb = false;
-                    }
-                    if($qiniuThumb){
                         $updateData['thumb'] = $qiniuThumb;
                         \File::delete(public_path().$thumb);
                     }else{
@@ -90,45 +85,33 @@ class Wx999Chapter extends Job implements SelfHandling, ShouldQueue
                 }
             }
 
-            $id = str_replace([$config['baseUrl'] . 'Book/' , '.aspx'] , '' , $this->Book['fromurl']);
-
             //获取章节列表
             $rules = $config['detail_list'];
-            $pageurl = $config['baseUrl'] . str_replace(['{catid}' , '{id}'] , [$this->Book['catid'] , $id] , $rules['pageurl']);
-            $html = request_spider($pageurl);
+
+            $html = request_spider($this->Book['fromurl']);
             $booksDetailLists = QueryList::Query($html , $rules['rules'] , $rules['range'] ,'UTF-8','GBK',true)->data;
 
             if(count($booksDetailLists)){
 
-                $baseUrl = str_replace('Default.shtml' , '' , $pageurl);
+                $baseUrl = str_replace('Default.shtml' , '' , $this->Book['fromurl']);
 
                 foreach($booksDetailLists as $k => &$v){
                     $v = array_map('trim',$v);
                     if(empty($v['fromurl'])){
                         unset($booksDetailLists[$k]);
                     }else{
-                        if(substr($v['fromurl'],0,4) !== 'http'){
-                            $v['fromurl'] = $baseUrl . $v['fromurl'];
-                        }
+                        if(substr($v['fromurl'],0,4) !== 'http') $v['fromurl'] = $baseUrl . $v['fromurl'];
                     }
                 }
 
                 $lastArticle = $this->getLastArticle($this->Book['id']);
+                $firstChapterid = $lastArticle ? $lastArticle['chapterid'] + 1 : 1;
 
+                //logwrite('--- LAST DATA : ' . var_export($lastArticle , true));
                 if($lastArticle){
-                    $offset = 0;
-                    foreach($booksDetailLists as $k => $v)
-                    {
-                        if($v['title'] == $lastArticle['title']){
-                            $offset = $k;
-                            break;
-                        }
-                    }
-                    //从最后一个章节开始截取10章
-                    //$links = array_slice($booksDetailLists, $offset+1 , $this->Count);
-                    $links = array_slice($booksDetailLists, $offset+1);
+                    //chapterid = $offset + 1;
+                    $links = array_slice($booksDetailLists, $firstChapterid - 1);
                 }else{
-                    //$links = array_slice($booksDetailLists, 0 , $this->Count);
                     $links = $booksDetailLists;
                 }
 
@@ -140,15 +123,13 @@ class Wx999Chapter extends Job implements SelfHandling, ShouldQueue
                 DB::table('books')->where('id',$this->Book['id'])->update($updateData);
 
                 foreach($links as $v){
-                    //sleep(1);
-                    //推送到章节采集队列
                     dispatch(
-                        new Wx999Content( array_merge($v,['pid' => $this->Book['id']]) )
+                        new Wx999Content( array_merge($v,['chapterid' => $firstChapterid++,'pid' => $this->Book['id']]) )
                     );
                 }
             }
         }catch(\Exception $exception){
-            logwrite(' --- 采集失败 DATA ---' . $exception->getMessage());
+            logwrite(' --- 采集失败 --- ' . $exception->getMessage() . ' --- FILE '.$exception->getFile().' --- LINE ' . $exception->getLine());
         }
         return true;
     }
@@ -170,6 +151,20 @@ class Wx999Chapter extends Job implements SelfHandling, ShouldQueue
      */
     protected function getLastArticle($pid)
     {
-        return DB::table('books_detail')->select('id','title','fromhash')->where('pid',$pid)->orderBy('id','desc')->first();
+        return DB::table('books_detail')->select('id','chapterid','title','fromhash')->where('pid',$pid)->orderBy('id','desc')->first();
+    }
+
+    /**
+     * 详情页链接
+     * @param $baseUrl
+     * @param $fromUrl
+     * @return string
+     */
+    protected function getIndexUrl($baseUrl, $fromUrl)
+    {
+        $idTmp = str_replace('/Default.shtml' , '' , $fromUrl);
+        $id = substr($idTmp,strrpos($idTmp , '/') + 1);
+        $indexUrl = $baseUrl . 'Book/'. $id .'.aspx';//介绍页链接
+        return $indexUrl;
     }
 }

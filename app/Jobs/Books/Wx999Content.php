@@ -43,12 +43,13 @@ class Wx999Content extends Job implements SelfHandling, ShouldQueue
         $content = iconv('gb2312' ,'utf-8//IGNORE',strip_tags($content));
 
         $data = [
-            'pid'    => $this->Info['pid'],
-            'title'  => $this->Info['title'],
-            'hits'   => 0,
-            'status' => 1,
-            'fromurl' => $this->Info['fromurl'],
-            'fromhash'   => md5($this->Info['fromurl']),
+            'pid'       => $this->Info['pid'],
+            'chapterid' => $this->Info['chapterid'],
+            'title'     => $this->Info['title'],
+            'hits'      => 0,
+            'status'    => 1,
+            'fromurl'   => $this->Info['fromurl'],
+            'fromhash'  => md5($this->Info['fromurl']),
             'created_at'=> date('Y-m-d H:i:s'),
             'updated_at'=> date('Y-m-d H:i:s'),
         ];

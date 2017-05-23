@@ -22,6 +22,7 @@ class Book extends Model
         'follow',
         'hits',
         'status',
+        'source',
         'fromurl',
         'fromhash',
     ];
@@ -87,4 +88,25 @@ class Book extends Model
         return $item->save();
     }
 
+
+    /**
+     * 获取源列表
+     * @param null $status
+     * @return array|mixed
+     */
+    public static function sourceLists($status = null)
+    {
+        $source = config('book.source');
+        if($status === null){
+            return $source;
+        }else if($status == 1){
+            return array_filter($source , function($v){
+                if($v['status'] == 1) return true;
+            });
+        }else if($status == 0){
+            return array_filter($source , function($v){
+                if($v['status'] == 0) return true;
+            });
+        }
+    }
 }
