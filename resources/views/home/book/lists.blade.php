@@ -99,6 +99,8 @@
             <li><a href="{!! bookurl($catid,$v['pid'],$v['id']) !!}">{{ $v['title'] }}</a></li>
         @endforeach
     </ul>
+</div>
+<div class="pages" style="text-align:center;">
     {!! $lists->render() !!}
 </div>
 <div class="yd_ad">

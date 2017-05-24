@@ -62,6 +62,6 @@ class BookDetail extends Model
 
     public function lastDetail($pid)
     {
-        return $this->select('id','title')->where('pid' , $pid)->where('status' ,1)->orderBy('id','DESC')->first();
+        return $this->select('id','title')->where('pid' , $pid)->where('status' ,1)->orderBy('chapterid','DESC')->first();
     }
 }

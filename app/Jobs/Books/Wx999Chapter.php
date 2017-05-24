@@ -24,7 +24,7 @@ class Wx999Chapter extends Job implements SelfHandling, ShouldQueue
      */
     protected $Book; //[id,formurl]
     protected $Count;
-    public function __construct($Book , $Count = 10)
+    public function __construct($Book , $Count = 0)
     {
         $this->Book = $Book;
         $this->Count = $Count;
@@ -110,9 +110,9 @@ class Wx999Chapter extends Job implements SelfHandling, ShouldQueue
                 //logwrite('--- LAST DATA : ' . var_export($lastArticle , true));
                 if($lastArticle){
                     //chapterid = $offset + 1;
-                    $links = array_slice($booksDetailLists, $firstChapterid - 1);
+                    $links = $this->Count ? array_slice($booksDetailLists, $firstChapterid - 1, $this->Count) : array_slice($booksDetailLists, $firstChapterid - 1);
                 }else{
-                    $links = $booksDetailLists;
+                    $links = $this->Count ? array_slice($booksDetailLists, 0, $this->Count) : array_slice($booksDetailLists, $firstChapterid - 1);
                 }
 
                 $zhangjie = end($links);
@@ -127,6 +127,7 @@ class Wx999Chapter extends Job implements SelfHandling, ShouldQueue
                         new Wx999Content( array_merge($v,['chapterid' => $firstChapterid++,'pid' => $this->Book['id']]) )
                     );
                 }
+                unset($html,$booksDetailLists,$links);
             }
         }catch(\Exception $exception){
             logwrite(' --- 采集失败 --- ' . $exception->getMessage() . ' --- FILE '.$exception->getFile().' --- LINE ' . $exception->getLine());
@@ -151,7 +152,7 @@ class Wx999Chapter extends Job implements SelfHandling, ShouldQueue
      */
     protected function getLastArticle($pid)
     {
-        return DB::table('books_detail')->select('id','chapterid','title','fromhash')->where('pid',$pid)->orderBy('id','desc')->first();
+        return DB::table('books_detail')->select('id','chapterid','title','fromhash')->where('pid',$pid)->orderBy('chapterid','desc')->first();
     }
 
     /**

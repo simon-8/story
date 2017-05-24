@@ -66,7 +66,7 @@ class Wx999Content extends Job implements SelfHandling, ShouldQueue
                 'content' => ($content ? $content : ''),
             ]);
         });
-
+        unset($html,$match,$content);
 
         return true;
     }

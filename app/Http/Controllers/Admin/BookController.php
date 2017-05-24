@@ -222,9 +222,10 @@ class BookController extends BaseController
     public function getDetailListsUpdate(Request $request, Book $book)
     {
         $id = $request->id;
-        $number = intval($request->number) < 1 ? 10 : intval($request->number);
+        $number = intval($request->number);
         $data = $book->find($id);
-        $this->dushu88Detail($data->toArray(),$number);
+        $ClassName = '\App\Jobs\Books\\'.ucfirst($data['source']) . 'Chapter';
+        $this->dispatch(new $ClassName($data,$number));
         return 1;
     }
 
@@ -241,7 +242,7 @@ class BookController extends BaseController
      */
     protected function getLastArticle($pid)
     {
-        return DB::table('books_detail')->select('id','title','fromhash')->where('pid',$pid)->orderBy('id','desc')->first();
+        return DB::table('books_detail')->select('id','chapterid','title','fromhash')->where('pid',$pid)->orderBy('chapterid','desc')->first();
     }
 
     /**
@@ -461,9 +462,7 @@ class BookController extends BaseController
 
 
         $data['number'] = intval($data['number']) < 1 ? 10 : intval($data['number']);
-        $data['zhangjieNumber'] = intval($data['zhangjieNumber']) < 1 ? 10 : intval($data['zhangjieNumber']);
-        //$totalNumber = count($catids) * $data['number'];
-
+        $data['zhangjieNumber'] = intval($data['zhangjieNumber']);
         $SuccessCount = 0;
 
         foreach($catids as $catid){
