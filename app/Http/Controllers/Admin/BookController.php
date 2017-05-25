@@ -515,6 +515,7 @@ class BookController extends BaseController
                             'follow' => 0,
                             'hits' => 0,
                             'status' => 1,
+                            'source' => __FUNCTION__,
                             'fromurl' => $v['fromurl'],
                             'fromhash' => md5($v['fromurl']),
                             'created_at' => date('Y-m-d H:i:s'),
