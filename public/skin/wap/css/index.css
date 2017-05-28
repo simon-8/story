@@ -321,7 +321,8 @@ footer a.active {
 footer .copyright {
     color: #8f8f8f;
     font-size: 12px;
-    line-height: 30px
+    line-height: 30px;
+    text-align: center;
 }
 
 .searchbox {
