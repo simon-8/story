@@ -46,7 +46,7 @@ class BooksController extends BaseController
         $book = $bookModel->find($id);
         $lists = $bookDetailModel->lists(['pid' => $id],'chapterid ASC',5);
         $lastDetail = $bookDetailModel->lastDetail($id);
-        $otherLists = $bookModel->lists(['catid' => $catid] , '' , 9);
+        $otherLists = $bookModel->lists(['catid' => $catid] , 'thumb DESC' , 9);
         $data = [
             'book'      => $book,
             'lists'     => $lists,
