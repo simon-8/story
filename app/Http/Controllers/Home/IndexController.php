@@ -46,7 +46,7 @@ class IndexController extends BaseController
 
         //封面推荐
         $ftLists = \Cache::remember('ftLists' , 600 ,function() use ($book) {
-            return $book->ftlists([],'hits DESC',6)->toArray();
+            return $book->ftlists([],'thumb DESC,hits DESC',6)->toArray();
         });
 
         //firendLinks

@@ -37,12 +37,20 @@ class Book extends Model
      */
     public function lists($condition = [] , $order = 'id DSEC',$pagesize = 10,$page = true)
     {
-        $order = $order ? explode(' ' , $order) : ['id' ,'DESC'];
-
-        if($page){
-            return $this->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->paginate($pagesize);
+        $lists = $this->where( array_merge(['status' => 1],$condition) );
+        if(strpos($order,',') !== false){
+            foreach(explode(',' , $order) as $v){
+                $tmp = explode(' ' , $order);
+                $lists->orderBy($tmp[0] , $tmp[1]);
+            }
         }else{
-            return $this->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->take($pagesize)->get();
+            $order = $order ? explode(' ' , $order) : ['id' ,'DESC'];
+            $lists->orderBy($order[0] , $order[1]);
+        }
+        if($page){
+            return $lists->paginate($pagesize);
+        }else{
+            return $lists->take($pagesize)->get();
         }
     }
 

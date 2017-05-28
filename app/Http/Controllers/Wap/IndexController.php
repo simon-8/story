@@ -3,11 +3,7 @@ namespace App\Http\Controllers\Wap;
 use App\Http\Controllers\Home\BaseController;
 
 use App\Models\Admin\Book;
-use App\Models\Admin\Links;
 
-use QL\QueryList;
-use DB;
-use App\Jobs\Books\Wx999Content;
 class IndexController extends BaseController
 {
     public function getIndex(Book $book)
@@ -24,10 +20,9 @@ class IndexController extends BaseController
             $tjLists = [];
             $i = 1;
             foreach($categorys as $k => $v){
-                //if($k == 9) break;
                 $tjLists[$i]['catname'] = $v['name'];
                 $tjLists[$i]['id'] = $k;
-                $tjLists[$i]['data'] = $book->lists(['catid' => $k],'',6,false)->toArray();
+                $tjLists[$i]['data'] = $book->lists(['catid' => $k],'thumb DESC,hits DESC',6,false)->toArray();
                 $i++;
             }
             return $tjLists;
@@ -35,7 +30,7 @@ class IndexController extends BaseController
 
         //最近更新
         $newLists = \Cache::remember('wap.newLists' , 60 , function() use($book,$categorys) {
-            $newLists = $book->lists([],'updated_at desc,thumb desc',6,false);
+            $newLists = $book->lists([],'thumb DESC,updated_at DESC',6,false);
             if(count($newLists)){
                 $newLists = $this->setCatname($newLists->toArray() ,$categorys);
             }
@@ -44,7 +39,7 @@ class IndexController extends BaseController
 
         //新书精选
         $newInserts = \Cache::remember('wap.newInsert' , 60 , function() use($book,$categorys) {
-            $newInserts = $book->lists([],'id desc',6,false);
+            $newInserts = $book->lists([],'thumb DESC,hits DESC',6,false);
             if(count($newInserts)){
                 $newInserts = $this->setCatname($newInserts->toArray() ,$categorys);
             }

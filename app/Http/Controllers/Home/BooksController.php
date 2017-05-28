@@ -25,7 +25,7 @@ class BooksController extends BaseController
     {
         //封面推荐
         $ftLists = \Cache::remember('catid.' . $catid . '.ftLists' , 600 ,function() use ($bookModel,$catid) {
-            return $bookModel->lists(['catid' => $catid],'',6,false)->toArray();
+            return $bookModel->lists(['catid' => $catid],'thumb desc,hits DESC',6,false)->toArray();
         });
 
         $newLists = $bookModel->lists(['catid' => $catid],'updated_at desc',30);

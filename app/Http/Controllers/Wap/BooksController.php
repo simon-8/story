@@ -24,14 +24,11 @@ class BooksController extends BaseController
     public function getIndex(Request $request,Book $bookModel, $catid)
     {
         //封面推荐
-        $ftLists = \Cache::remember('wap.catid.' . $catid . '.ftLists' , 600 ,function() use ($bookModel,$catid) {
-            return $bookModel->lists(['catid' => $catid],'',6,false)->toArray();
+        $newLists = \Cache::remember('wap.catid.' . $catid . '.newLists' , 600 ,function() use ($bookModel,$catid) {
+            return $bookModel->lists(['catid' => $catid],'thumb DESC,hits DESC',10);
         });
 
-        $newLists = $bookModel->lists(['catid' => $catid],'updated_at desc',10);
-
         $data = [
-            'ftLists'    => $ftLists,
             'newLists'   => $newLists,
         ];
         return wap_view('book.index',$data);
