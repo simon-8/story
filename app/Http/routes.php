@@ -149,35 +149,6 @@ Route::group($wap , function(){
     Route::get('/test' , 'IndexController@getTest');
 });
 
-//移动端模块路由
-$wap = [
-    //'prefix'    => '/',
-    'namespace' => 'Wap',
-    'domain'    => 'm.story.cc'
-];
-Route::group($wap , function(){
-    Route::get('xiaoshuo/{catid}.html' ,'BooksController@getIndex')->where('catid','\d+')->name('BookCat');
-    Route::get('xiaoshuo/{catid}/{id}.html' ,'BooksController@getLists')->where([
-        'catid' => '\d+',
-        'id'    => '\d+'
-    ])->name('BookLists');
-    Route::get('xiaoshuo/{catid}/{id}/{aid}.html' ,'BooksController@getContent')->where([
-        'catid' => '\d+',
-        'id'    => '\d+',
-        'aid'   => '\d+'
-    ])->name('BookContent');
-    Route::get('xiaoshuo/{catid}/{id}/chapter.html' ,'BooksController@getChapter')->where([
-        'catid' => '\d+',
-        'id'    => '\d+'
-    ])->name('BookChapter');
-    Route::get('xiaoshuo/{catid}/{id}/lastest.html' ,'BooksController@getLastContent')->where([
-        'catid' => '\d+',
-        'id'    => '\d+'
-    ])->name('BookLastContent');
-    Route::get('/' , 'IndexController@getIndex')->name('getHomeIndex');
-    Route::get('/test' , 'IndexController@getTest');
-});
-
 
 //前台模块路由
 $home = [
