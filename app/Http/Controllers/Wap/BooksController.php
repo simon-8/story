@@ -5,8 +5,8 @@
  * Date: 2017/3/26
  * Time: 23:47
  */
-namespace App\Http\Controllers\Home;
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers\Wap;
+use App\Http\Controllers\Home\BaseController;
 
 use App\Models\Admin\Book;
 use App\Models\Admin\BookDetail;
@@ -24,17 +24,17 @@ class BooksController extends BaseController
     public function getIndex(Request $request,Book $bookModel, $catid)
     {
         //封面推荐
-        $ftLists = \Cache::remember('catid.' . $catid . '.ftLists' , 600 ,function() use ($bookModel,$catid) {
+        $ftLists = \Cache::remember('wap.catid.' . $catid . '.ftLists' , 600 ,function() use ($bookModel,$catid) {
             return $bookModel->lists(['catid' => $catid],'',6,false)->toArray();
         });
 
-        $newLists = $bookModel->lists(['catid' => $catid],'updated_at desc',30);
+        $newLists = $bookModel->lists(['catid' => $catid],'updated_at desc',10);
 
         $data = [
             'ftLists'    => $ftLists,
             'newLists'   => $newLists,
         ];
-        return home_view('book.index',$data);
+        return wap_view('book.index',$data);
     }
 
     /**
@@ -47,15 +47,17 @@ class BooksController extends BaseController
     public function getLists(Request $request,Book $bookModel,BookDetail $bookDetailModel, $catid, $id)
     {
         $book = $bookModel->find($id);
-        $lists = $bookDetailModel->lists(['pid' => $id],'chapterid ASC',1000);
+        $lists = $bookDetailModel->lists(['pid' => $id],'chapterid ASC',5);
         $lastDetail = $bookDetailModel->lastDetail($id);
+        $otherLists = $bookModel->lists(['catid' => $catid] , '' , 9);
         $data = [
             'book'      => $book,
             'lists'     => $lists,
             'lastDetail' => $lastDetail,
+            'otherLists' => $otherLists,
         ];
         DB::table('books')->where('id',$id)->increment('hits');
-        return home_view('book.lists',$data);
+        return wap_view('book.lists',$data);
     }
 
 
@@ -89,16 +91,18 @@ class BooksController extends BaseController
         $prevPage = $bookDetailModel->prevPage($id, $aid);
         $nextPage = $bookDetailModel->nextPage($id, $aid);
 
+        $otherLists = $bookModel->lists(['catid' => $catid] , '' , 3);
+
         $data = [
             'book'      => $book,
             'detail'    => $detail,
             'prevPage'  => $prevPage,
             'nextPage'  => $nextPage,
-
+            'otherLists' => $otherLists,
         ];
         DB::table('books')->where('id',$id)->increment('hits');
         DB::table('books_detail')->where('id',$aid)->increment('hits');
-        return home_view('book.content',$data);
+        return wap_view('book.content',$data);
     }
 
     /**
@@ -128,6 +132,27 @@ class BooksController extends BaseController
 
         ];
         DB::table('books_detail')->where('id',$lastDetail->id)->increment('hits');
-        return home_view('book.content',$data);
+        return wap_view('book.content',$data);
+    }
+
+    /**
+     * 章节列表
+     * @param Request $request
+     * @param Book $bookModel
+     * @param BookDetail $bookDetailModel
+     * @param $catid
+     * @param $id
+     * @return mixed
+     */
+    public function getChapter(Request $request, Book $bookModel, BookDetail $bookDetailModel, $catid, $id)
+    {
+        $book = $bookModel->find($id);
+        $lists = $bookDetailModel->lists(['pid' => $id],'chapterid ASC',30);
+        $data = [
+            'book'      => $book,
+            'lists'     => $lists,
+        ];
+        DB::table('books')->where('id',$id)->increment('hits');
+        return wap_view('book.chapter',$data);
     }
 }

@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta http-equiv="Cache-Control" content="no-siteapp">
-    <meta http-equiv="Cache-Control" content="no-transform">
     <meta charset="utf-8">
     <title>{{ $book['title'] }},{{ $book['title'] }}最新章节,{{ $book['title'] }}无弹窗,{{ $SET['title'] }}</title>
     <meta name="keywords" content="{{ $book['title'] }},{{ $book['title'] }}最新章节,{{ $book['title'] }}无弹窗,{{ $SET['title'] }}">
     <meta name="description" content="{{ $SET['title'] }}为您提供{{ $book['title'] }}最新章节，{{ $book['title'] }}无弹窗。更多{{ $book['title'] }}小说尽在{{ $SET['title'] }}，好看记得告诉您的朋友哦！">
-    {{--<meta http-equiv="mobile-agent" content="format=html5; url=http://m.8dushu.com/info/63582/">--}}
-    {{--<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.8dushu.com/info/63582/">--}}
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="mobile-agent" content="format=html5; url={!! wapurl($catid,$id) !!}">
+    <meta http-equiv="mobile-agent" content="format=xhtml; url={!! wapurl($catid,$id) !!}">
     <meta property="og:type" content="novel">
     <meta property="og:title" content="{{ $book['title'] }}">
     <meta property="og:description" content="    ”
@@ -28,6 +28,11 @@
     <script type="text/javascript" src="{!! asset('/skin/js/jquery.min.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/skin/js/jquery.lazyload.min.js') !!}"></script>
     <script>
+        UA = navigator.userAgent.toLowerCase();
+        if ((UA.indexOf("iphone") != -1 || UA.indexOf("mobile") != -1 || UA.indexOf("android") != -1 || UA.indexOf("windows ce") != -1 || UA.indexOf("ipod") != -1) && UA.indexOf("ipod") == -1) {
+            location.href = '{!! wapurl($catid,$id) !!}';
+        }
+
         function share() {
             document.writeln('<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_isohu" data-cmd="isohu" title="分享到我的搜狐"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a></div>');
             document.writeln('<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["weixin","sqq","qzone","tsina","isohu","tqq","renren","tieba","copy"],"viewText":"分享到：","viewSize":"24"}};with(document)0[(getElementsByTagName(\'head\')[0]||body).appendChild(createElement(\'script\')).src=\'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=\'+~(-new Date()/36e5)];<\/script>');

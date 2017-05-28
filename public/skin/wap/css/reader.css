@@ -1,0 +1,109 @@
+﻿html,body,div,p,span,em,i,u,del,strong,a,b,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,iframe,form,label,button,input,textarea,pre,hr,table,tbody,th,td{margin:0;padding:0;word-wrap:break-word;word-break:break-all}
+html,body{width:100%;height:100%}
+html{font-size:62.5%}
+body{background:#e1e1e1;line-height:1.6;color:#333}
+body,button,input,select,textarea{font-family:"Microsoft YaHei",Arial,Helvetica,sans-serif}
+h1,h2,h3,h4,h5,h6,button,input,select,textarea{font-size:100%}
+h1,h2,h3,h4,h5,h6,th{font-weight:normal}
+em,i{font-style:normal}
+ul{list-style:none}
+img{border:0;vertical-align:middle}
+input[type=text]{-webkit-border-radius:0}
+a:link,a:visited{text-decoration:none;color:#333}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.fleft{float:left}
+.fright{float:right}
+.gray,a.gray,.gray a{color:#999}
+.red,a.red,.red a{color:#b90000}
+.orange,a.orange,.orange a{color:#be9155}
+.author,a.author,.author a,.update,a.update,.update a,.time{color: #c5c9cd;}
+.author,.update,.time{ font-size: 1.2rem;}
+.blue,a.blue,.blue a{ color: #3361a7;}
+.mt5{margin-top:5px}
+.mt10{margin-top:10px}
+.mt15{margin-top:15px}
+.mt20{margin-top:20px}
+.ml5{margin-left:5px}
+.ml10{margin-left:10px}
+.ml15{margin-left:15px}
+.mb10{margin-bottom: 10px}
+
+.wrapper{min-width:320px;font-size:1.4rem}
+.u-table,.page table,.search,.bookbutton,.supportlinks li img,.reviewform,.reviewform .review-btn,.rechargeform .recharge-btn,.viporder-btn,.userform .user-btn{width:100%}
+.btn,a.btn,.bdbtn,a.bdbtn,.s-btn,.pt-icon,.lv-icon{border-radius:2px;-webkit-border-radius:2px;-moz-border-radius:2px}
+.bookimglist li .name,.booktextlist li,.imgtextlist li .title,.booklist li .title,.ranking li{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.btn,a.btn{display:inline-block;height:35px;line-height:35px;background:#d2a05f;background-image:-webkit-linear-gradient(top,#d2a05f,#d2a05f);border:none;text-align:center;font-size:1.4rem;color:#FFF}
+.bdbtn,a.bdbtn{display:inline-block;height:35px;line-height:35px;background:#FFF;background-image:-webkit-linear-gradient(top,#FFF,#FFF);border:1px solid #b9b9b9;text-align:center;font-size:1.4rem}
+.redbtn,a.redbtn{background:#b90000;background-image:-webkit-linear-gradient(top,#b90000,#b90000);border-color:#b90000;color:#FFF}
+.textbox{background:#FFF;padding:5px;border:1px solid #CCC}
+.textbox input,.textbox textarea{width:100%;line-height:22px;background:none;border:none;outline:none}
+.textbox input{height:22px}
+.textbox textarea{resize:vertical}
+
+.pagetitle{margin-bottom:10px;line-height:25px;font-size:1.6rem}
+
+.v-icon{display:inline-block;width:12px;height:12px;background:url(../m_images/v-icon.png) no-repeat;vertical-align:middle;overflow:hidden}
+.pt-icon,.lv-icon{display:inline-block;text-align:center;font-size:1.2rem;overflow: hidden;margin-left: 5px;}
+.pt-icon{width:18px;height:18px;line-height:18px;color: #fff;vertical-align: text-bottom;}
+.lv-icon{width:33px;height:16px;line-height:16px;border:1px solid #eb0000;color:#eb0000}
+.isTop{background:#dc147d}
+.isDigset{background:#cd8c14}
+.isAuthor{background:#37a5f0}
+.lv_0{background:#5acde6}
+.lv_1{background:#96b946}
+.lv_2{background:#f05a8c}
+.lv_3{background:#d30000}
+
+.header{position:relative}
+
+.nav{height:50px;background:#202020;padding:0 10px 0 70px;font-size:1.8rem}
+.nav a{float:left;width:25%;height:50px;line-height:50px;text-align:center;color:#FFF}
+.nav a.current{color:#d2a05f}
+.logininfo{height:35px;line-height:35px;padding:0 15px 0 90px;background:#333}
+.logininfo a{color: #ccc;}
+.logininfo a.bookshelf{color: #d2a05f;}
+
+.footer{background:#333;padding:15px 10px}
+.footer .btnav,.footer .customsv{line-height:25px}
+.footer .vline{padding:0 8px}
+.footer .copyright{padding-top:10px;border-top:1px solid #4d4d4d;line-height:20px;font-size:1.2rem}
+
+.content{padding:10px}
+
+.intro{font-size:1.2rem;overflow: hidden;color: #999;}
+
+.readbg{background:#e4dfd3}
+.articletitle{line-height:25px;font-size:1.8rem;color:#be9155}
+.articleinfo{height:32px;line-height:32px;padding:0 126px 15px 0;position:relative;border-bottom:1px solid #c6c1b6}
+.toolbar{position:absolute;right:0;top:0}
+.toolbar a{float:left;width:32px;height:32px;background: url(../images/articleset-icon.png) no-repeat;margin-left: 10px;}
+.toolbar a.pattern{background-position:0 -37px}
+.toolbar a.aminus{background-position:-37px 0}
+.toolbar a.aminus.current{background-position:-37px -37px}
+.toolbar a.aadd{background-position:-74px 0}
+.toolbar a.aadd.current{background-position:-74px -37px}
+.articlecon,.authorsaid{line-height:24px}
+.articlecon p,.authorsaid p{padding:5px 0}
+.authorsaid{padding:10px 0;border-top:1px solid #bfac7e;border-bottom:1px solid #bfac7e}
+.readinteract{height:25px;line-height:25px;text-align:right;font-size:0}
+.readinteract a{font-size:1.6rem;color: #666;margin-left: 15px;}
+.articlebtn{height:35px;margin:20px 0;text-align:center;font-size:0}
+.articlebtn a{width:28%;margin:0 6px}
+
+.font-normal p{font-size:1.4rem;line-height: 24px;}
+.font-large p{ font-size: 1.6rem;line-height: 28px;}
+.font-xlarge p{ font-size: 1.8rem;line-height: 32px;}
+.font-xxlarge p{ font-size: 2rem;line-height: 36px;}
+.font-xxxlarge p{ font-size: 2.2rem;line-height: 40px;}
+
+.nightbg{ background: #202020;}
+.nightbg,.nightbg a{color:#a0a0a0}
+.nightbg .articlebtn a{color:#FFF}
+.nightbg .location .home,.nightbg .btlocation .home{background-position:3px -19px}
+.nightbg .articleinfo,.nightbg .authorsaid{border-bottom-color:#3c3c3c}
+.nightbg .authorsaid{border-top-color:#3c3c3c}
+.nightbg .toolbar .pattern{ background-position: 0 0;}
+.hot a.line{display: block;border-top: 1px solid #DDDDDD;line-height: 125%;font-size: 0.95em;width:100%; color: #333;text-decoration: none;padding:10px 0;}
+.hot a.line:first-of-type{border-top:none;}
+.footers {text-align:center;margin:20px 0;display: inline-block;width: 100%;font-size:14px;}
+.footers a{font-size:14px;color:#666;}

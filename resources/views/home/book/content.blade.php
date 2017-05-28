@@ -7,12 +7,17 @@
     <meta name="description" content=" {{ $detail['title'] }}在线阅读，{{ $book['title'] }}最新章节，{{ $book['title'] }}无弹窗。更多好看的小说尽在{{ $SET['title'] }}！">
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
-    {{--<meta http-equiv="mobile-agent" content="format=html5; url=http://m.8dushu.com/book/63582-17089407/">--}}
-    {{--<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.8dushu.com/book/63582-17089407/">--}}
+    <meta http-equiv="mobile-agent" content="format=html5; url={!! wapurl($catid,$id,$detail['id']) !!}">
+    <meta http-equiv="mobile-agent" content="format=xhtml; url={!! wapurl($catid,$id,$detail['id']) !!}">
     <link rel="stylesheet" href="{!! asset('/skin/default/css/index.min.css') !!}">
     <script type="text/javascript" src="{!! asset('/skin/js/jquery.min.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/skin/default/js/content.js') !!}"></script>
     <script type="text/javascript">
+        UA = navigator.userAgent.toLowerCase();
+        if ((UA.indexOf("iphone") != -1 || UA.indexOf("mobile") != -1 || UA.indexOf("android") != -1 || UA.indexOf("windows ce") != -1 || UA.indexOf("ipod") != -1) && UA.indexOf("ipod") == -1) {
+            location.href = '{!! wapurl($catid,$id,$detail['id']) !!}';
+        }
+
         //按左右键翻页
         var preview_page = "{!! bookurl($catid,$id,$prevPage['id']) !!}";
         var next_page = "{!! bookurl($catid,$id,$nextPage['id']) !!}";
@@ -35,9 +40,9 @@
         </div>
         <div class="rt">
             {{--<a href="javascript:st();void 0;" id="st" rel="nofollow">繁體中文</a> |--}}
-            <a href="javascript:void(0);" target="_blank">手机版</a> |
-            <a href="javascript:void(0);">积分规则</a> |
-            <a href="javascript:void(0);" rel="nofollow">放到桌面</a> |
+            <a href="{!! wapurl() !!}" target="_blank">手机版</a> |
+            {{--<a href="javascript:void(0);">积分规则</a> |--}}
+            {{--<a href="javascript:void(0);" rel="nofollow">放到桌面</a> |--}}
             <a href="javascript:void(0);" onclick="AddFavorite('{{ $SET['title'] }}',location.href)" target="_self" rel="nofollow">收藏本站</a>
         </div>
     </div>

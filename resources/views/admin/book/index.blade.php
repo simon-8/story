@@ -253,7 +253,6 @@
 <script>
     $(function(){
         $('#checkall').click(function(){
-            console.log('1');
             $(this).attr('checked') ? $('.table input[type=checkbox]').iCheck('check') :  $('.table input[type=checkbox]').iCheck('disable');
         });
     })

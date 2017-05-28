@@ -120,6 +120,65 @@ Route::group($admin , function(){
 
 });
 
+//移动端模块路由
+$wap = [
+    //'prefix'    => '/',
+    'namespace' => 'Wap',
+    'domain'    => 'm.txshu.com'
+];
+Route::group($wap , function(){
+    Route::get('xiaoshuo/{catid}.html' ,'BooksController@getIndex')->where('catid','\d+')->name('BookCat');
+    Route::get('xiaoshuo/{catid}/{id}.html' ,'BooksController@getLists')->where([
+        'catid' => '\d+',
+        'id'    => '\d+'
+    ])->name('BookLists');
+    Route::get('xiaoshuo/{catid}/{id}/{aid}.html' ,'BooksController@getContent')->where([
+        'catid' => '\d+',
+        'id'    => '\d+',
+        'aid'   => '\d+'
+    ])->name('BookContent');
+    Route::get('xiaoshuo/{catid}/{id}/chapter.html' ,'BooksController@getChapter')->where([
+        'catid' => '\d+',
+        'id'    => '\d+'
+    ])->name('BookChapter');
+    Route::get('xiaoshuo/{catid}/{id}/lastest.html' ,'BooksController@getLastContent')->where([
+        'catid' => '\d+',
+        'id'    => '\d+'
+    ])->name('BookLastContent');
+    Route::get('/' , 'IndexController@getIndex')->name('getHomeIndex');
+    Route::get('/test' , 'IndexController@getTest');
+});
+
+//移动端模块路由
+$wap = [
+    //'prefix'    => '/',
+    'namespace' => 'Wap',
+    'domain'    => 'm.story.cc'
+];
+Route::group($wap , function(){
+    Route::get('xiaoshuo/{catid}.html' ,'BooksController@getIndex')->where('catid','\d+')->name('BookCat');
+    Route::get('xiaoshuo/{catid}/{id}.html' ,'BooksController@getLists')->where([
+        'catid' => '\d+',
+        'id'    => '\d+'
+    ])->name('BookLists');
+    Route::get('xiaoshuo/{catid}/{id}/{aid}.html' ,'BooksController@getContent')->where([
+        'catid' => '\d+',
+        'id'    => '\d+',
+        'aid'   => '\d+'
+    ])->name('BookContent');
+    Route::get('xiaoshuo/{catid}/{id}/chapter.html' ,'BooksController@getChapter')->where([
+        'catid' => '\d+',
+        'id'    => '\d+'
+    ])->name('BookChapter');
+    Route::get('xiaoshuo/{catid}/{id}/lastest.html' ,'BooksController@getLastContent')->where([
+        'catid' => '\d+',
+        'id'    => '\d+'
+    ])->name('BookLastContent');
+    Route::get('/' , 'IndexController@getIndex')->name('getHomeIndex');
+    Route::get('/test' , 'IndexController@getTest');
+});
+
+
 //前台模块路由
 $home = [
     'prefix'    => '/',
@@ -129,24 +188,26 @@ Route::group($home , function(){
 
     Route::controllers([
         'article'   => 'ArticleController',
-        //'books'     => 'BooksController',
-//        '/'         => 'IndexController',
     ]);
 
     Route::get('xiaoshuo/{catid}.html' ,'BooksController@getIndex')->where('catid','\d+')->name('BookCat');
-    Route::get('xiaoshuo/{catid}/{id}.html' ,'BooksController@getLists')->where(['catid','id'],'\d+')->name('BookLists');
-    Route::get('xiaoshuo/{catid}/{id}/{aid}.html' ,'BooksController@getContent')->where(['catid','id','aid'],'\d+')->name('BookContent');
-    Route::get('xiaoshuo/{catid}/{id}/lastest.html' ,'BooksController@getLastContent')->where(['catid','id'],'\d+')->name('BookLastContent');
-    //Route::get('books/{id}' ,'BooksController@getIndex')->where('id','\d+')->name('BookCat');
-//    Route::controller('books' , 'BooksController', [
-//        'getIndex' => 'Books.getIndex',
-//        'getLists' => 'Books.getLists',
-//        'getBlists'=> 'Books.getBlists',
-//        'getContent' => 'Books.getContent',
-//    ]);
+    Route::get('xiaoshuo/{catid}/{id}.html' ,'BooksController@getLists')->where([
+        'catid' => '\d+',
+        'id'    => '\d+'
+    ])->name('BookLists');
+    Route::get('xiaoshuo/{catid}/{id}/{aid}.html' ,'BooksController@getContent')->where([
+        'catid' => '\d+',
+        'id'    => '\d+',
+        'aid'   => '\d+'
+    ])->name('BookContent');
+    Route::get('xiaoshuo/{catid}/{id}/lastest.html' ,'BooksController@getLastContent')->where([
+        'catid' => '\d+',
+        'id'    => '\d+'
+    ])->name('BookLastContent');
     Route::get('/' , 'IndexController@getIndex')->name('getHomeIndex');
     Route::get('/test' , 'IndexController@getTest');
 });
+
 
 //微信路由
 Route::any('/wechat', 'Wechat\ServerController@getIndex');

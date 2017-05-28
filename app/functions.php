@@ -29,6 +29,18 @@ function home_view($template)
 }
 
 /**
+ * 载入home目录模板
+ * @param $template
+ * @return mixed
+ */
+function wap_view($template)
+{
+    $params = func_get_args();//获取函数传入的参数列表 数组
+    $params[0] = 'wap.'.$params[0];
+    return call_user_func_array('view' ,$params );//调用回调函数，并把一个数组参数作为回调函数的参数
+}
+
+/**
  * 检测是否是手机号
  * @param $mobile
  * @return int
@@ -315,6 +327,11 @@ function bookurl($catid, $id = 0, $aid = 0){
                 'id' => $id,
                 'aid'=> $aid,
             ]);
+        }else if($aid == 'chapter'){
+            return route('BookChapter',[
+                'catid' => $catid,
+                'id' => $id,
+            ]);
         }else{
             return route('BookLastContent',[
                 'catid' => $catid,
@@ -333,6 +350,18 @@ function bookurl($catid, $id = 0, $aid = 0){
     ]);
 }
 
+/**
+ * @param $catid
+ * @param int $id
+ * @param int $aid
+ * @return mixed
+ */
+function wapurl($catid = 0, $id = 0, $aid = 0){
+    $baseUrl = env('APP_MOBILE_DOMAIN');
+    if(!$catid) return $baseUrl;
+    $url = bookurl($catid,$id,$aid);
+    return str_replace(url() , $baseUrl, $url);
+}
 /**
  * 日志记录
  * @param $message

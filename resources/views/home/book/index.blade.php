@@ -7,11 +7,17 @@
     <meta name="description" content="{{ $SET['description'] }}">
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
-    {{--<meta http-equiv="mobile-agent" content="format=html5; url=http://m.8dushu.com">--}}
-    {{--<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.8dushu.com">--}}
+    <meta http-equiv="mobile-agent" content="format=html5; url={!! wapurl($catid) !!}">
+    <meta http-equiv="mobile-agent" content="format=xhtml; url={!! wapurl($catid) !!}">
     <link rel="stylesheet" href="{!! asset('/skin/default/css/index.min.css') !!}">
     <script type="text/javascript" src="{!! asset('/skin/js/jquery.min.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/skin/js/jquery.lazyload.min.js') !!}"></script>
+    <script>
+        UA = navigator.userAgent.toLowerCase();
+        if ((UA.indexOf("iphone") != -1 || UA.indexOf("mobile") != -1 || UA.indexOf("android") != -1 || UA.indexOf("windows ce") != -1 || UA.indexOf("ipod") != -1) && UA.indexOf("ipod") == -1) {
+            location.href = '{!! wapurl($catid) !!}';
+        }
+    </script>
 </head>
 <body>
 
