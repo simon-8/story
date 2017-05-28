@@ -127,18 +127,20 @@
     @foreach($otherLists as $v)
     <div class="bookbox">
         <div class="bookimg">
-
-            <img src="{!! bookimg($v['thumb']) !!}" alt="{{ $v['title'] }}">
-
+            <a href="{!! bookurl($catid,$v['id']) !!}" title="{{ $v['title'] }}">
+                <img src="{!! bookimg($v['thumb']) !!}" alt="{{ $v['title'] }}">
+            </a>
         </div>
         <div class="bookinfo">
-            <h4 class="bookname">{{ $v['title'] }}</h4>
-            <div class="author">作者：<span>{{ $v['author'] }}</span></div>
-            <div class="cat">分类：<span>{{ $CAT['name'] }}</span></div>
-            <div class="mbfav_info">
-                <div class="topcor"></div>
-                {{ $v['zhangjie'] }}
-            </div>
+            <a href="{!! bookurl($catid,$v['id']) !!}" title="{{ $v['title'] }}">
+                <h4 class="bookname">{{ $v['title'] }}</h4>
+                <div class="author">作者：<span>{{ $v['author'] }}</span></div>
+                <div class="cat">分类：<span>{{ $CAT['name'] }}</span></div>
+                <div class="mbfav_info">
+                    <div class="topcor"></div>
+                    {{ $v['zhangjie'] }}
+                </div>
+            </a>
         </div>
     </div>
     @endforeach
