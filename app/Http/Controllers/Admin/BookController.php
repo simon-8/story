@@ -130,7 +130,7 @@ class BookController extends BaseController
      */
     public function getDetailLists(Request $request, BookDetail $bookDetail)
     {
-        $lists = $bookDetail->lists(['pid' => $request->id],'id DSEC',10);
+        $lists = $bookDetail->lists(['pid' => $request->id],'chapterid DSEC',10);
         return $lists;
     }
 
