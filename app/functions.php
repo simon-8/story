@@ -118,7 +118,11 @@ function save_remote_thumb($thumb, $dir = 'books')
 
     if( $result )
     {
-        $thumb = $filepath.$filename;
+        if( isImage($fileroot.$filename) ){
+            $thumb = $filepath.$filename;
+        }else{
+           \File::delete($fileroot.$filename);
+        }
     }
     else
     {
@@ -152,6 +156,7 @@ function makeQiNiuKey($file)
  */
 function uploadToQiniu($file, $key = '')
 {
+    if(empty($file)) return false;
     $upload = new \App\Http\Controllers\Admin\UploadController();
     if(empty($key)) $key = makeQiNiuKey($file);
     //统一分隔符
@@ -412,4 +417,17 @@ function request_spider($url, $spider = 'baidu')
     }else{
         throw new Exception($error_message);
     }
+}
+
+/**
+ * 检测是否是图片
+ * @param $image
+ * @return bool
+ */
+function isImage($image)
+{
+    $info = @getimagesize($image);
+    if(!$info) return false;
+    //$ext = image_type_to_extension($info[2]);
+    return true;
 }

@@ -73,14 +73,15 @@ class Wx999Chapter extends Job implements SelfHandling, ShouldQueue
 
                 if(empty($this->Book['thumb']) && !empty($bookInfo[0]['thumb']) && strpos($bookInfo[0]['thumb'],'noimg.gif') === false){
                     $thumb = save_remote_thumb($config['baseUrl'] . substr($bookInfo[0]['thumb'], 1));
-
-                    if(env('APP_DEBUG') == false){
-                        //上传到七牛
-                        $qiniuThumb = uploadToQiniu(public_path().$thumb);
-                        $updateData['thumb'] = $qiniuThumb;
-                        \File::delete(public_path().$thumb);
-                    }else{
-                        $updateData['thumb'] = $thumb;
+                    if($thumb){
+                        if(env('APP_DEBUG') == false){
+                            //上传到七牛
+                            $qiniuThumb = uploadToQiniu(public_path().$thumb);
+                            $updateData['thumb'] = $qiniuThumb;
+                            \File::delete(public_path().$thumb);
+                        }else{
+                            $updateData['thumb'] = $thumb;
+                        }
                     }
                 }
             }
