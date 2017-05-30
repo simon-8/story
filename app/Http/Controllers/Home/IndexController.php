@@ -67,7 +67,9 @@ class IndexController extends BaseController
 
     public function getTest(Book $book)
     {
-
+        //$img = 'http://www.999wx.com/DownFiles/Book/BookCover/20160322064128_7423.gif';
+        //$x = save_remote_thumb($img);
+        //var_dump($x);
     }
 
     /**

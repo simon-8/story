@@ -122,6 +122,7 @@ function save_remote_thumb($thumb, $dir = 'books')
             $thumb = $filepath.$filename;
         }else{
            \File::delete($fileroot.$filename);
+            $thumb = '';
         }
     }
     else
