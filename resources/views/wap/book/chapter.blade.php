@@ -7,7 +7,7 @@
           content="《{{ $book['title'] }}》最新章节列表与{{ $book['title'] }}全文阅读尽在{{ $SET['title'] }}。">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" type="text/css" href="{!! asset('/skin/wap/css/mobile.css') !!}">
+    <link rel="stylesheet" type="text/css" href="{!! staticPath('/wap/css/mobile.css') !!}">
     {{--<script type="text/javascript" src="{!! asset('/skin/wap/js/zepto.min.js') !!}"></script>--}}
 </head>
 <body>

@@ -6,10 +6,10 @@
     <meta name="keywords" content="{{ $book['title'] }}最新章节,{{ $book['title'] }}{{ $book['author'] }}"/>
     <meta name="description" content="《{{ $book['title'] }}》是{{ $book['author'] }}的小说，{{ $SET['title'] }}提供{{ $book['title'] }}最新章节、{{ $book['title'] }}，看{{ $book['title'] }}免费阅读就到{{ $SET['title'] }}"/>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-    <link rel="stylesheet" type="text/css" href="{!! asset('/skin/wap/css/mobile.css') !!}">
-    {{--<script type="text/javascript" src="{!! asset('/skin/wap/js/zepto.min.js') !!}"></script>--}}
-    <script type="text/javascript" src="{!! asset('/skin/js/jquery.min.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('/skin/js/jquery.lazyload.min.js') !!}"></script>
+    <link rel="stylesheet" type="text/css" href="{!! staticPath('/wap/css/mobile.css') !!}">
+    {{--<script type="text/javascript" src="{!! staticPath('/wap/js/zepto.min.js') !!}"></script>--}}
+    <script type="text/javascript" src="{!! staticPath('/js/jquery.min.js') !!}"></script>
+    <script type="text/javascript" src="{!! staticPath('/js/jquery.lazyload.min.js') !!}"></script>
 </head>
 
 <body>

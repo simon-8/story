@@ -19,9 +19,9 @@
         resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
             window.addEventListener(resizeEvt, recalc, false);
     </script>
-    <link rel="stylesheet" href="{!! asset('/skin/wap/css/index.css') !!}" />
-    <script type="text/javascript" src="{!! asset('/skin/js/jquery.min.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('/skin/js/jquery.lazyload.min.js') !!}"></script>
+    <link rel="stylesheet" href="{!! staticPath('/wap/css/index.css') !!}" />
+    <script type="text/javascript" src="{!! staticPath('/js/jquery.min.js') !!}"></script>
+    <script type="text/javascript" src="{!! staticPath('/js/jquery.lazyload.min.js') !!}"></script>
 </head>
 <body>
 

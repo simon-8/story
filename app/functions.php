@@ -432,3 +432,15 @@ function isImage($image)
     //$ext = image_type_to_extension($info[2]);
     return true;
 }
+
+/**
+ * 静态文件
+ * @param $file
+ * @return string
+ */
+function staticPath($file)
+{
+    //$staticDomain = env('STATIC_DOMAIN');
+    $staticDomain = 'http://static.txshu.com';
+    return $staticDomain . $file;
+}

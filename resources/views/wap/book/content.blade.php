@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" type="text/css" href="{!! asset('/skin/wap/css/reader.css') !!}">
+    <link rel="stylesheet" type="text/css" href="{!! staticPath('/wap/css/reader.css') !!}">
     {{--<link rel="stylesheet" type="text/css" href="http://res.xiaoshuo520.com/css/revision.css?20160908">--}}
 </head>
 <body class="readbg">
@@ -52,8 +52,8 @@
         {{ $SET['powerby'] }}
     </div>
 </div>
-<script type="text/javascript" src="{!! asset('/skin/wap/js/zepto.min.js') !!}"></script>
-<script type="text/javascript" src="{!! asset('/skin/wap/js/read.js') !!}"></script>
+<script type="text/javascript" src="{!! staticPath('/wap/js/zepto.min.js') !!}"></script>
+<script type="text/javascript" src="{!! staticPath('/wap/js/read.js') !!}"></script>
 
 <div style="display:none;">
     <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261657948'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1261657948%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>

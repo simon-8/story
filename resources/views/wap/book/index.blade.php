@@ -6,9 +6,9 @@
     <meta name="keywords" content="{{ $CAT['name'] }}小说,{{ $CAT['name'] }}小说,{{ $CAT['name'] }}小说排行榜,{{ $CAT['name'] }}小说排行榜,{{ $CAT['name'] }}完本小说"/>
     <meta name="description" content="看热门{{ $CAT['name'] }}小说、{{ $CAT['name'] }}小说就到{{ $SET['title'] }}，这里有最好看的{{ $CAT['name'] }}小说排行榜、{{ $CAT['name'] }}小说完本等，提供阅读。"/>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-    <link rel="stylesheet" type="text/css" href="{!! asset('/skin/wap/css/mobile.css') !!}">
-    <script type="text/javascript" src="{!! asset('/skin/js/jquery.min.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('/skin/js/jquery.lazyload.min.js') !!}"></script>
+    <link rel="stylesheet" type="text/css" href="{!! staticPath('/wap/css/mobile.css') !!}">
+    <script type="text/javascript" src="{!! staticPath('/js/jquery.min.js') !!}"></script>
+    <script type="text/javascript" src="{!! staticPath('/js/jquery.lazyload.min.js') !!}"></script>
     {{--<script type="text/javascript" src="{!! asset('/skin/wap/js/zepto.min.js') !!}"></script>--}}
 </head>
 
