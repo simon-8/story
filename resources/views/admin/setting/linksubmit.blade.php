@@ -36,6 +36,7 @@
    {
        layer.prompt({
            title:'请输入要提交的网址数量',
+           value: 1700,
            shadeClose:true,
        },function(value, index, elem){
            loading();
