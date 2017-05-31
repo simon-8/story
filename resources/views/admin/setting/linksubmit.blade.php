@@ -39,7 +39,7 @@
            shadeClose:true,
        },function(value, index, elem){
            loading();
-           var url = "{!! route('Setting.postLinkSubmit') !!}?site=" + site + "&number=" + value;
+           var url = "{!! route('Setting.getLinkSubmit') !!}?site=" + site + "&number=" + value;
            location.href = url;
        });
    }

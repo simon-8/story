@@ -191,7 +191,7 @@ class AdminMenusTableSeeder extends Seeder
                 'route' => 'getIndex',
                 'ico' => 'fa fa-cog',
                 'listorder' => 0,
-                'items' => 3,
+                'items' => 4,
             ),
             16 => 
             array (
@@ -206,17 +206,6 @@ class AdminMenusTableSeeder extends Seeder
             ),
             17 => 
             array (
-                'id' => 24,
-                'pid' => 16,
-                'name' => '链接推送',
-                'prefix' => 'Setting',
-                'route' => 'getLinkSubmit',
-                'ico' => '',
-                'listorder' => 0,
-                'items' => 0,
-            ),
-            18 => 
-            array (
                 'id' => 19,
                 'pid' => 0,
                 'name' => '小说管理',
@@ -226,7 +215,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 2,
             ),
-            19 => 
+            18 => 
             array (
                 'id' => 20,
                 'pid' => 19,
@@ -237,7 +226,7 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 0,
             ),
-            20 => 
+            19 => 
             array (
                 'id' => 22,
                 'pid' => 19,
@@ -248,13 +237,35 @@ class AdminMenusTableSeeder extends Seeder
                 'listorder' => 0,
                 'items' => 0,
             ),
-            21 => 
+            20 => 
             array (
                 'id' => 23,
                 'pid' => 16,
                 'name' => '友情链接',
                 'prefix' => 'Setting',
                 'route' => 'getFriendLinks',
+                'ico' => '',
+                'listorder' => 0,
+                'items' => 0,
+            ),
+            21 => 
+            array (
+                'id' => 24,
+                'pid' => 16,
+                'name' => '图片上传',
+                'prefix' => 'Setting',
+                'route' => 'getImageUpload',
+                'ico' => '',
+                'listorder' => 0,
+                'items' => 0,
+            ),
+            22 => 
+            array (
+                'id' => 25,
+                'pid' => 16,
+                'name' => '链接推送',
+                'prefix' => 'Setting',
+                'route' => 'getLinkSubmit',
                 'ico' => '',
                 'listorder' => 0,
                 'items' => 0,
