@@ -81,11 +81,13 @@ Route::group($admin , function(){
             'postCreate' => 'Setting.postCreate',
             'getDelete'  => 'Setting.getDelete',
             'getCollect' => 'Setting.getCollect',
-            'getFriendLinks' => 'Setting.getFriendLinks',
-            'postFriendLinks' => 'Setting.postFriendLinks',
+            'getFriendLinks'    => 'Setting.getFriendLinks',
+            'postFriendLinks'   => 'Setting.postFriendLinks',
             //'getFriendLinkCreate' => 'Setting.getFriendLinkCreate',
             'getFriendLinkDelete' => 'Setting.getFriendLinkDelete',
             'getImageUpload'    => 'Setting.getImageUpload',
+            'getLinkSubmit'     => 'Setting.getLinkSubmit',
+            //'postLinkSubmit'     => 'Setting.postLinkSubmit',
         ]);
         //微信配置
         Route::controller('weixin' , 'WeixinController' , [

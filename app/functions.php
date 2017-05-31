@@ -444,3 +444,26 @@ function staticPath($file)
     $staticDomain = 'http://static.txshu.com';
     return $staticDomain . $file;
 }
+
+/**
+ * 主动推送给百度
+ * @param $thumb
+ * @return mixed
+ */
+function post_url_to_baidu($url){
+    if(is_array($url)){
+        $url = implode("\n", $url);
+    }
+    $api = 'http://data.zz.baidu.com/urls?site=www.txshu.com&token=IyoSxgVWMlEdD9fL';
+    $ch = curl_init();
+    $options =  array(
+        CURLOPT_URL => $api,
+        CURLOPT_POST => true,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POSTFIELDS => $url,
+        CURLOPT_HTTPHEADER => array('Content-Type: text/plain'),
+    );
+    curl_setopt_array($ch, $options);
+    $result = curl_exec($ch);
+    return $result;
+}
