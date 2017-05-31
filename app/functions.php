@@ -445,16 +445,22 @@ function staticPath($file)
     return $staticDomain . $file;
 }
 
+
 /**
  * 主动推送给百度
- * @param $thumb
+ * @param $url
+ * @param string $type
  * @return mixed
  */
-function post_url_to_baidu($url){
+function post_url_to_baidu($url , $type = 'pc'){
     if(is_array($url)){
         $url = implode("\n", $url);
     }
-    $api = 'http://data.zz.baidu.com/urls?site=www.txshu.com&token=IyoSxgVWMlEdD9fL';
+    if($type == 'pc'){
+        $api = 'http://data.zz.baidu.com/urls?site=www.txshu.com&token=IyoSxgVWMlEdD9fL';
+    }else{
+        $api = 'http://data.zz.baidu.com/urls?site=m.txshu.com&token=IyoSxgVWMlEdD9fL';
+    }
     $ch = curl_init();
     $options =  array(
         CURLOPT_URL => $api,

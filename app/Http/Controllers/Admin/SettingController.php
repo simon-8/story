@@ -234,7 +234,7 @@ class SettingController extends BaseController
                     $response = json_decode(post_url_to_baidu($urls), true);
                     if($response && isset($response['success'])){
                         $message = '成功推送 [PC端]: ' . $response['success'] . '个';
-                        $secondResponse = json_decode(post_url_to_baidu($wapUrls), true);
+                        $secondResponse = json_decode(post_url_to_baidu($wapUrls,'wap'), true);
                         if($secondResponse && isset($secondResponse['success'])){
                             $message .= ' , [WAP端]: ' . $secondResponse['success'] . '个';
                         }else{
