@@ -13,6 +13,12 @@ git下载本程序后
      DB_USERNAME=root
      DB_PASSWORD=123456
      
+     APP_MOBILE_DOMAIN=http://你的移动站域名
+     
+> 修改七牛云存储配置
+
+    config/upload.php为七牛云存储相关配置。
+    
 > 通过composer安装程序所需扩展
     
     composer install
@@ -27,6 +33,7 @@ git下载本程序后
 
 > 后台地址
   
-    http://你配置的域名/admin
+    http://你配置的域名/pc
     账号: simon
     密码: 123456
+    
