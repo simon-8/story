@@ -10,8 +10,8 @@
     <meta name="description" content="天下书屋网免费为您提供小说在线阅读服务，没有弹窗广告。为大家分享优质小说！">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <!-- CSS: implied media=all -->
-    <link rel="stylesheet" href="{!! asset('/skin/default/css/404.css') !!}">
-    <script src="{!! asset('/skin/js/jquery.min.js') !!}"></script>
+    <link rel="stylesheet" href="{!! staticPath('/default/css/404.css') !!}">
+    <script src="{!! staticPath('/js/jquery.min.js') !!}"></script>
     <script>
         $(function(){
             setInterval(function(){
