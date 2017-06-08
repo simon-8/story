@@ -163,8 +163,6 @@ class BookController extends BaseController
 
             $lists = DB::table('books')
                 ->whereBetween('id',[$startId , $endId])
-                ->orderBy('updated_at','asc')
-                ->take($number)
                 ->get();
 
         }else if($type == 3){//指定文章
