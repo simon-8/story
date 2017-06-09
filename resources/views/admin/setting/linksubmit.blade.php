@@ -42,6 +42,7 @@
            loading();
            var url = "{!! route('Setting.getLinkSubmit') !!}?site=" + site + "&number=" + value;
            location.href = url;
+           layer.close(index);
        });
    }
 </script>
