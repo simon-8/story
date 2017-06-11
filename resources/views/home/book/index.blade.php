@@ -81,9 +81,9 @@
                 <a href="{!! bookurl($v['catid'],$v['id']) !!}"><b>{{ mb_substr($v['title'],0,15,'utf-8') }}</b></a>
             </span>
                 <span class="zj">
-                <a href="{!! bookurl($v['catid'],$v['id'],'lastest') !!}">{{ mb_substr($v['zhangjie'],0,20,'utf-8') }}</a>
+                <a href="{!! bookurl($v['catid'],$v['id'],'lastest') !!}">{{ mb_substr($v['zhangjie'],0,20,'utf-8') or '&nbsp;' }}</a>
             </span>
-                <span class="zz">{{ mb_substr($v['author'],0,5) }}</span>
+                <span class="zz">{{ mb_substr($v['author'],0,5) or '&nbsp;' }}</span>
                 <span class="zs">{{ $v['wordcount'] }}字</span>
                 <span class="sj">{{ date('y-m-d',strtotime($v['updated_at'])) }}</span>
                 <span class="zt">连载中</span>
