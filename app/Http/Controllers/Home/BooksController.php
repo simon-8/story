@@ -25,7 +25,7 @@ class BooksController extends BaseController
     {
         //封面推荐
         $ftLists = \Cache::remember('catid.' . $catid . '.ftLists' , 600 ,function() use ($bookModel,$catid) {
-            return $bookModel->lists(['catid' => $catid],'thumb desc,hits DESC',6,false)->toArray();
+            return $bookModel->ftlists(['catid' => $catid],'hits DESC',6)->toArray();
         });
 
         $newLists = $bookModel->lists(['catid' => $catid],'updated_at desc',30);
@@ -101,6 +101,7 @@ class BooksController extends BaseController
         return home_view('book.content',$data);
     }
 
+
     /**
      * 获取最新章节
      * @param Request $request
@@ -109,6 +110,7 @@ class BooksController extends BaseController
      * @param BookContent $bookContentModel
      * @param $catid
      * @param $id
+     * @return mixed
      */
     public function getLastContent(Request $request, Book $bookModel, BookDetail $bookDetailModel, BookContent $bookContentModel, $catid, $id)
     {

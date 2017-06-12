@@ -26,7 +26,7 @@ class BooksController extends BaseController
         $page = $request->has('page') ? $request->page : 1;
         //封面推荐
         $newLists = \Cache::remember('wap.catid.' . $catid . '.newLists.'.$page , 600 ,function() use ($bookModel,$catid) {
-            return $bookModel->lists(['catid' => $catid],'thumb DESC,hits DESC',10);
+            return $bookModel->ftlists(['catid' => $catid],'hits DESC',10)->toArray();
         });
 
         $data = [
@@ -35,14 +35,16 @@ class BooksController extends BaseController
         return wap_view('book.index',$data);
     }
 
+
     /**
-     *
      * @param Request $request
+     * @param Book $bookModel
+     * @param BookDetail $bookDetailModel
      * @param $catid
      * @param $id
      * @return mixed
      */
-    public function getLists(Request $request,Book $bookModel,BookDetail $bookDetailModel, $catid, $id)
+    public function getLists(Request $request, Book $bookModel, BookDetail $bookDetailModel, $catid, $id)
     {
         $book = $bookModel->find($id);
         $lists = $bookDetailModel->lists(['pid' => $id],'chapterid ASC',5);
@@ -103,6 +105,7 @@ class BooksController extends BaseController
         return wap_view('book.content',$data);
     }
 
+
     /**
      * 获取最新章节
      * @param Request $request
@@ -111,6 +114,7 @@ class BooksController extends BaseController
      * @param BookContent $bookContentModel
      * @param $catid
      * @param $id
+     * @return mixed
      */
     public function getLastContent(Request $request, Book $bookModel, BookDetail $bookDetailModel, BookContent $bookContentModel, $catid, $id)
     {
