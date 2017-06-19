@@ -35,7 +35,7 @@
     <div class="bookbox">
         <div class="bookimg">
             <a href="{!! bookurl($v['catid'],$v['id']) !!}" title="{{ $v['title'] }}">
-                <img src="{!! bookimg($v['thumb']) !!}">
+                <img src="{!! bookimg($v['thumb']) !!}" alt="{{ $v['title'] }}">
             </a>
         </div>
         <div class="bookinfo">

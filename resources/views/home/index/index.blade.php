@@ -29,7 +29,7 @@
     @foreach($ftLists as $v)
     <dl>
         <dt>
-            <a href="{!! bookurl($v['catid'],$v['id']) !!}" title="{{ $v['title'] }}"><img src="{!! bookimg($v['thumb']) !!}" alt=""></a>
+            <a href="{!! bookurl($v['catid'],$v['id']) !!}" title="{{ $v['title'] }}"><img src="{!! bookimg($v['thumb']) !!}" alt="{{ $v['title'] }}"></a>
         </dt>
         <dd>
             <h3>
