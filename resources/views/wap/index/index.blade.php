@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>小说_免费小说_小说在线阅读-{{ $SET['title'] }}手机版</title>
+    <meta name="keywords" content="{{ $SET['keywords'] }}">
+    <meta name="description" content="{{ $SET['description'] }}">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
     <meta content="telephone=no" name="format-detection"/>
     <script>

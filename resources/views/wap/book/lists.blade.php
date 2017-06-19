@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{{ $book['title'] }}最新章节_{{ $book['title'] }}-{{ $SET['title'] }}手机版</title>
-    <meta name="keywords" content="{{ $book['title'] }}最新章节,{{ $book['title'] }}{{ $book['author'] }}"/>
-    <meta name="description" content="《{{ $book['title'] }}》是{{ $book['author'] }}的小说，{{ $SET['title'] }}提供{{ $book['title'] }}最新章节、{{ $book['title'] }}，看{{ $book['title'] }}免费阅读就到{{ $SET['title'] }}"/>
+    <title>{{ $book['title'] }},{{ $book['title'] }}最新章节,{{ $book['title'] }}无弹窗,{{ $SET['title'] }}手机版</title>
+    <meta name="keywords" content="{{ $book['title'] }},{{ $book['title'] }}最新章节,{{ $book['title'] }}无弹窗,{{ $SET['title'] }}">
+    <meta name="description" content="{{ $SET['title'] }}为您提供{{ $book['title'] }}最新章节，{{ $book['title'] }}无弹窗。更多{{ $book['title'] }}小说尽在{{ $SET['title'] }}，好看记得告诉您的朋友哦！">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
     <link rel="stylesheet" type="text/css" href="{!! staticPath('/wap/css/mobile.css') !!}">
     {{--<script type="text/javascript" src="{!! staticPath('/wap/js/zepto.min.js') !!}"></script>--}}

@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="mobile-agent" content="format=html5; url={!! wapurl($catid,$id) !!}">
-    <meta http-equiv="mobile-agent" content="format=xhtml; url={!! wapurl($catid,$id) !!}">
+    {{--<meta http-equiv="mobile-agent" content="format=xhtml; url={!! wapurl($catid,$id) !!}">--}}
     <meta property="og:type" content="novel">
     <meta property="og:title" content="{{ $book['title'] }}">
     <meta property="og:description" content="    ”

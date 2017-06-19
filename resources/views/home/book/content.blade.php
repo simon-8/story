@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="mobile-agent" content="format=html5; url={!! wapurl($catid,$id,$detail['id']) !!}">
-    <meta http-equiv="mobile-agent" content="format=xhtml; url={!! wapurl($catid,$id,$detail['id']) !!}">
+    {{--<meta http-equiv="mobile-agent" content="format=xhtml; url={!! wapurl($catid,$id,$detail['id']) !!}">--}}
     <link rel="stylesheet" href="{!! staticPath('/default/css/index.min.css') !!}">
     <script type="text/javascript" src="{!! staticPath('/js/jquery.min.js') !!}"></script>
     <script type="text/javascript" src="{!! staticPath('/default/js/content.js') !!}"></script>

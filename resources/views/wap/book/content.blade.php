@@ -1,7 +1,9 @@
 <html lang="zh-cn">
 <head>
-    <title>{{ $detail['title'] }}_{{ $book['title'] }}_{{ $SET['title'] }}</title>
     <meta charset="utf-8">
+    <title>{{ $book['title'] }}, {{ $detail['title'] }},{{ $SET['title'] }}</title>
+    <meta name="keywords" content="{{ $book['title'] }},{{ $detail['title'] }},{{ $SET['title'] }}">
+    <meta name="description" content=" {{ $detail['title'] }}在线阅读，{{ $book['title'] }}最新章节，{{ $book['title'] }}无弹窗。更多好看的小说尽在{{ $SET['title'] }}！">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
