@@ -9,7 +9,6 @@ git下载本程序后
     
 > 修改.env配置文件
 
-````bash
     DB_HOST=localhost
     DB_DATABASE=story
     DB_USERNAME=root
@@ -18,7 +17,6 @@ git下载本程序后
     STATIC_DOMAIN=http://静态文件存储二级域名
     PICTURE_DOMAIN=http://图片存储二级域名
     APP_MOBILE_DOMAIN=http://移动站域名
-````
 
 > 修改七牛云存储配置
 
