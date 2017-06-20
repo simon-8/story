@@ -24,9 +24,10 @@ class BooksController extends BaseController
     public function getIndex(Request $request,Book $bookModel, $catid)
     {
         $page = $request->has('page') ? $request->page : 1;
+
         //封面推荐
         $newLists = \Cache::remember('wap.catid.' . $catid . '.newLists.'.$page , 600 ,function() use ($bookModel,$catid) {
-            return $bookModel->ftlists(['catid' => $catid],'hits DESC',10)->toArray();
+            return $bookModel->ftlists(['catid' => $catid],'hits DESC',10, true);
         });
 
         $data = [

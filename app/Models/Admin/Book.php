@@ -59,14 +59,20 @@ class Book extends Model
      * @param array $condition
      * @param string $order
      * @param int $pagesize
+     * @param boolean $page
      * @return mixed
      */
-    public function ftlists($condition = [] , $order = 'id DSEC',$pagesize = 10)
+    public function ftlists($condition = [] , $order = 'id DSEC',$pagesize = 10,$page = false)
     {
         $order = $order ? explode(' ' , $order) : ['id' ,'DESC'];
-
-        return $this->where('thumb','<>','')->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1])->take($pagesize)->get();
+        $lists = $this->where('thumb','<>','')->where( array_merge(['status' => 1],$condition) )->orderBy($order[0] , $order[1]);
+        if($page){
+            return $lists->paginate($pagesize);
+        }else{
+            return $lists->take($pagesize)->get();
+        }
     }
+
     /**
      * 更新
      * @param $data
