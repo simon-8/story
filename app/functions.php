@@ -444,8 +444,7 @@ function isImage($image)
  */
 function staticPath($file)
 {
-    //$staticDomain = env('STATIC_DOMAIN');
-    $staticDomain = 'http://static.txshu.com';
+    $staticDomain = env('STATIC_DOMAIN');
     return $staticDomain . $file;
 }
 

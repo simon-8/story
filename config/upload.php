@@ -7,7 +7,7 @@
  */
 return [
 
-    'domain'     => 'http://pic.txshu.com',
+    'domain'     => env('PICTURE_DOMAIN'),
 
     'accessKey'  => 'L2DACDwDG9Yfv9cAH0c1uPqwpVLICcJutiB3iDit',
 
