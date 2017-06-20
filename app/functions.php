@@ -243,6 +243,7 @@ function route2url($route = '')
 
 
 /**
+ * 调用编辑器
  * @param $id
  * @param string $editor
  * @param string $extends
@@ -284,7 +285,7 @@ function seditor($content = '' , $name = 'content', $editor = 'ueditor', $extend
 }
 
 /**
- *
+ * 简单处理图片链接
  * @param string $img
  * @return string
  */
@@ -298,6 +299,7 @@ function imgurl($img = '')
 }
 
 /**
+ * 处理书本封图片
  * @param string $img
  * @return string
  */
@@ -319,6 +321,7 @@ function bookimg($img = '')
 }
 
 /**
+ * 生成书本链接
  * @param $catid
  * @param int $id
  * @param int $aid
@@ -357,6 +360,7 @@ function bookurl($catid, $id = 0, $aid = 0){
 }
 
 /**
+ * 生成手机端链接
  * @param $catid
  * @param int $id
  * @param int $aid
