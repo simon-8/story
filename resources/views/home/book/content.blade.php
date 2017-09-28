@@ -211,11 +211,11 @@
         <a class="back" href="{!! bookurl($catid,$id) !!}" target="_top">返回目录</a>
         <a href="{!! bookurl($catid,$id,$nextPage['id']) !!}" target="_top">下一章→</a>
     </div>
-    <div class="readacbtn">
-        <a class="recommend" href="javascript:void(0);" target="_blank" rel="nofollow">推荐本书</a>
-        <a class="favorite" href="javascript:void(0);" rel="nofollow">添加书签</a>
-        <a class="bookshelf" href="javascript:void(0);" target="_blank" rel="nofollow">书架</a>
-    </div>
+    {{--<div class="readacbtn">--}}
+        {{--<a class="recommend" href="javascript:void(0);" target="_blank" rel="nofollow">推荐本书</a>--}}
+        {{--<a class="favorite" href="javascript:void(0);" rel="nofollow">添加书签</a>--}}
+        {{--<a class="bookshelf" href="javascript:void(0);" target="_blank" rel="nofollow">书架</a>--}}
+    {{--</div>--}}
 </div>
 
 {{--<div class="yd_ad">--}}
