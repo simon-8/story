@@ -24,12 +24,12 @@
 @include('home.header')
 
 <div class="yd_ad">
-    <script type="text/javascript">
-        var sogou_ad_id=828243;
-        var sogou_ad_height=90;
-        var sogou_ad_width=960;
-    </script>
-    <script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+    {{--<script type="text/javascript">--}}
+        {{--var sogou_ad_id=828243;--}}
+        {{--var sogou_ad_height=90;--}}
+        {{--var sogou_ad_width=960;--}}
+    {{--</script>--}}
+    {{--<script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>--}}
 
 </div>
 

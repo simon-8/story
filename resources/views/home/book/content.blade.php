@@ -48,12 +48,12 @@
     </div>
 </div>
 <div class="yd_ad">
-    <script type="text/javascript">
-        var sogou_ad_id=828244;
-        var sogou_ad_height=90;
-        var sogou_ad_width=960;
-    </script>
-    <script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+    {{--<script type="text/javascript">--}}
+        {{--var sogou_ad_id=828244;--}}
+        {{--var sogou_ad_height=90;--}}
+        {{--var sogou_ad_width=960;--}}
+    {{--</script>--}}
+    {{--<script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>--}}
 
 </div>
 <div class="read_t">
@@ -181,12 +181,12 @@
             {{--<script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>--}}
         </span>
         <span>
-            <script type="text/javascript">
-                var sogou_ad_id=828226;
-                var sogou_ad_height=250;
-                var sogou_ad_width=300;
-            </script>
-            <script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+            {{--<script type="text/javascript">--}}
+                {{--var sogou_ad_id=828226;--}}
+                {{--var sogou_ad_height=250;--}}
+                {{--var sogou_ad_width=300;--}}
+            {{--</script>--}}
+            {{--<script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>--}}
         </span>
         <span>
             {{--<script type="text/javascript">--}}
@@ -199,12 +199,12 @@
         {!! $detail['content'] !!}
     </div>
     <div class="yd_ad1">
-        <script type="text/javascript">
-            var sogou_ad_id=828236;
-            var sogou_ad_height=90;
-            var sogou_ad_width=760;
-        </script>
-        <script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+        {{--<script type="text/javascript">--}}
+            {{--var sogou_ad_id=828236;--}}
+            {{--var sogou_ad_height=90;--}}
+            {{--var sogou_ad_width=760;--}}
+        {{--</script>--}}
+        {{--<script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>--}}
     </div>
     <div class="pereview">
         <a href="{!! bookurl($catid,$id,$prevPage['id']) !!}" target="_top">← 上一章</a>
