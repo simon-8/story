@@ -79,6 +79,8 @@ class BooksController extends BaseController
             $lastDetail = $bookDetailModel->lastDetail($id);
             if($lastDetail){
                 return redirect(bookurl($catid,$id,$lastDetail->id));
+            }else{
+                abort(404 , '该小说已经删除辣, 换个小说看看吧');
             }
             $content = '';
         }else{
@@ -116,6 +118,9 @@ class BooksController extends BaseController
     {
         $book = $bookModel->find($id);
         $lastDetail = $bookDetailModel->lastDetail($id);
+        if (!$lastDetail) {
+            abort(404 , '该小说已经删除辣, 换个小说看看吧');
+        }
         $content = $bookContentModel->where('id',$lastDetail->id)->first();
         $lastDetail->content = $content->content;
 
