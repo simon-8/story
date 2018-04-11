@@ -150,6 +150,8 @@ return [
         //easywechat
         Overtrue\LaravelWechat\ServiceProvider::class,
 
+        // phpstorm 提示
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*

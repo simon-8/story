@@ -67,29 +67,25 @@ function is_email($email)
  */
 function upload_base64_thumb($thumb)
 {
-    if( empty($thumb) ) return '';
-    if( strpos($thumb ,'data:image') === false ) return $thumb;
-    $filepath = '/uploads/thumbs/'.date('Ym').'/';//缩略图按月划分
-    $fileroot = public_path().$filepath;
-    if( !is_dir($fileroot) ) mkdir($fileroot ,0777,true);
+    if (empty($thumb)) return '';
+    if (strpos($thumb, 'data:image') === false) return $thumb;
+    $filepath = '/uploads/thumbs/' . date('Ym') . '/';//缩略图按月划分
+    $fileroot = public_path() . $filepath;
 
-    $filename = time().rand(100000,999999);
-    $fileext = str_replace('data:image/' , '' , strstr($thumb , ';' ,true));
-    in_array($fileext , ['jpg','png','gif','bmp']) or $fileext = 'jpg';//jpeg->jpg
+    $filename = time() . rand(100, 999);
+    $fileext = str_replace('data:image/', '', strstr($thumb, ';', true));
+    in_array($fileext, ['jpg', 'png', 'gif', 'bmp']) or $fileext = 'jpg';//jpeg->jpg
     $filename .= '.' . $fileext;
 
-    if( preg_match('/^(data:\s*image\/(\w+);base64,)/' , $thumb ,$result) )
-    {
-        $result = file_put_contents($fileroot.$filename , base64_decode(str_replace($result[1] , '' , $thumb)));
-
-        if( $result )
-        {
-            $thumb = $filepath.$filename;
-        }
-        else
-        {
-            $thumb = '';
-        }
+    if (!\File::isDirectory($fileroot)) {
+        \File::makeDirectory($fileroot, 0777, true);
+    }
+    if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $thumb, $result)) {
+        \File::put($fileroot . $filename, base64_decode(str_replace($result[1], '', $thumb)));
+        $thumb = \File::exists($fileroot . $filename) ? $fileroot . $filename : '';
+        $thumb = str_replace(public_path(), '', $thumb);//path => ''
+    } else {
+        $thumb = '';
     }
 
     return $thumb;
