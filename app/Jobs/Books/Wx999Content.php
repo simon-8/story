@@ -53,20 +53,12 @@ class Wx999Content extends Job implements SelfHandling, ShouldQueue
             'created_at'=> date('Y-m-d H:i:s'),
             'updated_at'=> date('Y-m-d H:i:s'),
         ];
-        //事务
-        DB::transaction(function () use ($content,$data) {
-            try{
-                $id = DB::table('books_detail')->insertGetId($data);
-            }catch (\Exception $exception){
-                return true;
-            }
+        $id = DB::table('books_detail')->insertGetId($data);
 
-            DB::table('books_content')->insert([
-                'id' => $id,
-                'content' => ($content ? $content : ''),
-            ]);
-        });
-        unset($html,$match,$content);
+        $result = saveContent($this->Info['pid'], $this->Info['chapterid'] , $content);
+
+        \Log::debug("Queue Result: {$id}, $result");
+        unset($html, $match, $content);
 
         return true;
     }

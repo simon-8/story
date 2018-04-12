@@ -7,6 +7,8 @@
  */
 namespace App\Http\Controllers\Admin;
 
+use App\Repositories\ManagerRepository;
+
 use Illuminate\Http\Request;
 use Validator;
 
@@ -15,14 +17,13 @@ use App\Http\Controllers\Admin\BaseController;
 
 class ManagerController extends BaseController
 {
-    public function __construct()
+    /**
+     * @param ManagerRepository $repository
+     * @return mixed
+     */
+    public function getIndex(ManagerRepository $repository)
     {
-        parent::__construct();
-    }
-
-    public function getIndex()
-    {
-        $lists = $this->Manager->lists();
+        $lists = $repository->lists();
         $data = [
             'lists' => $lists,
         ];
@@ -56,44 +57,39 @@ class ManagerController extends BaseController
     /**
      * 创建用户
      * @param Request $request
-     * @param AuthController $auth
-     * @return \Illuminate\Http\RedirectResponse
+     * @param ManagerRepository $repository
+     * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function postCreate(Request $request)
+    public function postCreate(Request $request, ManagerRepository $repository)
     {
         $data = $request->all();
 
         $validator = $this->validate_create($data);
-        if( $validator->fails() )
-        {
-            $this->throwValidationException(
-                $request, $validator
-            );
+        if ($validator->fails()) {
+            $this->throwValidationException($request, $validator);
         }
 
-        $result = $this->Manager->create_manager($data);
-        if($result)
-        {
+        $result = $repository->create($data);
+        if ($result) {
             return redirect()->route('Manager.getIndex');
-        }
-        else
-        {
+        } else {
             return back()->withErrors('创建失败')->withInput();
         }
     }
 
     /**
      * 更新用户
+     * @param ManagerRepository $repository
      * @param $id
      * @return mixed
      */
-    public function getUpdate($id)
+    public function getUpdate(ManagerRepository $repository, $id)
     {
-        $data = $this->Manager->find($id);
-        if(!$data){
-            abort(404 , '用户不存在');
+        $data = $repository->find($id);
+        if (!$data) {
+            abort(404, '用户不存在');
         }
-        return admin_view('manager.create' , $data);
+        return admin_view('manager.create', $data);
     }
 
     /**
@@ -120,61 +116,51 @@ class ManagerController extends BaseController
     /**
      * 更新用户
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param ManagerRepository $repository
+     * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function postUpdate(Request $request)
+    public function postUpdate(Request $request, ManagerRepository $repository)
     {
         $data = $request->all();
         $repassword = $data['password'] ? true : false;
-        $validator = $this->validate_update($data , $repassword);
+        if (empty($data['password'])) unset($data['password']);
+        $validator = $this->validate_update($data, $repassword);
 
-        if( $validator->fails() )
-        {
-            $this->throwValidationException(
-                $request , $validator
-            );
+        if ($validator->fails()) {
+            $this->throwValidationException($request, $validator);
         }
-        $result = $this->Manager->update_manager($data);
-        if($result)
-        {
+
+        $result = $repository->update($data);
+        if ($result) {
             return redirect()->route('Manager.getIndex');
-        }
-        else
-        {
+        } else {
             return back()->withErrors('更新失败')->withInput();
         }
     }
 
+
     /**
      * 删除
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param ManagerRepository $repository
+     * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function getDelete(Request $request)
+    public function getDelete(Request $request, ManagerRepository $repository)
     {
-        $user = $this->Manager->find($request->id);
-        if($user)
-        {
-            if($user->id == 1)
-            {
-                return redirect()->route('Manager.getIndex')->withErrors('内置管理员账户无法删除');
-            }
-
-            $result = $user->delete();
-            if($result)
-            {
-                return redirect()->route('Manager.getIndex')->with('Message' , '删除成功');
-            }
-            else
-            {
-                return redirect()->route('Manager.getIndex')->withErrors('删除失败');
-            }
-        }
-        else
-        {
+        $user = $repository->find($request->id);
+        if (!$user) {
             return redirect()->route('Manager.getIndex')->withErrors('用户不存在');
         }
-    }
+        if ($user->id == 1) {
+            return redirect()->route('Manager.getIndex')->withErrors('内置管理员账户无法删除');
+        }
 
+        $result = $user->delete();
+        if ($result) {
+            return redirect()->route('Manager.getIndex')->with('Message', '删除成功');
+        } else {
+            return redirect()->route('Manager.getIndex')->withErrors('删除失败');
+        }
+    }
 
 }

@@ -23,7 +23,7 @@
           </div>
           <div class="logo-element">SCMS</div>
         </li>
-        @foreach(App\Models\Admin\Menu::lists() as $v)
+        @foreach(App\Repositories\MenuRepository::lists() as $v)
           <li class="{{ Request::getUri() == $v['url'] ? 'active' : '' }}">
               <a href="{{ $v['url'] }}" data="{{ $v['url'] }}">
                   <i class="{{ $v['ico'] }}"></i>

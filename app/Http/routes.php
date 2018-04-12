@@ -98,25 +98,24 @@ Route::group($admin , function(){
         Route::controller('collect' , 'CollectController' , [
             'getIndex'   => 'Collect.getIndex',
         ]);
-        //小说管理
+
         Route::controller('book' , 'BookController' , [
             'getIndex'              => 'Book.getIndex',
             'getCreate'             => 'Book.getCreate',
             'postCreate'            => 'Book.postCreate',
-            'getCreateQueue'        => 'Book.getCreateQueue',
-            'getQueueNumber'        => 'Book.getQueueNumber',
-            'postDetailUpdate'       => 'Book.postDetailUpdate',
-//            'getUpdate'             => 'Book.getUpdate',
             'postUpdate'            => 'Book.postUpdate',
             'getDelete'             => 'Book.getDelete',
+            'getCreateQueue'        => 'Book.getCreateQueue',
+            'getUpdateQueue'        => 'Book.getUpdateQueue',
+            'getQueueNumber'        => 'Book.getQueueNumber',
             'getCategorys'          => 'Book.getCategorys',
             'getRecycle'            => 'Book.getRecycle',
-            'getDetailLists'        => 'Book.getDetailLists',
-            'getDetailListsUpdate'  => 'Book.getDetailListsUpdate',
-            'getDetail'             => 'Book.getDetail',
-            'getUpdateDetail'       => 'Book.getUpdateDetail',
-            'postUpdateDetail'      => 'Book.postUpdateDetail',
-            'getDeleteDetail'       => 'Book.getDeleteDetail',
+
+            'getChapters'           => 'Book.getChapters',
+            'getChapterContent'     => 'Book.chapterContent',
+            'getUpdateChapters'     => 'Book.updateChapters',
+            'getUpdateChapter'      => 'Book.updateChapter',
+            'getDeleteChapter'      => 'Book.deleteChapter',
         ]);
     });
 

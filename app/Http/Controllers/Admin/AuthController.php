@@ -7,14 +7,13 @@
  */
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Repositories\ManagerRepository;
 use Illuminate\Http\Request;
-use App\Models\Admin\Manager;
 use Validator;
 use Auth;
 class AuthController extends BaseController
 {
-    protected $Manager;
-    public function __construct(Manager $manager)
+    public function __construct()
     {
         parent::__construct();
         //排除的路由
@@ -23,7 +22,6 @@ class AuthController extends BaseController
             'getLogout',
         ];
         $this->middleware('admin.guest' , ['except' =>  $except]);
-        $this->Manager = $manager;
     }
 
     /**
@@ -52,46 +50,34 @@ class AuthController extends BaseController
      * 用户登录
      * @param Request $request
      */
-    public function postLogin(Request $request)
+    public function postLogin(Request $request, ManagerRepository $managerRepository)
     {
         $data = $request->all();
         $validator = $this->validate_login($data);
-        if( $validator->fails() )
-        {
-            $this->throwValidationException(
-                $request , $validator
-            );
+        if ($validator->fails()) {
+            $this->throwValidationException($request, $validator);
         }
-        $user = $this->Manager->findByUsername($data['username']);
-        if($user)
-        {
-            if( $this->Manager->compare_password($data['password'] , $user->password) )
-            {
-                $this->Manager->where('username' , $user->username)->update([
-                    'lasttime'  => time(),
-                    'lastip'    => $request->ip(),
-                ]);
-                $this->make_login_session($user);
+        $user = $managerRepository->findBy('username', $data['username']);
+        if ($user) {
+            if ($managerRepository->compare_password($data['password'], $user->password)) {
+                $managerRepository->where('username', $user->username)->update(['lasttime' => time(), 'lastip' => $request->ip(),]);
+                $this->make_login_session($user, $managerRepository);
                 return redirect()->route('Admin.getIndex');
-            }
-            else
-            {
+            } else {
                 return back()->withErrors('密码不正确')->withInput();
             }
-        }
-        else
-        {
+        } else {
             return back()->withErrors('用户不存在')->withInput();
         }
     }
 
 
-    protected function make_login_session($user)
+    protected function make_login_session($user, ManagerRepository $managerRepository)
     {
         $userinfo = [
             'userid'    => $user->id,
             'username'    => $user->username,
-            'password'    => $this->Manager->session_use_password($user->password),
+            'password'    => $managerRepository->session_use_password($user->password),
         ];
 
         session(['userinfo' => $userinfo]);
@@ -127,23 +113,17 @@ class AuthController extends BaseController
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function postRegister(Request $request)
+    public function postRegister(Request $request, ManagerRepository $managerRepository)
     {
         $data = $request->all();
         $validator = $this->validate_register($data);
-        if( $validator->fails() )
-        {
-            $this->throwValidationException(
-                $request, $validator
-            );
+        if ($validator->fails()) {
+            $this->throwValidationException($request, $validator);
         }
-        $result = $this->Manager->create_manager($data);
-        if($result)
-        {
+        $result = $managerRepository->create($data);
+        if ($result) {
             return redirect()->route('Admin.getIndex');
-        }
-        else
-        {
+        } else {
             return back()->withErrors('创建失败')->withInput();
         }
     }
@@ -159,22 +139,18 @@ class AuthController extends BaseController
         return redirect(route('getAdminLogin'));
     }
 
-    public function getEnterpassword(Request $request)
+    public function getEnterpassword(Request $request, ManagerRepository $managerRepository)
     {
-        if( $request->isMethod('POST') )
-        {
+        if ($request->isMethod('POST')) {
             $password = $request->password;
 
-            if( $this->Manager->compare_password($password , self::$user->password) )
-            {
-                $this->make_login_session(self::$user);
+            if ($managerRepository->compare_password($password, self::$user->password)) {
+                $this->make_login_session(self::$user, $managerRepository);
                 return redirect()->route('Admin.getIndex');
             }
 
             return back()->withErrors('请输入正确的密码')->withInput();
-        }
-        else
-        {
+        } else {
             return admin_view('auth.enterpassword');
         }
     }

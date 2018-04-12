@@ -7,22 +7,19 @@
  */
 namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
-use App\Models\Admin\Menu;
+use App\Repositories\MenuRepository;
+
 use Validator;
 use Route;
 class MenuController extends BaseController
 {
-    protected $Menu;
-
-    public function __construct()
+    /**
+     * @param MenuRepository $repository
+     * @return mixed
+     */
+    public function getIndex(MenuRepository $repository)
     {
-        parent::__construct();
-        $this->Menu = new Menu();
-    }
-
-    public function getIndex()
-    {
-        $lists = $this->Menu->lists();
+        $lists = $repository->lists();
         $data = [
             'lists' => $lists,
         ];
@@ -54,72 +51,64 @@ class MenuController extends BaseController
     }
 
     /**
-     * 创建菜单
+     * 新增
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param MenuRepository $repository
+     * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function postCreate(Request $request)
+    public function postCreate(Request $request, MenuRepository $repository)
     {
         $data = $request->all();
         $validator = $this->validator_create($data);
-        if($validator->fails())
-        {
-            $this->throwValidationException(
-                $request , $validator
-            );
+        if ($validator->fails()) {
+            $this->throwValidationException($request, $validator);
         }
-        $result = $this->Menu->create_menu($data);
-        if($result)
-        {
-            return redirect()->route('Menu.getIndex')->with('Message' , '添加成功');
-        }
-        else
-        {
+        $result = $repository->create_menu($data);
+        if ($result) {
+            return redirect()->route('Menu.getIndex')->with('Message', '添加成功');
+        } else {
             return back()->withErrors('添加失败')->withInput();
         }
     }
 
     /**
-     * 更新菜单
+     * 更新
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param MenuRepository $repository
+     * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function postUpdate(Request $request)
+    public function postUpdate(Request $request, MenuRepository $repository)
     {
         $data = $request->all();
-        $item = isset($data['id']) ? $this->Menu->find($data['id']) : false;
-        if(!$item)
-        {
+        $item = isset($data['id']) ? $repository->find($data['id']) : false;
+        if (!$item) {
             return back()->withErrors('该菜单不存在，请先添加')->withInput();
         }
         $validator = $this->validator_create($data);
-        if($validator->fails())
-        {
-            $this->throwValidationException(
-                $request , $validator
-            );
+        if ($validator->fails()) {
+            $this->throwValidationException($request, $validator);
         }
 
-        $result = $this->Menu->update_menu($item , $data);
+        $result = $repository->update_menu($item, $data);
 
-        if($result)
-        {
-            return redirect()->route('Menu.getIndex')->with('Message' , '修改成功');
-        }
-        else
-        {
+        if ($result) {
+            return redirect()->route('Menu.getIndex')->with('Message', '修改成功');
+        } else {
             return back()->withErrors('修改失败')->withInput();
         }
     }
 
     /**
-     * 删除菜单
+     * 删除
      * @param Request $request
+     * @param MenuRepository $repository
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function getDelete(Request $request)
+    public function getDelete(Request $request, MenuRepository $repository)
     {
         $id = $request->id;
-        $this->Menu->delete_menu($id);
+        $repository->delete_menu($id);
         return redirect()->route('Menu.getIndex')->with('Message' , '删除成功');
     }
 }

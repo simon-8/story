@@ -1,75 +1,66 @@
 <?php
+
 namespace App\Http\Controllers\Home;
 
-use App\Models\Admin\Book;
-use App\Models\Admin\Links;
+use App\Repositories\BookRepository;
+use App\Repositories\LinkRepository;
 
-use QL\QueryList;
-use DB;
-use App\Jobs\Books\Wx999Content;
+
 class IndexController extends BaseController
 {
-    public function getIndex(Book $book)
+    public function getIndex(BookRepository $repository, LinkRepository $linkRepository)
     {
-        $categorys = config('book.categorys');
+        $categorys = $repository->getCategorys();
 
         //最近更新
-        $newLists = \Cache::remember('newLists' , 60 , function() use($book,$categorys) {
-            $newLists = $book->lists([],'updated_at desc',50,false);
-            if(count($newLists)){
-                $newLists = $this->setCatname($newLists->toArray() ,$categorys);
+        $newLists = \Cache::remember('newLists', 60, function () use ($repository, $categorys) {
+            $newLists = $repository->lists([], 'updated_at desc', 50, false);
+            if (count($newLists)) {
+                $newLists = $this->setCatname($newLists->toArray(), $categorys);
             }
             return $newLists;
         });
         //最新入库
-        $newInserts = \Cache::remember('newInsert' , 60 , function() use($book,$categorys) {
-            $newInserts = $book->lists([],'id desc',50,false);
-            if(count($newInserts)){
-                $newInserts = $this->setCatname($newInserts->toArray() ,$categorys);
+        $newInserts = \Cache::remember('newInsert', 60, function () use ($repository, $categorys) {
+            $newInserts = $repository->lists([], 'id desc', 50, false);
+            if (count($newInserts)) {
+                $newInserts = $this->setCatname($newInserts->toArray(), $categorys);
             }
             return $newInserts;
         });
 
         //各分类推荐
-        $tjLists = \Cache::remember('tjLists' , 600 ,function() use ($categorys,$book) {
+        $tjLists = \Cache::remember('tjLists', 600, function () use ($categorys, $repository) {
             $tjLists = [];
             $i = 1;
-            foreach($categorys as $k => $v){
-                if($k == 9) break;
+            foreach ($categorys as $k => $v) {
+                if ($k == 9) break;
                 $tjLists[$i]['catname'] = $v['name'];
                 $tjLists[$i]['id'] = $k;
-                $tjLists[$i]['data'] = $book->lists(['catid' => $k],'',7,false)->toArray();
+                $tjLists[$i]['data'] = $repository->lists(['catid' => $k], '', 7, false)->toArray();
                 $i++;
             }
             return $tjLists;
         });
 
         //封面推荐
-        $ftLists = \Cache::remember('ftLists' , 600 ,function() use ($book) {
-            return $book->ftlists([],'hits DESC',6)->toArray();
+        $ftLists = \Cache::remember('ftLists', 600, function () use ($repository) {
+            return $repository->ftlists([], 'hits DESC', 6)->toArray();
         });
 
         //firendLinks
-        $firendLinks = \Cache::remember('firendLinks', 600, function(){
-            $links = new Links();
-            return $links->lists();
+        $firendLinks = \Cache::remember('firendLinks', 600, function () use ($linkRepository) {
+            return $linkRepository->lists();
         });
 
         $data = [
-            'newLists'   => $newLists,
+            'newLists' => $newLists,
             'newInserts' => $newInserts,
-            'tjLists'    => $tjLists,
-            'ftLists'    => $ftLists,
-            'firendLinks'=> $firendLinks,
+            'tjLists' => $tjLists,
+            'ftLists' => $ftLists,
+            'firendLinks' => $firendLinks
         ];
-        return home_view('index.index',$data);
-    }
-
-    public function getTest(Book $book)
-    {
-        //$img = 'http://www.999wx.com/DownFiles/Book/BookCover/20160322064128_7423.gif';
-        //$x = save_remote_thumb($img);
-        //var_dump($x);
+        return home_view('index.index', $data);
     }
 
     /**
@@ -78,10 +69,10 @@ class IndexController extends BaseController
      * @param $categorys
      * @return array
      */
-    protected function setCatname($data , $categorys)
+    protected function setCatname($data, $categorys)
     {
         $new_data = [];
-        foreach($data as $v){
+        foreach ($data as $v) {
             $v['catname'] = $categorys[$v['catid']]['name'];
             $new_data[] = $v;
         }

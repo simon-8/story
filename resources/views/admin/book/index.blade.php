@@ -37,8 +37,8 @@
                 <td>{{ $v['created_at'] }}</td>
                 <td>{{ $v['updated_at'] }}</td>
                 <td>
-                    <button class="btn btn-sm btn-success" onclick="getDetailLists({{ $v['id'] }})">章节</button>
-                    <button class="btn btn-sm btn-success" onclick="getDetailListsUpdate({{ $v['id'] }})">更新</button>
+                    <button class="btn btn-sm btn-success" onclick="getChapters({{ $v['id'] }})">章节</button>
+                    <button class="btn btn-sm btn-success" onclick="updateChapters({{ $v['id'] }})">更新</button>
                     <button class="btn btn-sm btn-info" id="edit_{{ $v['id'] }}" data="{{ json_encode($v) }}" onclick="Edit({{ $v['id'] }})">编辑</button>
                     <button class="btn btn-sm btn-danger" onclick="Delete({{ $v['id'] }})">删除</button>
                 </td>
@@ -86,9 +86,9 @@
     }
 
     //显示该章节内容
-    function ShowDetail(id){
+    function ShowDetail(pid, chapterid){
         loading();
-        $.get("{!! route('Book.getDetail') !!}" , {id:id} ,function(res){
+        $.get("{!! route('Book.chapterContent') !!}" , {pid: pid, chapterid: chapterid} ,function(res){
             layer.open({
                 title:'详情',
                 area:'800px',
@@ -104,12 +104,12 @@
 
     //编辑章节
     function UpdateDetail(id) {
-        window.open("{!! route('Book.getUpdateDetail') !!}?id=" + id);
+        window.open("{!! route('Book.updateChapter') !!}?id=" + id);
     }
 
     //删除章节
     function DeleteDetail(id) {
-        window.open("{!! route('Book.getDeleteDetail') !!}?id=" + id);
+        window.open("{!! route('Book.deleteChapter') !!}?id=" + id);
     }
 
     //数据填充至模态层
@@ -117,7 +117,7 @@
         if(res.data.length){
             var tr = '';
             $.each(res.data , function(k,v){
-                tr += '<tr><td>' + v.id + '</td><td align="left"><strong>' + v.title + '</strong></td><td>' + v.created_at + '</td><td>' + v.updated_at + '</td> <td><button class="btn btn-sm btn-success" onclick="ShowDetail(' + v.id + ')">内容</button><button class="btn btn-sm btn-info" onclick="UpdateDetail(' + v.id + ')">编辑</button><button class="btn btn-sm btn-danger" onclick="DeleteDetail(' + v.id + ')">删除</button></td></tr>';
+                tr += '<tr><td>' + v.id + '</td><td align="left"><strong>' + v.title + '</strong></td><td>' + v.created_at + '</td><td>' + v.updated_at + '</td> <td><button class="btn btn-sm btn-success" onclick="ShowDetail(' + v.pid +','+ v.chapterid + ')">内容</button><button class="btn btn-sm btn-info" onclick="UpdateDetail(' + v.id + ')">编辑</button><button class="btn btn-sm btn-danger" onclick="DeleteDetail(' + v.id + ')">删除</button></td></tr>';
             });
             $(dlistsModal).find('tbody').html(tr);
 
@@ -125,7 +125,7 @@
             $(dlistsModal).find('.modal-title').html(title);
 
             var paginate = '<ul class="pagination">';
-            paginate += '<li><a onclick="getDetailLists('+ id +',1);" rel="prev">首页</a></li>';
+            paginate += '<li><a onclick="getChapters('+ id +',1);" rel="prev">首页</a></li>';
 
             if( res.last_page > 5 ){
 
@@ -143,18 +143,18 @@
                     end = res.last_page;
                 }
                 for(var i = start;i<=end;i++){
-                    paginate += '<li><a onclick="getDetailLists('+ id +','+ i +');" rel="prev">' + i + '</a></li>';
+                    paginate += '<li><a onclick="getChapters('+ id +','+ i +');" rel="prev">' + i + '</a></li>';
                 }
             }else{
                 if( res.current_page > 1 ){
-                    paginate += '<li><a onclick="getDetailLists('+ id +','+ (res.current_page - 1) +');" rel="prev">上一页</a></li>';
+                    paginate += '<li><a onclick="getChapters('+ id +','+ (res.current_page - 1) +');" rel="prev">上一页</a></li>';
                 }
                 if( res.current_page < res.total ){
-                    paginate += '<li><a onclick="getDetailLists('+ id +','+ (res.current_page + 1) +');" rel="prev">下一页</a></li>';
+                    paginate += '<li><a onclick="getChapters('+ id +','+ (res.current_page + 1) +');" rel="prev">下一页</a></li>';
                 }
             }
 
-            paginate += '<li><a onclick="getDetailLists('+ id +','+ res.last_page +');" rel="prev">尾页</a></li>';
+            paginate += '<li><a onclick="getChapters('+ id +','+ res.last_page +');" rel="prev">尾页</a></li>';
             paginate += '</ul>';
             $(dlistsModal).find('tfoot td').html(paginate);
 
@@ -164,11 +164,11 @@
         }
     }
     //获取文章章节列表
-    function getDetailLists(id,page){
+    function getChapters(id,page){
         loading();
         if(parseInt(page) == 0) page = 1;
         $.ajax({
-            url:"{!! route('Book.getDetailLists') !!}",
+            url:"{!! route('Book.getChapters') !!}",
             data:{id:id,page:page},
             dataType:'json',
             success:function(res){
@@ -180,14 +180,14 @@
             }
         });
     }
-    function getDetailListsUpdate(id)
+    function updateChapters(id)
     {
         layer.prompt({
             title:'一次更新多少章节?',
             shadeClose:true,
         },function(value, index, elem){
             loading();
-            $.get("{!! route('Book.getDetailListsUpdate') !!}",{'id':id,'number':value},function(res){
+            $.get("{!! route('Book.updateChapters') !!}",{'id':id,'number':value},function(res){
                 loading(true);
                 layer.alert('操作成功',function(){
                     getQuery();
@@ -204,7 +204,7 @@
             {{--shadeClose:true,--}}
         {{--},function(value, index, elem){--}}
             {{--loading();--}}
-            {{--$.get("{!! route('Book.postDetailUpdate') !!}",{'number':value},function(res){--}}
+            {{--$.get("{!! route('Book.getUpdateQueue') !!}",{'number':value},function(res){--}}
                 {{--loading(true);--}}
                 {{--layer.alert('操作成功',function(){--}}
                     {{--getQuery();--}}
@@ -322,7 +322,7 @@
 <div class="modal" id="updateQueueModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content animated flipInX">
-            <form action="{{ route('Book.postDetailUpdate') }}" method="post" class="form-horizontal">
+            <form action="{{ route('Book.getUpdateQueue') }}" method="post" class="form-horizontal">
                 {!! csrf_field() !!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>

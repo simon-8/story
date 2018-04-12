@@ -3,7 +3,7 @@
 @section('content')
     <div class="ibox float-e-margins">
 
-        <form method="post" class="form-horizontal" action="{{ route('Book.postUpdateDetail') }}" id="sform">
+        <form method="post" class="form-horizontal" action="{{ route('Book.updateChapter') }}" id="sform">
             {!! csrf_field() !!}
             <div class="col-sm-12 col-md-8">
                 <div class="ibox-title">

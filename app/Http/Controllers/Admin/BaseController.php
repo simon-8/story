@@ -33,11 +33,11 @@ class BaseController extends Controller
         $userinfo = session('userinfo');
         if( $userinfo )
         {
-            $user = $this->Manager->findByUsername($userinfo['username']);
+            $user = $this->Manager->where(['username' => $userinfo['username']])->first();
             if( $user )
             {
                 //确认密码
-                if( $userinfo['password'] == $this->Manager->session_use_password($user->password) )
+                if( $userinfo['password'] == substr(md5($user->password) ,0 ,8) )
                 {
                     self::$userid = $user->id;
                     self::$username = $user->username;
