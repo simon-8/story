@@ -35,11 +35,11 @@ class SaveContent extends Command
     {
         //$users = $bookChapterRepository->lists();
         $count = $bookChapterRepository->count();
-        $this->output->progressStart($count);
+
         $pageSize = 100;
         $page = ceil($count / $pageSize);
 
-
+        $this->output->progressStart($page);
 
         for ($i = 1; $i <= $page; $i ++) {
             $offset = ($page - 1) * $pageSize;
