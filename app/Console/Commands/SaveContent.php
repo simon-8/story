@@ -42,7 +42,7 @@ class SaveContent extends Command
         $this->output->progressStart($page);
 
         for ($i = 1; $i <= $page; $i ++) {
-            $offset = ($page - 1) * $pageSize;
+            $offset = ($i - 1) * $pageSize;
             $datas = DB::table('books_detail')->skip($offset)->take($pageSize)->get();
             $ids = $infos = [];
             foreach ($datas as $data) {
