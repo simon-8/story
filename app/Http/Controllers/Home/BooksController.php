@@ -33,7 +33,10 @@ class BooksController extends BaseController
 
         $newLists = $repository->lists(['catid' => $catid], 'updated_at desc', 30);
 
-        $data = ['ftLists' => $ftLists, 'newLists' => $newLists,];
+        $data = [
+            'ftLists' => $ftLists,
+            'newLists' => $newLists
+        ];
         return home_view('book.index', $data);
     }
 
