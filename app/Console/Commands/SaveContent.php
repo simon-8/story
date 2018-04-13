@@ -49,7 +49,6 @@ class SaveContent extends Command
                 $ids[] = $data['id'];
                 $infos[$data['id']] = [
                     'pid' => $data['pid'],
-                    'chapterid' => $data['chapterid']
                 ];
             }
             $contents = DB::table('books_content')->whereIn('id', $ids)->get();
@@ -57,7 +56,7 @@ class SaveContent extends Command
                 if (empty($content)) {
                     continue;
                 }
-                $bookChapterRepository->setContent($infos[$content['id']]['pid'], $infos[$content['id']]['chapterid'], $content['content']);
+                $bookChapterRepository->setContent($infos[$content['id']]['pid'], $content['id'], $content['content']);
             }
             $this->output->progressAdvance();
         }

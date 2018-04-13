@@ -205,7 +205,7 @@ class BookController extends BaseController
      */
     public function chapterContent(Request $request, BookChapterRepository $repository)
     {
-        return $repository->getContent($request->pid, $request->chapterid);
+        return $repository->getContent($request->pid, $request->id);
     }
 
     /**
@@ -218,13 +218,13 @@ class BookController extends BaseController
     {
         $item = $repository->find($request->id);
         if ($request->isMethod('get')) {
-            $item->content = $repository->getContent($item->pid, $item->chapterid);
+            $item->content = $repository->getContent($item->pid, $item->id);
             return admin_view('book.create_detail', $item);
         }
         $data = $request->all();
         $result = $item->update($data);
         if ($result) {
-            $repository->setContent($item->pid, $item->chapterid, $data['content']);
+            $repository->setContent($item->pid, $item->id, $data['content']);
             return redirect()->route('Book.getIndex')->with('Message', '修改成功');
         } else {
             return back()->withErrors('更新失败')->withInput();
@@ -243,7 +243,7 @@ class BookController extends BaseController
         $result = $detail->delete();
         if ($result) {
             //$bookContent->where('id',$request->id)->delete();
-            $bookChapterRepository->deleteContent($detail->pid, $detail->chapterid);
+            $bookChapterRepository->deleteContent($detail->pid, $detail->id);
             return redirect()->route('Book.getIndex')->with('Message', '删除成功');
         } else {
             return back()->withErrors('删除失败')->withInput();

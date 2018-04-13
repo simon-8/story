@@ -70,7 +70,7 @@ class BooksController extends BaseController
     {
         $book = $bookRepository->find($id);
         $detail = $bookChapterRepository->find($aid);
-        $content = $bookChapterRepository->getContent($detail->pid, $detail->chapterid);
+        $content = $bookChapterRepository->getContent($detail->pid, $detail->id);
         if (!$content) {
             $lastDetail = $bookChapterRepository->lastDetail($id);
             if ($lastDetail) {
@@ -110,7 +110,7 @@ class BooksController extends BaseController
         if (!$detail) {
             abort(404, '该章节已经删除辣, 换个章节看看吧');
         }
-        $detail->content = $bookChapterRepository->getContent($detail->pid, $detail->chapterid);
+        $detail->content = $bookChapterRepository->getContent($detail->pid, $detail->id);
         $prevPage = $bookChapterRepository->prevPage($id, $detail->id);
         $nextPage = $bookChapterRepository->nextPage($id, $detail->id);
 

@@ -43,14 +43,14 @@ class BookChapterRepository extends BaseRepository
 
     /**
      * @param $pid
-     * @param $chapterid
+     * @param $id
      * @return string
      */
-    public function getContent($pid, $chapterid)
+    public function getContent($pid, $id)
     {
         $bookDir = $this->getContentPath($pid);
         try {
-            return \File::get($bookDir . "{$chapterid}.txt");
+            return \File::get($bookDir . "{$id}.txt");
         } catch (\Exception $exception) {
             return false;
         }
@@ -58,29 +58,29 @@ class BookChapterRepository extends BaseRepository
 
     /**
      * @param $pid
-     * @param $chapterid
+     * @param $id
      * @param $content
      * @return int
      */
-    function setContent($pid, $chapterid, $content)
+    function setContent($pid, $id, $content)
     {
         $bookDir = $this->getContentPath($pid);
         if (!\File::isDirectory($bookDir)) {
             \File::makeDirectory($bookDir, 0777, true);
         }
-        return \File::put($bookDir . "{$chapterid}.txt" , $content);
+        return \File::put($bookDir . "{$id}.txt" , $content);
     }
 
     /**
      * 删除内容文本
      * @param $pid
-     * @param $chapterid
+     * @param $id
      * @return bool
      */
-    function deleteContent($pid, $chapterid)
+    function deleteContent($pid, $id)
     {
         $bookDir = $this->getContentPath($pid);
-        $path = $bookDir . "{$chapterid}.txt";
+        $path = $bookDir . "{$id}.txt";
 
         if (\File::exists($path)) {
             return \File::delete($path);
