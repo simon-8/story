@@ -38,7 +38,7 @@ class BookChapterRepository extends BaseRepository
      */
     protected function getContentPath($pid)
     {
-        return public_path("uploads/content/{$pid}/");
+        return public_path("uploads/contents/{$pid}/");
     }
 
     /**
@@ -133,7 +133,7 @@ class BookChapterRepository extends BaseRepository
      */
     public function lastDetail($pid)
     {
-        return $this->model->select('id', 'title')
+        return $this->model->select()
                 ->where('pid', $pid)
                 ->where('status', 1)
                 ->orderBy('chapterid', 'DESC')

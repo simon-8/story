@@ -5,6 +5,7 @@
 namespace App\Jobs\Books;
 
 use App\Jobs\Job;
+use App\Repositories\BookChapterRepository;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -33,7 +34,7 @@ class Wx999Content extends Job implements SelfHandling, ShouldQueue
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(BookChapterRepository $bookChapterRepository)
     {
         $html = request_spider($this->Info['fromurl']);
         $match = array();
@@ -55,7 +56,7 @@ class Wx999Content extends Job implements SelfHandling, ShouldQueue
         ];
         $id = DB::table('books_detail')->insertGetId($data);
 
-        $result = saveContent($this->Info['pid'], $this->Info['chapterid'] , $content);
+        $result = $bookChapterRepository->setContent($this->Info['pid'], $this->Info['chapterid'] , $content);
 
         \Log::debug("Queue Result: {$id}, $result");
         unset($html, $match, $content);

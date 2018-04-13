@@ -23,7 +23,7 @@ class ManagerRepository extends BaseRepository
      */
     public function findByUsername($username)
     {
-        return $this->where('username' , $username)->first();
+        return $this->model->where('username' , $username)->first();
     }
 
     /**
@@ -69,5 +69,10 @@ class ManagerRepository extends BaseRepository
     {
         $order = $order ? explode(' ' , $order) : ['id' ,'DESC'];
         return $this->model->where($condition)->orderBy($order[0] , $order[1])->get();
+    }
+
+    public function loginRecord($username, $ip)
+    {
+        $this->model->where('username', $username)->update(['lasttime' => time(), 'lastip' => $ip]);
     }
 }

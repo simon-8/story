@@ -441,7 +441,10 @@ function isImage($image)
 function staticPath($file)
 {
     $staticDomain = env('STATIC_DOMAIN');
-    return $staticDomain . $file;
+    if (env('STATIC_DOMAIN')) {
+        return $staticDomain . $file;
+    }
+    return url('skin/'.$file);
 }
 
 

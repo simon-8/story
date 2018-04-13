@@ -60,7 +60,7 @@ class AuthController extends BaseController
         $user = $managerRepository->findBy('username', $data['username']);
         if ($user) {
             if ($managerRepository->compare_password($data['password'], $user->password)) {
-                $managerRepository->where('username', $user->username)->update(['lasttime' => time(), 'lastip' => $request->ip(),]);
+                $managerRepository->loginRecord($user->username, $request->ip());
                 $this->make_login_session($user, $managerRepository);
                 return redirect()->route('Admin.getIndex');
             } else {

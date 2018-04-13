@@ -99,24 +99,26 @@ Route::group($admin , function(){
             'getIndex'   => 'Collect.getIndex',
         ]);
 
-        Route::controller('book' , 'BookController' , [
-            'getIndex'              => 'Book.getIndex',
-            'getCreate'             => 'Book.getCreate',
-            'postCreate'            => 'Book.postCreate',
-            'postUpdate'            => 'Book.postUpdate',
-            'getDelete'             => 'Book.getDelete',
-            'getCreateQueue'        => 'Book.getCreateQueue',
-            'getUpdateQueue'        => 'Book.getUpdateQueue',
-            'getQueueNumber'        => 'Book.getQueueNumber',
-            'getCategorys'          => 'Book.getCategorys',
-            'getRecycle'            => 'Book.getRecycle',
+        Route::group(['prefix' => 'book'], function() {
+            Route::get('/', 'BookController@getIndex')->name('Book.getIndex');
+            //Route::get('/create', 'BookController@getCreate')->name('Book.getCreate');
+            //Route::post('/create', 'BookController@postCreate')->name('Book.postCreate');
+            Route::post('/update', 'BookController@postUpdate')->name('Book.postUpdate');
+            Route::get('/delete', 'BookController@getDelete')->name('Book.getDelete');
+            //Route::get('/recycle', 'BookController@getRecycle')->name('Book.getRecycle');
 
-            'getChapters'           => 'Book.getChapters',
-            'getChapterContent'     => 'Book.chapterContent',
-            'getUpdateChapters'     => 'Book.updateChapters',
-            'getUpdateChapter'      => 'Book.updateChapter',
-            'getDeleteChapter'      => 'Book.deleteChapter',
-        ]);
+            Route::get('/createQueue', 'BookController@createQueue')->name('Book.createQueue');
+            Route::get('/updateQueue', 'BookController@updateQueue')->name('Book.updateQueue');
+            Route::get('/queueNumber', 'BookController@queueNumber')->name('Book.getQueueNumber');
+            Route::get('/categorys', 'BookController@getCategorys')->name('Book.getCategorys');
+
+
+            Route::get('/chapters', 'BookController@getChapters')->name('Book.getChapters');
+            Route::get('/updateChapters', 'BookController@updateChapters')->name('Book.updateChapters');
+            Route::get('/chapterContent', 'BookController@chapterContent')->name('Book.chapterContent');
+            Route::match(['get', 'post'],'/updateChapter', 'BookController@updateChapter')->name('Book.updateChapter');
+            Route::get('/deleteChapter', 'BookController@deleteChapter')->name('Book.deleteChapter');
+        });
     });
 
 });

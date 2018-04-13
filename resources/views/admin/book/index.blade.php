@@ -204,7 +204,7 @@
             {{--shadeClose:true,--}}
         {{--},function(value, index, elem){--}}
             {{--loading();--}}
-            {{--$.get("{!! route('Book.getUpdateQueue') !!}",{'number':value},function(res){--}}
+            {{--$.get("{!! route('Book.updateQueue') !!}",{'number':value},function(res){--}}
                 {{--loading(true);--}}
                 {{--layer.alert('操作成功',function(){--}}
                     {{--getQuery();--}}
@@ -264,7 +264,7 @@
 <div class="modal inmodal" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content animated flipInX">
-            <form action="{{ route('Book.getCreateQueue') }}" method="get" class="form-horizontal">
+            <form action="{{ route('Book.createQueue') }}" method="get" class="form-horizontal">
                 {!! csrf_field() !!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -322,7 +322,7 @@
 <div class="modal" id="updateQueueModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content animated flipInX">
-            <form action="{{ route('Book.getUpdateQueue') }}" method="post" class="form-horizontal">
+            <form action="{{ route('Book.updateQueue') }}" method="post" class="form-horizontal">
                 {!! csrf_field() !!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>

@@ -108,7 +108,6 @@ class BooksController extends BaseController
             abort(404, '该章节已经删除辣, 换个章节看看吧');
         }
         $detail->content = $bookChapterRepository->getContent($detail->pid, $detail->chapterid);
-
         $prevPage = $bookChapterRepository->prevPage($id, $detail->id);
         $nextPage = $bookChapterRepository->nextPage($id, $detail->id);
 

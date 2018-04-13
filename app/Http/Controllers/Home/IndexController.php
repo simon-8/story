@@ -8,21 +8,21 @@ use App\Repositories\LinkRepository;
 
 class IndexController extends BaseController
 {
-    public function getIndex(BookRepository $repository, LinkRepository $linkRepository)
+    public function getIndex(BookRepository $bookRepository, LinkRepository $linkRepository)
     {
-        $categorys = $repository->getCategorys();
+        $categorys = $bookRepository->getCategorys();
 
         //最近更新
-        $newLists = \Cache::remember('newLists', 60, function () use ($repository, $categorys) {
-            $newLists = $repository->lists([], 'updated_at desc', 50, false);
+        $newLists = \Cache::remember('newLists', 60, function () use ($bookRepository, $categorys) {
+            $newLists = $bookRepository->lists([], 'updated_at desc', 50, false);
             if (count($newLists)) {
                 $newLists = $this->setCatname($newLists->toArray(), $categorys);
             }
             return $newLists;
         });
         //最新入库
-        $newInserts = \Cache::remember('newInsert', 60, function () use ($repository, $categorys) {
-            $newInserts = $repository->lists([], 'id desc', 50, false);
+        $newInserts = \Cache::remember('newInsert', 60, function () use ($bookRepository, $categorys) {
+            $newInserts = $bookRepository->lists([], 'id desc', 50, false);
             if (count($newInserts)) {
                 $newInserts = $this->setCatname($newInserts->toArray(), $categorys);
             }
@@ -30,22 +30,22 @@ class IndexController extends BaseController
         });
 
         //各分类推荐
-        $tjLists = \Cache::remember('tjLists', 600, function () use ($categorys, $repository) {
+        $tjLists = \Cache::remember('tjLists', 600, function () use ($categorys, $bookRepository) {
             $tjLists = [];
             $i = 1;
             foreach ($categorys as $k => $v) {
                 if ($k == 9) break;
                 $tjLists[$i]['catname'] = $v['name'];
                 $tjLists[$i]['id'] = $k;
-                $tjLists[$i]['data'] = $repository->lists(['catid' => $k], '', 7, false)->toArray();
+                $tjLists[$i]['data'] = $bookRepository->lists(['catid' => $k], '', 7, false)->toArray();
                 $i++;
             }
             return $tjLists;
         });
 
         //封面推荐
-        $ftLists = \Cache::remember('ftLists', 600, function () use ($repository) {
-            return $repository->ftlists([], 'hits DESC', 6)->toArray();
+        $ftLists = \Cache::remember('ftLists', 600, function () use ($bookRepository) {
+            return $bookRepository->ftlists([], 'hits DESC', 6)->toArray();
         });
 
         //firendLinks

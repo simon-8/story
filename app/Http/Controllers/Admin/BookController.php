@@ -33,16 +33,6 @@ class BookController extends BaseController
         return admin_view('book.index', $data);
     }
 
-    public function getCreate()
-    {
-        dd(base_path('config'));
-    }
-
-    public function postCreate()
-    {
-
-    }
-
     /**
      * 更新
      * @param \Request $request
@@ -117,7 +107,7 @@ class BookController extends BaseController
      * @param BookChapterRepository $bookChapterRepository
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function getUpdateQueue(Request $request, BookRepository $repository, BookChapterRepository $bookChapterRepository)
+    public function updateQueue(Request $request, BookRepository $repository, BookChapterRepository $bookChapterRepository)
     {
         $type = $request->updateType;
         $number = intval($request->number) < 1 ? 10 : abs(intval($request->number));
@@ -181,7 +171,7 @@ class BookController extends BaseController
      * @param BookRepository $repository
      * @return int
      */
-    public function getUpdateChapters(Request $request, BookRepository $repository)
+    public function updateChapters(Request $request, BookRepository $repository)
     {
         $id = $request->id;
         $number = intval($request->number);
@@ -213,7 +203,7 @@ class BookController extends BaseController
      * @param BookChapterRepository $repository
      * @return mixed
      */
-    public function getChapterContent(Request $request, BookChapterRepository $repository)
+    public function chapterContent(Request $request, BookChapterRepository $repository)
     {
         return $repository->getContent($request->pid, $request->chapterid);
     }
@@ -224,15 +214,15 @@ class BookController extends BaseController
      * @param BookChapterRepository $repository
      * @return mixed
      */
-    public function getUpdateChapter(Request $request, BookChapterRepository $repository)
+    public function updateChapter(Request $request, BookChapterRepository $repository)
     {
         $item = $repository->find($request->id);
         if ($request->isMethod('get')) {
-            $item->content = $repository->getContent($request->pid, $request->chapterid);
+            $item->content = $repository->getContent($item->pid, $item->chapterid);
             return admin_view('book.create_detail', $item);
         }
         $data = $request->all();
-        $result = $repository->update($data);
+        $result = $item->update($data);
         if ($result) {
             $repository->setContent($item->pid, $item->chapterid, $data['content']);
             return redirect()->route('Book.getIndex')->with('Message', '修改成功');
@@ -247,7 +237,7 @@ class BookController extends BaseController
      * @param BookChapterRepository $bookChapterRepository
      * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function getDeleteChapter(Request $request, BookChapterRepository $bookChapterRepository)
+    public function deleteChapter(Request $request, BookChapterRepository $bookChapterRepository)
     {
         $detail = $bookChapterRepository->find($request->id);
         $result = $detail->delete();
@@ -265,7 +255,7 @@ class BookController extends BaseController
      * @param Request $request
      * @return mixed
      */
-    public function getCreateQueue(Request $request)
+    public function createQueue(Request $request)
     {
         $data = $request->all();
         $source = $data['source'];
@@ -453,7 +443,7 @@ class BookController extends BaseController
      * 获取当前队列数量
      * @return int
      */
-    public function getQueueNumber()
+    public function queueNumber()
     {
         if (config('queue.default') == 'database') {
             return DB::table('jobs')->count();

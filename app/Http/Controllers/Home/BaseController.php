@@ -9,22 +9,19 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-
-use App\Models\Admin\Setting;
-
+use App\Repositories\SettingRepository;
 
 class BaseController extends Controller
 {
-    public function __construct(Request $request)
+    public function __construct(Request $request, SettingRepository $settingRepository)
     {
         //通用数据
         if(!\Request::ajax() && \Request::isMethod('get')){
 
             //System Setting
-            $settings = \Cache::remember('settings', 600, function(){
-                $setting = new Setting();
+            $settings = \Cache::remember('settings', 600, function() use ($settingRepository){
                 $settings = [];
-                foreach($setting->lists() as $v){
+                foreach($settingRepository->lists() as $v){
                     $settings[$v['item']] = $v['value'];
                 }
                 return $settings;
