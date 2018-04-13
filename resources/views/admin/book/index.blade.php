@@ -86,9 +86,9 @@
     }
 
     //显示该章节内容
-    function ShowDetail(pid, chapterid){
+    function ShowDetail(pid, id){
         loading();
-        $.get("{!! route('Book.chapterContent') !!}" , {pid: pid, chapterid: chapterid} ,function(res){
+        $.get("{!! route('Book.chapterContent') !!}" , {pid: pid, id: id} ,function(res){
             layer.open({
                 title:'详情',
                 area:'800px',
@@ -117,7 +117,7 @@
         if(res.data.length){
             var tr = '';
             $.each(res.data , function(k,v){
-                tr += '<tr><td>' + v.id + '</td><td align="left"><strong>' + v.title + '</strong></td><td>' + v.created_at + '</td><td>' + v.updated_at + '</td> <td><button class="btn btn-sm btn-success" onclick="ShowDetail(' + v.pid +','+ v.chapterid + ')">内容</button><button class="btn btn-sm btn-info" onclick="UpdateDetail(' + v.id + ')">编辑</button><button class="btn btn-sm btn-danger" onclick="DeleteDetail(' + v.id + ')">删除</button></td></tr>';
+                tr += '<tr><td>' + v.id + '</td><td align="left"><strong>' + v.title + '</strong></td><td>' + v.created_at + '</td><td>' + v.updated_at + '</td> <td><button class="btn btn-sm btn-success" onclick="ShowDetail(' + v.pid +','+ v.id + ')">内容</button><button class="btn btn-sm btn-info" onclick="UpdateDetail(' + v.id + ')">编辑</button><button class="btn btn-sm btn-danger" onclick="DeleteDetail(' + v.id + ')">删除</button></td></tr>';
             });
             $(dlistsModal).find('tbody').html(tr);
 
