@@ -139,4 +139,12 @@ class BookChapterRepository extends BaseRepository
                 ->orderBy('chapterid', 'DESC')
                 ->first();
     }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return $this->model->count();
+    }
 }
