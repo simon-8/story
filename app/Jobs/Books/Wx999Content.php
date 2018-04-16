@@ -58,12 +58,11 @@ class Wx999Content extends Job implements SelfHandling, ShouldQueue
         try {
             $id = DB::table('books_detail')->insertGetId($data);
             $result = $bookChapterRepository->setContent($this->Info['pid'], $this->Info['id'] , $content);
+            \Log::debug("Queue Result: {$id}, $result");
         } catch (\Exception $exception) {
             \Log::debug("Queue Error: ". $exception->getMessage());
         }
 
-
-        \Log::debug("Queue Result: {$id}, $result");
         unset($html, $match, $content);
 
         return true;
