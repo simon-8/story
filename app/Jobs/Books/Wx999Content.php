@@ -30,9 +30,9 @@ class Wx999Content extends Job implements SelfHandling, ShouldQueue
     }
 
     /**
-     * Execute the job.
-     *
-     * @return mixed
+     * @param BookChapterRepository $bookChapterRepository
+     * @return bool
+     * @throws \Exception
      */
     public function handle(BookChapterRepository $bookChapterRepository)
     {
@@ -54,9 +54,14 @@ class Wx999Content extends Job implements SelfHandling, ShouldQueue
             'created_at'=> date('Y-m-d H:i:s'),
             'updated_at'=> date('Y-m-d H:i:s'),
         ];
-        $id = DB::table('books_detail')->insertGetId($data);
 
-        $result = $bookChapterRepository->setContent($this->Info['pid'], $this->Info['id'] , $content);
+        try {
+            $id = DB::table('books_detail')->insertGetId($data);
+            $result = $bookChapterRepository->setContent($this->Info['pid'], $this->Info['id'] , $content);
+        } catch (\Exception $exception) {
+            \Log::debug("Queue Error: ". $exception->getMessage());
+        }
+
 
         \Log::debug("Queue Result: {$id}, $result");
         unset($html, $match, $content);
