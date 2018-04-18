@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SomeEvent' => [
             'App\Listeners\EventListener',
         ],
+        'illuminate.query' => [
+            'App\Listeners\DBQueryListener',// 记录查询SQL
+        ],
     ];
 
     /**
