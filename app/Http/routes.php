@@ -32,74 +32,30 @@ Route::group($admin , function(){
     Route::any('enterpassword' , 'AuthController@getEnterpassword')->name('getEnterpassword');
 
     //AdminAuthenticate中间件接管
-    Route::group(['middleware' => 'admin'] ,function(){
+    Route::group(['middleware' => 'admin'], function () {
 
-        Route::get('/' , 'IndexController@getIndex')->name('Admin.getIndex');
-        Route::post('/' , 'IndexController@postIndex')->name('Admin.postIndex');
-        Route::any('ajax' , 'AjaxController@getIndex')->name('Admin.Ajax');
+        Route::get('/', 'IndexController@getIndex')->name('Admin.getIndex');
+        Route::post('/', 'IndexController@postIndex')->name('Admin.postIndex');
+        Route::any('ajax', 'AjaxController@getIndex')->name('Admin.Ajax');
 
         //管理员管理
-        Route::controller('manager' , 'ManagerController' , [
-            'getIndex'   => 'Manager.getIndex',
-            'getCreate'  => 'Manager.getCreate',
-            'postCreate' => 'Manager.postCreate',
-            'getUpdate'  => 'Manager.getUpdate',
-            'postUpdate' => 'Manager.postUpdate',
-            'getDelete'  => 'Manager.getDelete',
-        ]);
+        Route::controller('manager', 'ManagerController', ['getIndex' => 'Manager.getIndex', 'getCreate' => 'Manager.getCreate', 'postCreate' => 'Manager.postCreate', 'getUpdate' => 'Manager.getUpdate', 'postUpdate' => 'Manager.postUpdate', 'getDelete' => 'Manager.getDelete',]);
         //文章管理
-        Route::controller('article' , 'ArticleController' , [
-            'getIndex'      => 'Article.getIndex',
-            'getCreate'     => 'Article.getCreate',
-            'postCreate'    => 'Article.postCreate',
-            'getUpdate'     => 'Article.getUpdate',
-            'postUpdate'    => 'Article.postUpdate',
-            'getDelete'     => 'Article.getDelete',
-            'getCategorys'  => 'Article.getCategorys',
-            'getRecycle'    => 'Article.getRecycle',
-        ]);
+        Route::controller('article', 'ArticleController', ['getIndex' => 'Article.getIndex', 'getCreate' => 'Article.getCreate', 'postCreate' => 'Article.postCreate', 'getUpdate' => 'Article.getUpdate', 'postUpdate' => 'Article.postUpdate', 'getDelete' => 'Article.getDelete', 'getCategorys' => 'Article.getCategorys', 'getRecycle' => 'Article.getRecycle',]);
         //菜单管理
-        Route::controller('menu' , 'MenuController' , [
-            'getIndex'   => 'Menu.getIndex',
-            'getCreate'  => 'Menu.getCreate',
-            'postCreate' => 'Menu.postCreate',
-            'getUpdate'  => 'Menu.getUpdate',
-            'postUpdate' => 'Menu.postUpdate',
-            'getDelete'  => 'Menu.getDelete',
-        ]);
+        Route::controller('menu', 'MenuController', ['getIndex' => 'Menu.getIndex', 'getCreate' => 'Menu.getCreate', 'postCreate' => 'Menu.postCreate', 'getUpdate' => 'Menu.getUpdate', 'postUpdate' => 'Menu.postUpdate', 'getDelete' => 'Menu.getDelete',]);
         //数据管理
-        Route::controller('database' , 'DatabaseController' , [
-            'getIndex'   => 'Database.getIndex',
-            'getFields'  => 'Database.getFields',
-            'getRepair'  => 'Database.getRepair',
-            'getOptimize'=> 'Database.getOptimize',
-        ]);
+        Route::controller('database', 'DatabaseController', ['getIndex' => 'Database.getIndex', 'getFields' => 'Database.getFields', 'getRepair' => 'Database.getRepair', 'getOptimize' => 'Database.getOptimize',]);
         //系统配置
-        Route::controller('setting' , 'SettingController' , [
-            'getIndex'   => 'Setting.getIndex',
-            'postIndex'  => 'Setting.postIndex',
-            'postCreate' => 'Setting.postCreate',
-            'getDelete'  => 'Setting.getDelete',
-            'getCollect' => 'Setting.getCollect',
-            'getFriendLinks'    => 'Setting.getFriendLinks',
-            'postFriendLinks'   => 'Setting.postFriendLinks',
-            //'getFriendLinkCreate' => 'Setting.getFriendLinkCreate',
-            'getFriendLinkDelete' => 'Setting.getFriendLinkDelete',
-            'getImageUpload'    => 'Setting.getImageUpload',
-            'getLinkSubmit'     => 'Setting.getLinkSubmit',
-            //'postLinkSubmit'     => 'Setting.postLinkSubmit',
+        Route::controller('setting', 'SettingController', ['getIndex' => 'Setting.getIndex', 'postIndex' => 'Setting.postIndex', 'postCreate' => 'Setting.postCreate', 'getDelete' => 'Setting.getDelete', 'getCollect' => 'Setting.getCollect', 'getFriendLinks' => 'Setting.getFriendLinks', 'postFriendLinks' => 'Setting.postFriendLinks', //'getFriendLinkCreate' => 'Setting.getFriendLinkCreate',
+            'getFriendLinkDelete' => 'Setting.getFriendLinkDelete', 'getImageUpload' => 'Setting.getImageUpload', 'getLinkSubmit' => 'Setting.getLinkSubmit',//'postLinkSubmit'     => 'Setting.postLinkSubmit',
         ]);
         //微信配置
-        Route::controller('weixin' , 'WeixinController' , [
-            'getIndex'   => 'Weixin.getIndex',
-            'getUsers'   => 'Weixin.getUsers',
-        ]);
+        Route::controller('weixin', 'WeixinController', ['getIndex' => 'Weixin.getIndex', 'getUsers' => 'Weixin.getUsers',]);
         //采集配置
-        Route::controller('collect' , 'CollectController' , [
-            'getIndex'   => 'Collect.getIndex',
-        ]);
+        Route::controller('collect', 'CollectController', ['getIndex' => 'Collect.getIndex',]);
 
-        Route::group(['prefix' => 'book'], function() {
+        Route::group(['prefix' => 'book'], function () {
             Route::get('/', 'BookController@getIndex')->name('Book.getIndex');
             //Route::get('/create', 'BookController@getCreate')->name('Book.getCreate');
             //Route::post('/create', 'BookController@postCreate')->name('Book.postCreate');
@@ -116,8 +72,14 @@ Route::group($admin , function(){
             Route::get('/chapters', 'BookController@getChapters')->name('Book.getChapters');
             Route::get('/updateChapters', 'BookController@updateChapters')->name('Book.updateChapters');
             Route::get('/chapterContent', 'BookController@chapterContent')->name('Book.chapterContent');
-            Route::match(['get', 'post'],'/updateChapter', 'BookController@updateChapter')->name('Book.updateChapter');
+            Route::match(['get', 'post'], '/updateChapter', 'BookController@updateChapter')->name('Book.updateChapter');
             Route::get('/deleteChapter', 'BookController@deleteChapter')->name('Book.deleteChapter');
+        });
+
+        Route::group(['prefix' => 'role'], function() {
+            Route::get('/', 'RoleController@getIndex')->name('Role.index');
+            Route::match(['get', 'post'], '/updateAccess', 'RoleController@updateAccess')->name('Role.updateAccess');
+            Route::get('/delete', 'RoleController@getDelete')->name('Role.getDelete');
         });
     });
 

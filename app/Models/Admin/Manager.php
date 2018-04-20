@@ -21,4 +21,9 @@ class Manager extends Model
     {
         $this->attributes['password'] = password_hash($value , PASSWORD_DEFAULT);
     }
+
+    public function group()
+    {
+        return $this->belongsTo('App\Models\Admin\RoleGroup', 'groupid', 'id');
+    }
 }
