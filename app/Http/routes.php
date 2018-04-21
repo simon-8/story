@@ -64,7 +64,7 @@ Route::group($admin , function(){
             //Route::get('/recycle', 'BookController@getRecycle')->name('Book.getRecycle');
 
             Route::get('/createQueue', 'BookController@createQueue')->name('Book.createQueue');
-            Route::get('/updateQueue', 'BookController@updateQueue')->name('Book.updateQueue');
+            Route::post('/updateQueue', 'BookController@updateQueue')->name('Book.updateQueue');
             Route::get('/queueNumber', 'BookController@queueNumber')->name('Book.getQueueNumber');
             Route::get('/categorys', 'BookController@getCategorys')->name('Book.getCategorys');
 

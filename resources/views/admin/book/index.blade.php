@@ -277,7 +277,7 @@
                             <select name="source" class="form-control">
                                 {{--@foreach(config('book') as $v)--}}
                                 <option value="wx999">999文学</option>
-                                <option value="dushu88">88读书网</option>
+                                {{--<option value="dushu88">88读书网</option>--}}
                             </select>
                             <span class="help-block m-b-none"></span>
                         </div>

@@ -52,7 +52,7 @@ class BookChapterRepository extends BaseRepository
         try {
             return \File::get($bookDir . "{$id}.txt");
         } catch (\Exception $exception) {
-            return false;
+            return '';
         }
     }
 

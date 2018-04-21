@@ -440,11 +440,11 @@ function isImage($image)
  */
 function staticPath($file)
 {
-    $staticDomain = env('STATIC_DOMAIN');
-    if (env('STATIC_DOMAIN')) {
-        return $staticDomain . $file;
+    $staticPath = env('STATIC_PATH');
+    if (!empty($staticPath)) {
+        return $staticPath . $file;
     }
-    return url('skin/'.$file);
+    return url('skin'. $file);
 }
 
 

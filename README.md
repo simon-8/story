@@ -15,9 +15,9 @@ git下载本程序后
     DB_PASSWORD=123456
     
     SITE_DOMAIN=http://域名
-    STATIC_DOMAIN=http://静态文件存储二级域名
     PICTURE_DOMAIN=http://图片存储二级域名
     APP_MOBILE_DOMAIN=http://移动站域名
+    STATIC_PATH=http://静态文件存储路径
 
 > 修改七牛云存储配置
 

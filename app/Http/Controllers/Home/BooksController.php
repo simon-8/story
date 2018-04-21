@@ -68,16 +68,18 @@ class BooksController extends BaseController
      */
     public function getContent(BookRepository $bookRepository, BookChapterRepository $bookChapterRepository, $catid, $id, $aid)
     {
+
         $book = $bookRepository->find($id);
         $detail = $bookChapterRepository->find($aid);
         $content = $bookChapterRepository->getContent($detail->pid, $detail->id);
+
         if (!$content) {
-            $lastDetail = $bookChapterRepository->lastDetail($id);
-            if ($lastDetail) {
-                return redirect(bookurl($catid, $id, $lastDetail->id));
-            } else {
+            //$lastDetail = $bookChapterRepository->lastDetail($id);
+            //if ($lastDetail) {
+            //    return redirect(bookurl($catid, $id, $lastDetail->id));
+            //} else {
                 abort(404, '该章节已经删除辣, 换个章节看看吧');
-            }
+            //}
         }
         $detail->content = $content;
 

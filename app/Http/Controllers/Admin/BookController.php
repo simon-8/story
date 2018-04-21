@@ -268,7 +268,7 @@ class BookController extends BaseController
      * 3.将该链接放入数据库中查询,判断是否存在记录
      *
      * */
-    protected function dushu88($data)
+    /*protected function dushu88($data)
     {
         $baseUrl = 'http://www.8dushu.com';
 
@@ -341,11 +341,8 @@ class BookController extends BaseController
                 }
             }
         }
-
-        /*\File::put( public_path().'/caiji/data.php' , '<?php return ' . var_export($data,true) .';?>' );*/
-
         return redirect()->route('Book.getIndex')->with('Message', '操作成功');
-    }
+    }*/
 
     /**
      * 1.读取待采集栏目页面所有指定链接
