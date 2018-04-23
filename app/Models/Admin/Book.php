@@ -1,6 +1,6 @@
 <?php
 /**
- * Note: *
+ * Note: 小说模型
  * User: Liu
  * Date: 2017/3/13
  */
