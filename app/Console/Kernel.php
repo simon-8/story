@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //\App\Console\Commands\Inspire::class,
         \App\Console\Commands\PushLink::class,
-        \App\Console\Commands\SaveContent::class
+        \App\Console\Commands\SaveContent::class,
+        \App\Console\Commands\ClearContent::class
     ];
 
     /**
