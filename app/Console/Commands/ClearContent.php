@@ -35,7 +35,7 @@ class ClearContent extends Command
     {
         $count = $bookChapterRepository->count();
 
-        $pageSize = 100;
+        $pageSize = 500;
         $page = ceil($count / $pageSize);
 
         $this->output->progressStart($page);
