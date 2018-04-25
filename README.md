@@ -13,6 +13,9 @@
     
     php artisan story:install
 
+![install](https://raw.githubusercontent.com/simon-8/MarkdownPhotos/master/story/install.jpg)
+
+
 > 修改.env配置文件
 
     APP_URL=http://域名
