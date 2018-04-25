@@ -2,7 +2,8 @@
 
 > git 下载本程序
     
-    git clone https://github.com/simon-8/story.git
+    git clone https://github.com/simon-8/story.git story
+    cd story
 
 > 通过composer安装程序所需扩展
     
