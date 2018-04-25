@@ -29,6 +29,6 @@ class CreateTableLinksubmit extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('linksubmit');
     }
 }

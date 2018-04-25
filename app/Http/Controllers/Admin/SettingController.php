@@ -202,7 +202,7 @@ class SettingController extends BaseController
             $detailID = $v['id'];
 
             $wapUrls = array_map(function ($v) {
-                $v = str_replace(url(), env('APP_MOBILE_DOMAIN'), $v);
+                $v = str_replace(url(), env('WAP_URL'), $v);
                 return $v;
             }, $urls);
 

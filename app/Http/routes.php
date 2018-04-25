@@ -89,7 +89,7 @@ Route::group($admin , function(){
 $wap = [
     //'prefix'    => '/',
     'namespace' => 'Wap',
-    'domain'    => 'm.txshu.com'
+    'domain'    => wap_domain()
 ];
 Route::group($wap , function(){
     Route::get('xiaoshuo/{catid}.html' ,'BooksController@getIndex')->where('catid','\d+')->name('BookCat');

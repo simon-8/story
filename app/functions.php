@@ -153,15 +153,18 @@ function makeQiNiuKey($file)
  */
 function uploadToQiniu($file, $key = '')
 {
-    if(empty($file)) return false;
+    if (empty($file)) return false;
+    if (empty(env('IMG_URL'))) {
+        return str_replace(public_path(), '', $file);
+    }
     $upload = new \App\Http\Controllers\Admin\UploadController();
-    if(empty($key)) $key = makeQiNiuKey($file);
+    if (empty($key)) $key = makeQiNiuKey($file);
     //统一分隔符
-    $thumb = str_replace( array('/' , '\\') , DIRECTORY_SEPARATOR , $file );
-    $file = $upload->put($thumb,$key);
-    if(isset($file['key'])){
+    $thumb = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $file);
+    $file = $upload->put($thumb, $key);
+    if (isset($file['key'])) {
         return '/' . $file['key'];
-    }else{
+    } else {
         return '';
     }
 }
@@ -363,7 +366,7 @@ function bookurl($catid, $id = 0, $aid = 0){
  * @return mixed
  */
 function wapurl($catid = 0, $id = 0, $aid = 0){
-    $baseUrl = env('APP_MOBILE_DOMAIN');
+    $baseUrl = env('WAP_URL');
     if(!$catid) return $baseUrl;
     $url = bookurl($catid,$id,$aid);
     return str_replace(url() , $baseUrl, $url);
@@ -440,7 +443,7 @@ function isImage($image)
  */
 function staticPath($file)
 {
-    $staticPath = env('STATIC_PATH');
+    $staticPath = env('STATIC_URL');
     if (!empty($staticPath)) {
         return $staticPath . $file;
     }
@@ -474,4 +477,12 @@ function post_url_to_baidu($url , $type = 'pc'){
     curl_setopt_array($ch, $options);
     $result = curl_exec($ch);
     return $result;
+}
+
+/**
+ * 移动端域名
+ * @return mixed
+ */
+function wap_domain() {
+    return str_replace(['http://', 'https://'], '', env('WAP_URL'));
 }

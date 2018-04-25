@@ -31,6 +31,6 @@ class CreateWeixinChatTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('weixin_chat');
     }
 }

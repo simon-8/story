@@ -59,12 +59,12 @@ class PushLink extends Command
         $detailID = $v['id'];
 
         $urls = array_map(function($v){
-            $v = str_replace(url() , env('SITE_DOMAIN') , $v);
+            $v = str_replace(url() , env('APP_URL') , $v);
             return $v;
         } , $urls);
 
         $wapUrls = array_map(function($v){
-            $v = str_replace(env('SITE_DOMAIN') , env('APP_MOBILE_DOMAIN') , $v);
+            $v = str_replace(env('APP_URL') , env('WAP_URL') , $v);
             return $v;
         } , $urls);
 

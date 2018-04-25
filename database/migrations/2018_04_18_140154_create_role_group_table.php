@@ -27,6 +27,6 @@ class CreateRoleGroupTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('rule_group');
     }
 }

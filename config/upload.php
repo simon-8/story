@@ -7,12 +7,12 @@
  */
 return [
 
-    'domain'     => env('PICTURE_DOMAIN'),
+    'domain'     => env('IMG_URL'),
 
-    'accessKey'  => 'L2DACDwDG9Yfv9cAH0c1uPqwpVLICcJutiB3iDit',
+    'accessKey'  => env('QINIU_ACCESS_KEY'),
 
-    'secretKey'  => '8OD1LP_KWWYKgzAatwmvXvJ_AtAMTnuGPr-cV1Lq',
+    'secretKey'  => env('QINIU_SECRET_KEY'),
 
-    'bucketName' => 'txshu',
+    'bucketName' => env('QINIU_BUCKET_NAME'),
 
 ];

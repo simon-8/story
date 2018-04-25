@@ -31,6 +31,6 @@ class CreateAdminMenuTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('admin_menus');
     }
 }

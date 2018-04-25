@@ -33,6 +33,6 @@ class CreateTableTags extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('tag');
     }
 }

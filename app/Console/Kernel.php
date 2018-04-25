@@ -16,7 +16,8 @@ class Kernel extends ConsoleKernel
         //\App\Console\Commands\Inspire::class,
         \App\Console\Commands\PushLink::class,
         \App\Console\Commands\SaveContent::class,
-        \App\Console\Commands\ClearContent::class
+        \App\Console\Commands\ClearContent::class,
+        \App\Console\Commands\Install::class
     ];
 
     /**

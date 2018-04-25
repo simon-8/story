@@ -29,8 +29,6 @@ class CreateLinkTable extends Migration
      */
     public function down()
     {
-//        Schema::table('links', function (Blueprint $table) {
-//            //
-//        });
+        Schema::drop('links');
     }
 }

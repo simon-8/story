@@ -28,6 +28,6 @@ class CreateRoleAccessTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('role_access');
     }
 }
