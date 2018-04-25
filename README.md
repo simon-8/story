@@ -42,3 +42,5 @@
     php artisan route:cache
     #类映射加载优化
     php artisan optimize --force
+    
+![后台预览](https://github.com/simon-8/MarkdownPhotos/raw/master/story/admin.book.create.jpg)
