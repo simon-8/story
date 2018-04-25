@@ -1,44 +1,33 @@
 ### 安装
 
-git下载本程序后
-
-> 复制配置文件
-
-    复制根目录 .env.example 文件 , 保存为.env文件
-    [linux] cp .env.example .env
+> git 下载本程序
     
-> 修改.env配置文件
+    git clone https://github.com/simon-8/story.git
 
-    DB_HOST=localhost
-    DB_DATABASE=story
-    DB_USERNAME=root
-    DB_PASSWORD=123456
-    
-    SITE_DOMAIN=http://域名
-    PICTURE_DOMAIN=http://图片存储二级域名
-    APP_MOBILE_DOMAIN=http://移动站域名
-    STATIC_PATH=http://静态文件存储路径
-
-> 修改七牛云存储配置
-
-    config/upload.php为七牛云存储相关配置。
-    
 > 通过composer安装程序所需扩展
     
     composer install
-    
-> 生成应用程序密钥
 
-    php artisan key:generate
-
-> 还原数据库备份 , 生成菜单 , 默认管理员等数据
+> 运行安装脚本, 按提示输入相关信息
     
-    php artisan migrate --seed
+    php artisan story:install
+
+> 修改.env配置文件
+
+    APP_URL=http://域名
+    WAP_URL=http://移动站域名
+    IMG_URL=http://图片存储二级域名 (选填)
+    STATIC_URL=http://静态文件存储路径 (选填)
+
+    # 七牛相关配置 (选填)
+    QINIU_ACCESS_KEY=七牛access_key
+    QINIU_SECRET_KEY=七牛secret_key
+    QINIU_BUCKET_NAME=七牛的空间名称
 
 > 后台地址
   
     http://你配置的域名/pc
-    账号: simon
+    账号: admin
     密码: 123456
     
 > 线上部署优化
