@@ -49,8 +49,13 @@ class BookChapterRepository extends BaseRepository
     public function getContent($pid, $id)
     {
         $bookDir = $this->getContentPath($pid);
+        $search = [
+            '推荐一个淘宝天猫内部折扣优惠券的微信公众号:guoertejia每天人工筛选上百款特价商品。打开微信添加微信公众号:guoertejia 省不少辛苦钱'
+        ];
+        $replace = '';
         try {
-            return \File::get($bookDir . "{$id}.txt");
+            $content = \File::get($bookDir . "{$id}.txt");
+            return str_replace($search, $replace, $content);
         } catch (\Exception $exception) {
             return '';
         }
