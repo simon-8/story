@@ -50,7 +50,7 @@ class BookChapterRepository extends BaseRepository
     {
         $bookDir = $this->getContentPath($pid);
         $search = [
-            '推荐一个淘宝天猫内部折扣优惠券的微信公众号:guoertejia每天人工筛选上百款特价商品。打开微信添加微信公众号:guoertejia 省不少辛苦钱'
+            '推荐一个淘宝天猫内部折扣优惠券的微信公众号:guoertejia每天人工筛选上百款特价商品。打开微信添加微信公众号:guoertejia 省不少辛苦钱。'
         ];
         $replace = '';
         try {
