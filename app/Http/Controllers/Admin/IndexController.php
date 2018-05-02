@@ -10,8 +10,6 @@ use App\Http\Controllers\Controller;
 use App\Repositories\BookRepository;
 use App\Repositories\BookChapterRepository;
 
-use Illuminate\Contracts\Cache;
-
 class IndexController extends BaseController
 {
 
