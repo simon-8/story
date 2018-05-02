@@ -38,7 +38,7 @@ class IndexController extends BaseController
                 'chapterTotalCount' => $bookChapterRepository->count(),
                 'jobCount' => \DB::table('jobs')->count()
             ];
-            $counts['chapterInsertPrecent'] = $counts['chapterDailyCount'] ? sprintf('%.3f', ($counts['chapterDailyCount'] / ($counts['chapterTotalCount'] - $counts['chapterDailyCount']))) : 0;
+            $counts['chapterInsertPrecent'] = $counts['chapterDailyCount'] ? sprintf('%.2f', ($counts['chapterDailyCount'] / $counts['chapterTotalCount']) * 100) : 0;
             return $counts;
         });
         $data = [
