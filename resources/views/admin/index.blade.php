@@ -44,13 +44,14 @@
         <div class="col-lg-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-success pull-right">月</span>
+                    <span class="label label-success pull-right">今天</span>
                     <h5>新增文档</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">{{ $counts['monthInsert'] }}</h1>
+                    <h1 class="no-margins">{{ $counts['bookDailyInsert'] }}</h1>
                     <div class="stat-percent font-bold text-success">
-                        98% <i class="fa fa-bolt"></i>
+                        {{ $counts['bookDailyInsert'] ? round($counts['bookDailyInsert'] / $counts['bookTotalCount']) : 0 }}%
+                        <i class="fa fa-level-up"></i>
                     </div>
                     <small>总文档</small>
                 </div>
@@ -59,13 +60,14 @@
         <div class="col-lg-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-info pull-right">月</span>
+                    <span class="label label-info pull-right">今天</span>
                     <h5>更新文档</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">{{ $counts['monthUpdate'] }}</h1>
+                    <h1 class="no-margins">{{ $counts['bookDailyUpdate'] }}</h1>
                     <div class="stat-percent font-bold text-info">
-                        20% <i class="fa fa-level-up"></i>
+                        {{ $counts['bookDailyUpdate'] ? round($counts['bookDailyUpdate'] / $counts['bookTotalCount']) : 0 }}%
+                        <i class="fa fa-level-up"></i>
                     </div>
                     <small>总文档</small>
                 </div>
@@ -75,29 +77,31 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-primary pull-right">今天</span>
-                    <h5>新增文档</h5>
+                    <h5>新增章节</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">{{ $counts['dailyInsert'] }}</h1>
+                    <h1 class="no-margins">{{ $counts['chapterDailyCount'] }}</h1>
                     <div class="stat-percent font-bold text-navy">
-                        44% <i class="fa fa-level-up"></i>
+                        {{ $counts['chapterDailyCount'] ? round($counts['chapterDailyCount'] / $counts['chapterTotalCount']) : 0 }}%
+                        <i class="fa fa-level-up"></i>
                     </div>
-                    <small>总文档</small>
+                    <small>总章节</small>
                 </div>
             </div>
         </div>
         <div class="col-lg-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-danger pull-right">今天</span>
-                    <h5>更新文档</h5>
+                    <span class="label label-danger pull-right">总计</span>
+                    <h5>队列</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">{{ $counts['dailyUpdate'] }}</h1>
-                    <div class="stat-percent font-bold text-danger">
-                        38% <i class="fa fa-level-down"></i>
-                    </div>
-                    <small>总文档</small>
+                    <h1 class="no-margins">{{ $counts['jobCount'] }}</h1>
+                    {{--<div class="stat-percent font-bold text-navy">--}}
+                        {{--20 %--}}
+                        {{--<i class="fa fa-level-up"></i>--}}
+                    {{--</div>--}}
+                    <small>总队列</small>
                 </div>
             </div>
         </div>

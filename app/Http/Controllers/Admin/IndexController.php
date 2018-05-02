@@ -30,10 +30,12 @@ class IndexController extends BaseController
             ['name' => 'URL',               'value' => config('app.url')],
         ];
         $counts = [
-            'dailyInsert' => $bookRepository->dailyInsertCount(),
-            'dailyUpdate' => $bookRepository->dailyUpdateCount(),
-            'monthInsert' => $bookRepository->monthInsertCount(),
-            'monthUpdate' => $bookRepository->monthUpdateCount(),
+            'bookDailyInsert' => $bookRepository->dailyInsertCount(),
+            'bookDailyUpdate' => $bookRepository->dailyUpdateCount(),
+            'bookTotalCount' => $bookRepository->count(),
+            'chapterDailyCount' => $bookChapterRepository->dailyInsertCount(),
+            'chapterTotalCount' => $bookChapterRepository->count(),
+            'jobCount' => \DB::table('jobs')->count()
         ];
         $data = [
             'envs'  => $envs,

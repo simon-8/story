@@ -146,10 +146,11 @@ class BookChapterRepository extends BaseRepository
     }
 
     /**
+     * 今日新增
      * @return int
      */
-    public function count()
+    public function dailyInsertCount()
     {
-        return $this->model->count();
+        return $this->model->where('created_at', '>', date('Y-m-d 00:00:00'))->count();
     }
 }
