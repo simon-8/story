@@ -90,4 +90,24 @@ class BookRepository extends BaseRepository
     {
         return config('book.categorys');
     }
+
+    public function dailyInsertCount()
+    {
+        return $this->model->where('created_at', '>', date('Y-m-d 00:00:00'))->count();
+    }
+
+    public function dailyUpdateCount()
+    {
+        return $this->model->where('updated_at', '>', date('Y-m-d 00:00:00'))->count();
+    }
+
+    public function monthInsertCount()
+    {
+        return $this->model->where('created_at', '>', date('Y-m-01 00:00:00'))->count();
+    }
+
+    public function monthUpdateCount()
+    {
+        return $this->model->where('updated_at', '>', date('Y-m-01 00:00:00'))->count();
+    }
 }

@@ -76,4 +76,9 @@ class BaseRepository
     {
         return $this->model->destroy($id);
     }
+
+    public function count()
+    {
+        return $this->model->count();
+    }
 }
