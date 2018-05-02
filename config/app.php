@@ -152,6 +152,7 @@ return [
 
         // phpstorm 提示
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
     ],
 
     /*
@@ -201,6 +202,7 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
 
         //'EasyWechat'=> Overtrue\LaravelWechat\Facade::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
     ],
 
 ];

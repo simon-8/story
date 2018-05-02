@@ -73,6 +73,7 @@ return [
     'timezone'             => ':attribute must be a valid zone.',
     'unique'               => ':attribute 已经存在.',
     'url'                  => ':attribute 格式无效.',
+    'captcha'              => ':attribute 不正确',
 
     /*
     |--------------------------------------------------------------------------
@@ -116,6 +117,7 @@ return [
         'name'      => '名称',
         'route'     => '路由',
         'ico'       => '图标',
+        'captcha'   => '验证码'
     ],
 
 ];

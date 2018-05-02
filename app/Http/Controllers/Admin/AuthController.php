@@ -34,6 +34,21 @@ class AuthController extends BaseController
         return Validator::make($data , [
             'username' => 'required|string|min:4|max:255',
             'password' => 'required|string|min:4|max:255',
+            'captcha' => 'required|captcha'
+        ]);
+    }
+    /**
+     * 注册校验
+     * @param $data
+     * @return mixed
+     */
+    protected function validate_register($data)
+    {
+        return Validator::make($data , [
+            'username' => 'required|string|min:4|max:50|unique:managers',
+            'truename' => 'required|string',
+            'password' => 'required|string|min:4|max:255',
+            'password_confirm' => 'same:password',
         ]);
     }
 
@@ -49,6 +64,8 @@ class AuthController extends BaseController
     /**
      * 用户登录
      * @param Request $request
+     * @param ManagerRepository $managerRepository
+     * @return $this|\Illuminate\Http\RedirectResponse
      */
     public function postLogin(Request $request, ManagerRepository $managerRepository)
     {
@@ -82,21 +99,6 @@ class AuthController extends BaseController
 
         session(['userinfo' => $userinfo]);
     }
-    /**
-     * 注册校验
-     * @param $data
-     * @return mixed
-     */
-    protected function validate_register($data)
-    {
-        return Validator::make($data , [
-            'username' => 'required|string|min:4|max:50|unique:managers',
-            'truename' => 'required|string',
-            'password' => 'required|string|min:4|max:255',
-            'password_confirm' => 'same:password',
-        ]);
-    }
-
 
     /**
      * 用户注册
@@ -107,11 +109,11 @@ class AuthController extends BaseController
         return admin_view('auth.register');
     }
 
-
     /**
      * 用户注册
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param ManagerRepository $managerRepository
+     * @return $this|\Illuminate\Http\RedirectResponse
      */
     public function postRegister(Request $request, ManagerRepository $managerRepository)
     {
@@ -139,6 +141,11 @@ class AuthController extends BaseController
         return redirect(route('getAdminLogin'));
     }
 
+    /**
+     * @param Request $request
+     * @param ManagerRepository $managerRepository
+     * @return $this|\Illuminate\Http\RedirectResponse|mixed
+     */
     public function getEnterpassword(Request $request, ManagerRepository $managerRepository)
     {
         if ($request->isMethod('POST')) {
