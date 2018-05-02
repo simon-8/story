@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Repositories\BookRepository;
 use App\Repositories\BookChapterRepository;
 
+use Illuminate\Contracts\Cache;
+
 class IndexController extends BaseController
 {
 
@@ -29,14 +31,18 @@ class IndexController extends BaseController
             ['name' => 'Env',               'value' => config('app.env')],
             ['name' => 'URL',               'value' => config('app.url')],
         ];
-        $counts = [
-            'bookDailyInsert' => $bookRepository->dailyInsertCount(),
-            'bookDailyUpdate' => $bookRepository->dailyUpdateCount(),
-            'bookTotalCount' => $bookRepository->count(),
-            'chapterDailyCount' => $bookChapterRepository->dailyInsertCount(),
-            'chapterTotalCount' => $bookChapterRepository->count(),
-            'jobCount' => \DB::table('jobs')->count()
-        ];
+        $counts = \Cache::remember('admin.index.count', 10, function () use ($bookRepository, $bookChapterRepository) {
+            $counts = [
+                'bookDailyInsert' => $bookRepository->dailyInsertCount(),
+                'bookDailyUpdate' => $bookRepository->dailyUpdateCount(),
+                'bookTotalCount' => $bookRepository->count(),
+                'chapterDailyCount' => $bookChapterRepository->dailyInsertCount(),
+                'chapterTotalCount' => $bookChapterRepository->count(),
+                'jobCount' => \DB::table('jobs')->count()
+            ];
+            $counts['chapterInsertPrecent'] = $counts['chapterDailyCount'] ? sprintf('%.3f', ($counts['chapterDailyCount'] / ($counts['chapterTotalCount'] - $counts['chapterDailyCount']))) : 0;
+            return $counts;
+        });
         $data = [
             'envs'  => $envs,
             'counts'=> $counts

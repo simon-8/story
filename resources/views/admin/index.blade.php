@@ -82,7 +82,7 @@
                 <div class="ibox-content">
                     <h1 class="no-margins">{{ $counts['chapterDailyCount'] }}</h1>
                     <div class="stat-percent font-bold text-navy">
-                        {{ $counts['chapterDailyCount'] ? round($counts['chapterDailyCount'] / $counts['chapterTotalCount']) : 0 }}%
+                        {{ $counts['chapterInsertPrecent'] }}%
                         <i class="fa fa-level-up"></i>
                     </div>
                     <small>总章节</small>
