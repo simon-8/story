@@ -1,3 +1,5 @@
+## 近期会使用[laravel5.5](https://github.com/simon-8/laravel5.5)对该项目进行重写, 使用全自动更新策略, 无需人工干预。
+
 ### 安装
 
 > git 下载本程序
@@ -33,6 +35,13 @@
     http://你配置的域名/pc
     账号: admin
     密码: 123456
+    
+> 采集操作
+    
+    在后台添加采集队列或者更新队列, 服务器运行php artisan queue:listen监听队列。
+    
+    // 监听采集队列 推荐使用supervisor管理进程
+    nohup php artisan queue:listen --tries=3 
     
 > 线上部署优化
     
