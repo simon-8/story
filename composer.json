@@ -15,7 +15,8 @@
         "jaeger/querylist-ext-login": "^1.0",
         "qiniu/php-sdk": "^7.1",
         "barryvdh/laravel-ide-helper": "^2.4",
-        "mews/captcha": "^2.2"
+        "mews/captcha": "^2.2",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
